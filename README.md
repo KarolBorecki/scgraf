@@ -1,0 +1,2 @@
+# scgraf
+Program scgraf ma na celu odnalezienie najkrótszej ścieżki na grafie, po sprawdzeniu czy graf jest spójny. Program działa w trybie nieinterakty- wnym/wsadowym. W programie zaimplementowano odczyt z pliku o określonym formacie, który może, albo zostać dostarczony przez użytkownika jako argument, albo zostać wygenerowany losowo. Program scgraf posiada również funkcje wyznaczania najdłuższej ścieżki między dwoma punktami oraz takiej, która odwiedza każdy punkt dokładnie jeden raz (o ile taka istnieje).
