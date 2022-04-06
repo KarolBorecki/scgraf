@@ -11,8 +11,9 @@ fifo_t initzialize_fifo(){
   return fifo;
 }
 
-void clean_fifo(){
-  //TODO
+void clean_fifo(fifo_t fifo){
+  free(fifo->queue);
+  free(fifo);
 }
 
 unsigned int size(fifo_t fifo){

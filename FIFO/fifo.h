@@ -10,7 +10,7 @@ typedef struct fifo{
 } *fifo_t;
 
 fifo_t initzialize_fifo();
-void clean_fifo();
+void clean_fifo(fifo_t fifo);
 unsigned int size(fifo_t fifo);
 int empty(fifo_t fifo); /* returns > 0 if fifo is empty */
 

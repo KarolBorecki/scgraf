@@ -8,5 +8,7 @@ int main(int argc, char** argv){
 
   fifo_t fifo = initzialize_fifo();
 
+  clean_fifo(fifo);
+
   return 1;
 }
