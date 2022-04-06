@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "fifo.h"
 
@@ -18,10 +19,8 @@ void clean_fifo(fifo_t fifo){
 }
 
 void enlarge_fifo(fifo_t fifo, int enlrage_multiplier){
-  printf("Powiekszam: size = %d real_size = %d\n\n", fifo->size, fifo->real_size);
   fifo->real_size *= enlrage_multiplier;
   fifo->queue = realloc(fifo->queue, fifo->real_size);
-  printf("Po powiekszeniu: size = %d real_size = %d\n\n", fifo->size, fifo->real_size);
 }
 
 unsigned int size(fifo_t fifo){
@@ -36,8 +35,15 @@ int empty(fifo_t fifo){
   return 1-fifo->size;
 }
 
-void pop(fifo_t fifo){
-  //TODO
+unsigned int pop(fifo_t fifo){
+  unsigned int poped_value = *(fifo->queue);
+
+  fifo->size--;
+  //To jest albo genialne albo bardzo głupie
+  //W każdym razie bardzo szybkie do napisania xD
+  memcpy(fifo->queue, fifo->queue+1, fifo->size * sizeof(*(fifo->queue)));
+
+  return poped_value;
 }
 
 void push(fifo_t fifo, unsigned int value){

@@ -8,11 +8,22 @@ int main(int argc, char** argv){
 
   fifo_t fifo = initzialize_fifo();
 
+  printf("Is empty: %d \n\n", empty(fifo));
+
   for(int i=0; i<30; i++)
     push(fifo, i*i);
 
-  for(int i=0; i<30; i++)
-    printf("%d = %d \n", i, fifo->queue[i]);
+  printf("Is empty: %d \n\n", empty(fifo));
+  printf("Peek: %d \n", peek(fifo));
+
+  // for(int i=0; i<size(fifo); i++)
+  //   printf("%d = %d \n", i, fifo->queue[i]);
+
+  while(empty(fifo) <= 0){
+    printf("%d \n", pop(fifo));
+    printf("Peek: %d \n", peek(fifo));
+    printf("===========\n");
+  }
 
   clean_fifo(fifo);
 

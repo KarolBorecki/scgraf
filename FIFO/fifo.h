@@ -17,7 +17,7 @@ unsigned int size(fifo_t);
 int empty(fifo_t); /* returns > 0 if fifo is empty */
 
 unsigned int peek(fifo_t);
-void pop(fifo_t);
+unsigned int pop(fifo_t);
 void push(fifo_t, unsigned int);
 
 #endif /* _FIFO_H_ */
