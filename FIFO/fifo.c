@@ -8,3 +8,14 @@ fifo_t initzialize_fifo(){
 
   return fifo;
 }
+unsigned int size(fifo_t fifo){
+  return fifo->size;
+}
+
+unsigned int peek(fifo_t fifo){
+  return *(fifo->queue);
+}
+
+int empty(fifo_t fifo){
+  return 1-fifo->size;
+}
