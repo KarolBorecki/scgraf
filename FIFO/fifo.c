@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #include "fifo.h"
 
 fifo_t initzialize_fifo(){
@@ -23,10 +25,6 @@ unsigned int peek(fifo_t fifo){
 
 int empty(fifo_t fifo){
   return 1-fifo->size;
-}
-
-unsigned int peek(fifo_t fifo){
-  //TODO
 }
 
 void pop(fifo_t fifo){
