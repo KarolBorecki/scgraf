@@ -8,6 +8,11 @@ fifo_t initzialize_fifo(){
 
   return fifo;
 }
+
+void clean_fifo(){
+  //TODO
+}
+
 unsigned int size(fifo_t fifo){
   return fifo->size;
 }
@@ -18,4 +23,16 @@ unsigned int peek(fifo_t fifo){
 
 int empty(fifo_t fifo){
   return 1-fifo->size;
+}
+
+unsigned int peek(fifo_t fifo){
+  //TODO
+}
+
+void pop(fifo_t fifo){
+  //TODO
+}
+
+void push(fifo_t fifo, unsigned int value){
+  //TODO
 }
