@@ -2,6 +2,7 @@
 #define _FIFO_H_
 
 #define START_QUEUE_SIZE 20
+#define FIFO_ENLARGE_MULTIPLIER 2
 
 typedef struct fifo{
   unsigned int* queue;
@@ -10,12 +11,13 @@ typedef struct fifo{
 } *fifo_t;
 
 fifo_t initzialize_fifo();
-void clean_fifo(fifo_t fifo);
-unsigned int size(fifo_t fifo);
-int empty(fifo_t fifo); /* returns > 0 if fifo is empty */
+void clean_fifo(fifo_t);
+void enlarge_fifo(fifo_t, int);
+unsigned int size(fifo_t);
+int empty(fifo_t); /* returns > 0 if fifo is empty */
 
-unsigned int peek(fifo_t fifo);
-void pop(fifo_t fifo);
-void push(fifo_t fifo, unsigned int value);
+unsigned int peek(fifo_t);
+void pop(fifo_t);
+void push(fifo_t, unsigned int);
 
 #endif /* _FIFO_H_ */

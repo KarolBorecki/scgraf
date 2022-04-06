@@ -8,6 +8,12 @@ int main(int argc, char** argv){
 
   fifo_t fifo = initzialize_fifo();
 
+  for(int i=0; i<30; i++)
+    push(fifo, i*i);
+
+  for(int i=0; i<30; i++)
+    printf("%d = %d \n", i, fifo->queue[i]);
+
   clean_fifo(fifo);
 
   return 1;
