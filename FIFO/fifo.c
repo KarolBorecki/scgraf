@@ -28,7 +28,7 @@ unsigned int size(fifo_t fifo){
 }
 
 unsigned int peek(fifo_t fifo){
-  return *(fifo->queue);
+  return empty(fifo) > 0 ? -1 : *(fifo->queue);
 }
 
 int empty(fifo_t fifo){
@@ -36,11 +36,12 @@ int empty(fifo_t fifo){
 }
 
 unsigned int pop(fifo_t fifo){
-  unsigned int poped_value = *(fifo->queue);
+  if(empty(fifo) > 0) return -1;
 
-  fifo->size--;
+  unsigned int poped_value = *(fifo->queue);
   //To jest albo genialne albo bardzo głupie
   //W każdym razie bardzo szybkie do napisania xD
+  fifo->size--;
   memcpy(fifo->queue, fifo->queue+1, fifo->size * sizeof(*(fifo->queue)));
 
   return poped_value;
