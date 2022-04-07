@@ -13,15 +13,15 @@ typedef struct fifo{
 } *fifo_t;
 
 fifo_t initzialize_fifo();
-void clean_fifo(fifo_t);
-void enlarge_fifo(fifo_t, int);
-unsigned int size(fifo_t);
+void clean_fifo(fifo_t fifo);
+void enlarge_fifo(fifo_t fifo, int enlrage_multiplier);
+unsigned int size(fifo_t fifo);
 int empty(fifo_t); /* returns > 0 if fifo is empty */
 
-unsigned int peek(fifo_t); /* return -1 if queue is empty */
-unsigned int pop(fifo_t); /* return -1 if queue is empty, queue = head*/
-unsigned int get_at_index(fifo_t, unsigned int); /* return -1 if queue is empty, queue != head*/
-unsigned int head_index(fifo_t);
-void push(fifo_t, unsigned int);
+unsigned int peek(fifo_t fifo); /* return -1 if queue is empty */
+unsigned int pop(fifo_t fifo); /* return -1 if queue is empty, queue = head*/
+unsigned int get_at_index(fifo_t fifo, unsigned int index); /* return -1 if queue is empty, queue != head*/
+unsigned int head_index(fifo_t fifo);
+void push(fifo_t fifo, unsigned int value);
 
 #endif /* _FIFO_H_ */
