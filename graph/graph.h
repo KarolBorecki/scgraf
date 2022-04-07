@@ -1,5 +1,5 @@
-#ifndef _GRAPH_HANDLER_H_
-#define _GRAPH_HANDLER_H_
+#ifndef _GRAPH_H_
+#define _GRAPH_H_
 
 #define START_NODES_PATHS_COUNT 4
 
@@ -36,4 +36,4 @@ node_t get_node_with_index(graph_t graph, unsigned int index);
 
 void print_graph(graph_t);
 
-#endif /* _GRAPH_HANDLER_H_ */
+#endif /* _GRAPH_H_ */

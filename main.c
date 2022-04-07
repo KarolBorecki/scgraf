@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "GraphHandler/GraphHandler.h"
+#include "graph/graph.h"
 
 int main(int argc, char** argv){
   printf("Graph Handler Tester\n");
