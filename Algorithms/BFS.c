@@ -22,7 +22,7 @@ int bfs(graph_t graph, unsigned int start_node_index){
 void add_connections_of_node_to_queue(fifo_t q, node_t node){
   for(int i=0; i<node->paths_count; i++){
     unsigned int connection_index = (node->paths+i)->connection;
-    if(fifo_queue_contains_value(q, connection_index) <= 0)
+    if(fifo_queue_contains_value(q, connection_index) == 0)
       fifo_push(q, connection_index);
   }
 }
