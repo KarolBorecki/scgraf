@@ -17,13 +17,13 @@ void clean_fifo(fifo_t fifo);
 void enlarge_fifo(fifo_t fifo, int enlrage_multiplier);
 
 unsigned int fifo_head_index(fifo_t fifo);
-unsigned int fifo_queue_end_index(fifo_t fifo);
+unsigned int fifo_queue_size(fifo_t fifo);
 unsigned int fifo_size(fifo_t fifo);
 int fifo_is_empty(fifo_t fifo); /* returns > 0 if fifo is empty */
 
 int fifo_queue_contains_value(fifo_t fifo, unsigned int value);
 int fifo_head_contains_value(fifo_t fifo, unsigned int value);
-int fifo_contains_value(fifo_t fifo, unsigned int value, unsigned int search_start);
+int fifo_contains_value(fifo_t fifo, unsigned int value, unsigned int search_start, unsigned int search_end);
 
 unsigned int fifo_peek(fifo_t fifo); /* return -1 if queue is empty */
 unsigned int fifo_pop(fifo_t fifo); /* return -1 if queue is empty, queue = head*/
