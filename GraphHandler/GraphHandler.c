@@ -1,12 +1,15 @@
 #include "GraphHandler.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 graph_t initzialize_graph(unsigned int nodes_count){
   graph_t graph = malloc(sizeof(*graph));
   graph->size = 0;
-  graph->nodes = malloc(nodes_count * sizeof(*nodes)));
+  graph->nodes = malloc(nodes_count * sizeof(*(graph->nodes)));
   graph->memory_size = nodes_count;
+
+  return graph;
 }
 
 void enlarge_nodes_memory(graph_t graph, unsigned int enlrage_multiplier){
@@ -15,8 +18,8 @@ void enlarge_nodes_memory(graph_t graph, unsigned int enlrage_multiplier){
 }
 
 void enlarge_paths_memory(node_t node, unsigned int enlrage_multiplier){
-  node->memory_size *= enlrage_multiplier;
-  node->paths = realloc(node->paths, node->memory_size);
+  node->paths_memory_size *= enlrage_multiplier;
+  node->paths = realloc(node->paths, node->paths_memory_size);
 }
 
 //TODO refactor
@@ -64,16 +67,16 @@ node_t get_node_with_index(graph_t graph, unsigned int index){
 
 void print_graph(graph_t graph){
   printf("\n=========Graph=========\n\n");
-  printf("    Size: %d \n\n", graph->size);
-  printf("    Memory: %d nodes, %d bytes per node, %d bytes used \n\n", graph->memory_size, sizeof(*(graph->nodes)), graph->memory_size * sizeof(*(graph->nodes)));
+  printf("    Nodes: %d \n", graph->size);
+  printf("    Memory: %d size, %lu bytes per node, %lu bytes used \n\n", graph->memory_size, sizeof(*(graph->nodes)), graph->memory_size * sizeof(*(graph->nodes)));
   printf("Nodes:\n");
   for(int i=0; i<graph->size; i++){
-    printf("   %d) %d -> ", i, graph->node[i].index);
-    for(int j=0; j<graph->node[i].paths_count; j++){
-      printf("%d(%f)", graph->node[i].paths[j].connection, graph->node[i].paths[j].value);
-      if(j!=graph->node[i].paths_count-1) printf(", ");
+    printf("   %d) %d -> ", i, graph->nodes[i].index);
+    for(int j=0; j<graph->nodes[i].paths_count; j++){
+      printf("%d(%.4f)", graph->nodes[i].paths[j].connection, graph->nodes[i].paths[j].value);
+      if(j!=graph->nodes[i].paths_count-1) printf(" - ");
     }
     printf("\n");
   }
-  printf("=========Graph=========\n\n");
+  printf("\n=========Graph=========\n\n");
 }
