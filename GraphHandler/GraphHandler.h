@@ -1,7 +1,6 @@
 #ifndef _GRAPH_HANDLER_H_
 #define _GRAPH_HANDLER_H_
 
-#define START_GRAPH_NODES_COUNT 20
 #define START_NODES_PATHS_COUNT 4
 
 #define GRAPH_ENLARGE_MULTIPLIER 2
@@ -16,14 +15,15 @@ typedef struct node{
   unsigned int index; /* index in array of graph_t->nodes */
   path_t paths;
   unsigned int paths_count;
+  unsigned int paths_memory_size;
 } *node_t;
 
 typedef struct path{
-  node_t connection;
+  unsigned int connection;
   unsigned int value;
 } *path_t;
 
-graph_t initzialize_graph();
+graph_t initzialize_graph(unsigned int nodes_count);
 void enlarge_nodes_memory(graph_t graph, unsigned int enlrage_multiplier);
 void enlarge_paths_memory(node_t node, unsigned int enlrage_multiplier);
 
