@@ -1,7 +1,8 @@
+#include "fifo.h"
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "fifo.h"
 
 fifo_t initzialize_fifo(){
   fifo_t fifo = malloc(sizeof(*fifo));
@@ -67,4 +68,18 @@ void push(fifo_t fifo, unsigned int value){
   fifo->queue[fifo->size] = value;
   fifo->size++;
   fifo->queue_size++;
+}
+
+void print_fifo(fifo_t fifo){
+  printf("\n=========FIFO=========\n\n");
+  printf("    Size: %d \n", fifo->size);
+  printf("    Memory: %d elements, %lu bytes per element, %lu bytes used\n\n", fifo->memory_size, sizeof(*(fifo->queue)), fifo->memory_size*sizeof(*(fifo->queue)));
+  printf("Queue:\n");
+  for(int i=0; i<fifo->size + head_index(fifo); i++){
+    printf("    %d) %d", i, get_at_index(fifo, i));
+    if(i == head_index(fifo)) printf(" <-HEAD");
+    printf("\n");
+  }
+
+  printf("\n\n=========FIFO=========\n\n");
 }

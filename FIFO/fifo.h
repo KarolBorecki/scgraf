@@ -24,4 +24,6 @@ unsigned int get_at_index(fifo_t fifo, unsigned int index); /* return -1 if queu
 unsigned int head_index(fifo_t fifo);
 void push(fifo_t fifo, unsigned int value);
 
+void print_fifo(fifo_t fifo);
+
 #endif /* _FIFO_H_ */
