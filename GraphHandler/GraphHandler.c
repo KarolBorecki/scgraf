@@ -17,8 +17,14 @@ void enlarge_paths_memory(node_t node, unsigned int enlrage_multiplier){
   node->paths = realloc(node->paths, node->memory_size);
 }
 
+//TODO refactor
 void clean_graph(graph_t graph){
-
+  for(int i=0; i<graph->size; i++){
+    for(int j=0; j<graph->nodes[i].paths_count; j++)
+      free(graph->nodes[i].paths+j);
+    free(graph->nodes+i);
+  }
+  free(graph);
 }
 
 //TODO maybe we should add node of index chosen by user?
