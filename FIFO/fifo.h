@@ -6,8 +6,10 @@
 
 typedef struct fifo{
   unsigned int* queue;
+  unsigned int* head;
   unsigned int size;
-  unsigned int real_size;
+  unsigned int queue_size;
+  unsigned int memory_size;
 } *fifo_t;
 
 fifo_t initzialize_fifo();
@@ -17,7 +19,8 @@ unsigned int size(fifo_t);
 int empty(fifo_t); /* returns > 0 if fifo is empty */
 
 unsigned int peek(fifo_t); /* return -1 if queue is empty */
-unsigned int pop(fifo_t); /* return -1 if queue is empty */
+unsigned int pop(fifo_t); /* return -1 if queue is empty, queue = head*/
+unsigned int get_at_index(fifo_t, unsigned int); /* return -1 if queue is empty, queue != head*/
 void push(fifo_t, unsigned int);
 
 #endif /* _FIFO_H_ */
