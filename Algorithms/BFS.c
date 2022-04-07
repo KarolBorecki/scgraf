@@ -7,17 +7,20 @@ int bfs(graph_t graph, node_t start_node){
   node_t actual_node;
   while(empty(q) <= 0){
     actual_node = get_node_with_index(fifo, peek(q));
-    for(int i=0; i<actual_node->paths_count; i++){
-      unsigned int connection_index = actual_node->(paths+i)->connection->index;
-      if(was_visited(q, node) <= 0) push(q, connection_index);
-    }
+    add_connections_of_node_to_queue(q, actual_node);
     pop(q);
   }
 }
 
 int was_visited(fifo_t q, unsigned int node){
-  //TODO implement in fifo head_index(q)
   for(int i=0; i<head_index(q); i++)
     if(node == get_at_index(q, i)) return 1;
   return 0;
+}
+
+void add_connections_of_node_to_queue(fifo_t q, node_t node){
+  for(int i=0; i<node->paths_count; i++){
+    unsigned int connection_index = node->(paths+i)->connection->index;
+    if(was_visited(q, connection_index) <= 0) push(q, connection_index);
+  }
 }
