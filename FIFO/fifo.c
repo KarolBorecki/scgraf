@@ -83,7 +83,7 @@ void fifo_push(fifo_t fifo, unsigned int value){
   if(fifo_size(fifo) >= fifo->memory_size)
     enlarge_fifo(fifo, FIFO_ENLARGE_MULTIPLIER);
 
-  fifo->queue[fifo_head(fifo) + fifo->size] = value;
+  fifo->queue[fifo_head_index(fifo) + fifo->size] = value;
   fifo->size++;
   fifo->queue_size++;
 }
