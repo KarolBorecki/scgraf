@@ -29,8 +29,8 @@ void enlarge_paths_memory(node_t node, unsigned int enlrage_multiplier);
 
 void clean_graph(graph_t graph);
 
-void add_node(graph_t graph, path_t paths, unsigned int paths_count);
-void add_path(node_t node, node_t connection, unsigned int value);
+node_t add_node(graph_t graph, path_t paths, unsigned int paths_count);
+path_t add_path(node_t node, node_t connection, unsigned int value);
 
 node_t get_node_with_index(graph_t graph, unsigned int index);
 

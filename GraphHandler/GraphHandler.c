@@ -30,7 +30,7 @@ void clean_graph(graph_t graph){
 }
 
 //TODO maybe we should add node of index chosen by user?
-void add_node(graph_t graph){
+node_t add_node(graph_t graph){
   if(graph->size >= graph->memory_size)
     enlarge_nodes_memory(graph, GRAPH_ENLARGE_MULTIPLIER);
 
@@ -41,9 +41,11 @@ void add_node(graph_t graph){
   new_node->paths_memory_size = START_NODES_PATHS_COUNT;
 
   graph->size++;
+
+  return new_node;
 }
 
-void add_path(node_t node, unsigned int connection, float value){
+path_t add_path(node_t node, unsigned int connection, float value){
   if(node->paths_count >= node->paths_memory_size)
     enlarge_paths_memory(node, GRAPH_ENLARGE_MULTIPLIER);
 
@@ -52,6 +54,8 @@ void add_path(node_t node, unsigned int connection, float value){
   new_path->value = value;
 
   node->paths_count++;
+
+  return new_path;
 }
 
 node_t get_node_with_index(graph_t graph, unsigned int index){
