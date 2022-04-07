@@ -4,8 +4,10 @@
 #include "../FIFO/fifo.h"
 #include "../GraphHandler/GraphHandler.h"
 
-int bfs(graph_t graph, node_t start_node);
-int was_visited(fifo_t q, unsigned int node);
+int bfs(graph_t, node_t);
+int was_visited(fifo_t, unsigned int );
+void add_connections_of_node_to_queue(fifo_t, node_t);
+int is_all_nodes_visited(graph_t, fifo_t);
 
 
 #endif /* _BFS_H_ */
