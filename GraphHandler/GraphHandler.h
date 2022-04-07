@@ -24,6 +24,8 @@ typedef struct path{
 } *path_t;
 
 graph_t initzialize_graph();
+void enlarge_nodes_memory(graph_t graph, unsigned int enlrage_multiplier);
+void enlarge_paths_memory(node_t node, unsigned int enlrage_multiplier);
 
 void clean_graph(graph_t graph);
 

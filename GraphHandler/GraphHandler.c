@@ -7,11 +7,38 @@ graph_t initzialize_graph(){
   graph->memory_size = START_GRAPH_NODES_COUNT;
 }
 
-void clean_graph(graph_t graph);
+void enlarge_nodes_memory(graph_t graph, unsigned int enlrage_multiplier){
 
-void add_node(graph_t graph, path_t paths, unsigned int paths_count);
-void add_path(node_t node, node_t connection, unsigned int value);
+}
 
-node_t get_node_with_index(graph_t graph, unsigned int index);
+void enlarge_paths_memory(node_t node, unsigned int enlrage_multiplier){
 
-void print_graph(graph_t);
+}
+
+void clean_graph(graph_t graph){
+
+}
+
+void add_node(graph_t graph){
+  if(graph->size >= graph->memory_size)
+    enlarge_nodes_memory(graph, GRAPH_ENLARGE_MULTIPLIER);
+
+  node_t new_node = graph->nodes+graph->size;
+  new_node->index = graph->size;
+  new_node->paths = malloc(START_NODES_PATHS_COUNT * sizeof(*(new_node->paths)));
+  new_node->paths_count = paths_count;
+
+  graph->size++;
+}
+
+void add_path(node_t node, node_t connection, unsigned int value){
+
+}
+
+node_t get_node_with_index(graph_t graph, unsigned int index){
+
+}
+
+void print_graph(graph_t){
+
+}
