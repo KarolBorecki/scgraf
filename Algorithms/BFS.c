@@ -1,5 +1,8 @@
 #include "BFS.h"
 
+#include "../FIFO/fifo.h"
+#include "../graph/graph.h"
+
 int bfs(graph_t graph, node_t start_node){
   fifo_t q = initzialize_fifo();
   push(q, start_node->index);

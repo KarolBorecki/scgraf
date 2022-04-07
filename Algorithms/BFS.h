@@ -1,9 +1,6 @@
 #ifndef _BFS_H_
 #define _BFS_H_
 
-#include "../FIFO/fifo.h"
-#include "../graph/graph.h"
-
 int bfs(graph_t, node_t);
 int was_visited(fifo_t, unsigned int );
 void add_connections_of_node_to_queue(fifo_t, node_t);
