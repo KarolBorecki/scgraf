@@ -20,7 +20,7 @@ typedef struct node{
 
 typedef struct path{
   unsigned int connection;
-  unsigned int value;
+  float value;
 } *path_t;
 
 graph_t initzialize_graph(unsigned int nodes_count);

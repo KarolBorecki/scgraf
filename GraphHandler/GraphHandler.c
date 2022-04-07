@@ -1,5 +1,7 @@
 #include "GraphHandler.h"
 
+#include <stdio.h>
+
 graph_t initzialize_graph(unsigned int nodes_count){
   graph_t graph = malloc(sizeof(*graph));
   graph->size = 0;
@@ -41,7 +43,7 @@ void add_node(graph_t graph){
   graph->size++;
 }
 
-void add_path(node_t node, unsigned int connection, unsigned int value){
+void add_path(node_t node, unsigned int connection, float value){
   if(node->paths_count >= node->paths_memory_size)
     enlarge_paths_memory(node, GRAPH_ENLARGE_MULTIPLIER);
 
@@ -56,6 +58,18 @@ node_t get_node_with_index(graph_t graph, unsigned int index){
   return graph->nodes+index;
 }
 
-void print_graph(graph_t){
-
+void print_graph(graph_t graph){
+  printf("\n=========Graph=========\n\n");
+  printf("    Size: %d \n\n", graph->size);
+  printf("    Memory: %d nodes, %d bytes per node, %d bytes used \n\n", graph->memory_size, sizeof(*(graph->nodes)), graph->memory_size * sizeof(*(graph->nodes)));
+  printf("Nodes:\n");
+  for(int i=0; i<graph->size; i++){
+    printf("   %d) %d -> ", i, graph->node[i].index);
+    for(int j=0; j<graph->node[i].paths_count; j++){
+      printf("%d(%f)", graph->node[i].paths[j].connection, graph->node[i].paths[j].value);
+      if(j!=graph->node[i].paths_count-1) printf(", ");
+    }
+    printf("\n");
+  }
+  printf("=========Graph=========\n\n");
 }
