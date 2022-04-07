@@ -56,7 +56,7 @@ unsigned int get_at_index(fifo_t fifo, unsigned int index){
   return got_value;
 }
 
-unsigned int head_index(fifo_t){
+unsigned int head_index(fifo_t fifo){
   return fifo->head-fifo->queue;
 }
 
