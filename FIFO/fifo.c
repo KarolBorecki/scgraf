@@ -56,6 +56,10 @@ unsigned int get_at_index(fifo_t fifo, unsigned int index){
   return got_value;
 }
 
+unsigned int head_index(fifo_t){
+  return fifo->head-fifo->queue;
+}
+
 void push(fifo_t fifo, unsigned int value){
   if(size(fifo) >= fifo->memory_size)
     enlarge_fifo(fifo, FIFO_ENLARGE_MULTIPLIER);
