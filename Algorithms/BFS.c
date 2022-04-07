@@ -11,6 +11,7 @@ int bfs(graph_t graph, unsigned int start_node_index){
   push(q, start_node->index);
   node_t actual_node;
   while(empty(q) <= 0){
+    print_fifo(q);
     actual_node = get_node_with_index(graph, peek(q));
     add_connections_of_node_to_queue(q, actual_node);
     pop(q);
@@ -27,7 +28,8 @@ int was_visited(fifo_t q, unsigned int node){
 void add_connections_of_node_to_queue(fifo_t q, node_t node){
   for(int i=0; i<node->paths_count; i++){
     unsigned int connection_index = (node->paths+i)->connection;
-    if(was_visited(q, connection_index) <= 0) push(q, connection_index);
+    if(was_visited(q, connection_index) <= 0 && fifo_contains_value(q, connection_index) > 0)
+      push(q, connection_index);
   }
 }
 //TODO it is O(n^2) - try to do it better
