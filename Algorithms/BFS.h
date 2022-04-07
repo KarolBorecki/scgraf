@@ -2,7 +2,7 @@
 #define _BFS_H_
 
 #include "../FIFO/fifo.h"
-#include "../GraphHandler/GraphHandler.h"
+#include "../graph/graph.h"
 
 int bfs(graph_t, node_t);
 int was_visited(fifo_t, unsigned int );
