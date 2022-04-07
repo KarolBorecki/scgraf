@@ -37,6 +37,6 @@ int main(int argc, char** argv){
 
   print_graph(g);
 
-  printf("%d", bfs(g, 0));
+  printf("BFS = %d\n\n", bfs(g, 0));
   return 1;
 }

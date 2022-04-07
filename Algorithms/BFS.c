@@ -1,19 +1,20 @@
 #include "BFS.h"
 
+#include <stdio.h>
+
 #include "../FIFO/fifo.h"
 #include "../graph/graph.h"
 
-int bfs(graph_t graph, node_t start_node){
+int bfs(graph_t graph, unsigned int start_node_index){
+  node_t start_node = get_node_with_index(graph, start_node_index);
   fifo_t q = initzialize_fifo();
   push(q, start_node->index);
-
   node_t actual_node;
   while(empty(q) <= 0){
     actual_node = get_node_with_index(graph, peek(q));
     add_connections_of_node_to_queue(q, actual_node);
     pop(q);
   }
-
   return is_all_nodes_visited(graph, q);
 }
 
