@@ -49,8 +49,11 @@ int fifo_head_contains_value(fifo_t fifo, unsigned int value){
 }
 
 int fifo_contains_value(fifo_t fifo, unsigned int value, unsigned int search_start, unsigned int search_end){
-  for(int i=search_start; i<search_end; i++)
+  printf("get_at_index(0)=%d value=%d\n", fifo_get_at_index(fifo, 0), value);
+  for(int i=search_start; i<search_end; i++){
+    printf("szukam... get_at_index(%d)=%d value=%d\n", i, fifo_get_at_index(fifo, i), value);
     if(fifo_get_at_index(fifo, i) == value) return 1;
+  }
   return 0;
 }
 
@@ -73,7 +76,7 @@ unsigned int fifo_pop(fifo_t fifo){
 }
 
 unsigned int fifo_get_at_index(fifo_t fifo, unsigned int index){
-  if(fifo_is_empty(fifo) > 0 || index > fifo->queue_size) return -1;
+  if(index > fifo_queue_size(fifo)) return -1;
   unsigned int got_value = *(fifo->queue+index);
 
   return got_value;
@@ -93,7 +96,7 @@ void print_fifo(fifo_t fifo){
   printf("    Size: %d \n", fifo->size);
   printf("    Memory: %d elements, %lu bytes per element, %lu bytes used\n\n", fifo->memory_size, sizeof(*(fifo->queue)), fifo->memory_size*sizeof(*(fifo->queue)));
   printf("Queue:\n");
-  for(int i=0; i<fifo->size + fifo_head_index(fifo); i++){
+  for(int i=0; i<fifo_queue_size(fifo); i++){
     printf("    %d) %d", i, fifo_get_at_index(fifo, i));
     if(i == fifo_head_index(fifo)) printf(" <-HEAD");
     printf("\n");
