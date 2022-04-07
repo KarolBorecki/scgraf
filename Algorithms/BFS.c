@@ -1,6 +1,6 @@
 #include "BFS.h"
 
-int BFS(graph_t graph, node_t start_node){
+int bfs(graph_t graph, node_t start_node){
   fifo_t q = initzialize_fifo();
   push(q, start_node->index);
 
@@ -13,4 +13,11 @@ int BFS(graph_t graph, node_t start_node){
     }
     pop(q);
   }
+}
+
+int was_visited(fifo_t q, unsigned int node){
+  //TODO implement in fifo head_index(q)
+  for(int i=0; i<head_index(q); i++)
+    if(node == get_at_index(q, i)) return 1;
+  return 0;
 }

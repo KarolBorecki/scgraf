@@ -4,7 +4,8 @@
 #include "../FIFO/fifo.h"
 #include "../GraphHandler/GraphHandler.h"
 
-int BFS(graph_t graph, node_t start_node);
+int bfs(graph_t graph, node_t start_node);
+int was_visited(fifo_t q, unsigned int node);
 
 
 #endif /* _BFS_H_ */
