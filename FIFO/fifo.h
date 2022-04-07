@@ -21,6 +21,7 @@ int empty(fifo_t); /* returns > 0 if fifo is empty */
 unsigned int peek(fifo_t); /* return -1 if queue is empty */
 unsigned int pop(fifo_t); /* return -1 if queue is empty, queue = head*/
 unsigned int get_at_index(fifo_t, unsigned int); /* return -1 if queue is empty, queue != head*/
+unsigned int head_index(fifo_t);
 void push(fifo_t, unsigned int);
 
 #endif /* _FIFO_H_ */
