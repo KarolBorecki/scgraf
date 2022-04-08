@@ -48,7 +48,7 @@ node_t add_node(graph_t graph){
   return new_node;
 }
 
-path_t add_path(node_t node, unsigned int connection, float value){
+path_t add_path(node_t node, unsigned int connection, double value){
   if(node->paths_count >= node->paths_memory_size)
     enlarge_paths_memory(node, GRAPH_ENLARGE_MULTIPLIER);
 

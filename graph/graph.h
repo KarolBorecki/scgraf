@@ -7,7 +7,7 @@
 
 typedef struct path{
   unsigned int connection;
-  float value;
+  double value;
 } *path_t;
 
 typedef struct node{
@@ -30,7 +30,7 @@ void enlarge_paths_memory(node_t node, unsigned int enlrage_multiplier);
 void clean_graph(graph_t graph);
 
 node_t add_node(graph_t graph);
-path_t add_path(node_t node, unsigned int connection, float value);
+path_t add_path(node_t node, unsigned int connection, double value);
 
 node_t get_node_with_index(graph_t graph, unsigned int index);
 
