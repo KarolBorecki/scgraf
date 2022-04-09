@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-graph_t initzialize_graph(unsigned int nodes_count){
+graph_t initzialize_graph(unsigned nodes_count){
   graph_t graph = malloc(sizeof(*graph));
   graph->size = 0;
   graph->nodes = malloc(nodes_count * sizeof(*(graph->nodes)));
@@ -12,12 +12,12 @@ graph_t initzialize_graph(unsigned int nodes_count){
   return graph;
 }
 
-void enlarge_graph_nodes_memory(graph_t graph, unsigned int enlrage_multiplier){
+void enlarge_graph_nodes_memory(graph_t graph, unsigned enlrage_multiplier){
   graph->memory_size *= enlrage_multiplier;
   graph->nodes = realloc(graph->nodes, graph->memory_size);
 }
 
-void enlarge_graph_paths_memory(node_t node, unsigned int enlrage_multiplier){
+void enlarge_graph_paths_memory(node_t node, unsigned enlrage_multiplier){
   node->paths_memory_size *= enlrage_multiplier;
   node->paths = realloc(node->paths, node->paths_memory_size);
 }
@@ -48,7 +48,7 @@ node_t graph_add_node(graph_t graph){
   return new_node;
 }
 
-path_t graph_add_path(node_t node, unsigned int connection, double value){
+path_t graph_add_path(node_t node, unsigned connection, double value){
   if(node->paths_count >= node->paths_memory_size)
     enlarge_graph_paths_memory(node, GRAPH_ENLARGE_MULTIPLIER);
 
@@ -61,7 +61,7 @@ path_t graph_add_path(node_t node, unsigned int connection, double value){
   return new_path;
 }
 
-node_t graph_get_node_with_index(graph_t graph, unsigned int index){
+node_t graph_get_node_with_index(graph_t graph, unsigned index){
   return graph->nodes+index;
 }
 
@@ -72,7 +72,11 @@ unsigned graph_size(graph_t graph){
 void print_graph(graph_t graph){
   printf("\n=========Graph=========\n\n");
   printf("    Nodes: %d \n", graph->size);
-  printf("    Memory: %d size, %lu bytes per node, %lu bytes used \n\n", graph->memory_size, sizeof(*(graph->nodes)), graph->memory_size * sizeof(*(graph->nodes)));
+  printf("    Memory: %d size, %lu bytes per node, %lu bytes used \n\n",
+  graph->memory_size,
+  sizeof(*(graph->nodes)),
+  graph->memory_size * sizeof(*(graph->nodes)));
+
   printf("Nodes:\n");
   for(int i=0; i<graph->size; i++){
     printf("   %d) %d -> ", i, graph->nodes[i].index);
