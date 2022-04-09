@@ -65,6 +65,10 @@ node_t graph_get_node_with_index(graph_t graph, unsigned int index){
   return graph->nodes+index;
 }
 
+unsigned graph_size(graph_t graph){
+  return graph->size;
+}
+
 void print_graph(graph_t graph){
   printf("\n=========Graph=========\n\n");
   printf("    Nodes: %d \n", graph->size);

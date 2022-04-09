@@ -34,6 +34,8 @@ path_t graph_add_path(node_t node, unsigned int connection, double value);
 
 node_t graph_get_node_with_index(graph_t graph, unsigned int index);
 
+unsigned graph_size(graph_t graph);
+
 void print_graph(graph_t);
 
 #endif /* _GRAPH_H_ */
