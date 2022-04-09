@@ -1,9 +1,4 @@
 #include "Dijkstra.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-#include "../FIFO/fifo.h"
-#include "../graph/graph.h"
 
 table_t_p initialize_start_table(graph_t graph, node_t start_node){
     table_t_p table_p= malloc(graph->size * sizeof(*table_p));
@@ -12,10 +7,11 @@ table_t_p initialize_start_table(graph_t graph, node_t start_node){
 
     for(int i= 0; i<table_p->size; i++) {
         if(graph->nodes[i].index != start_node->index)
-            table_p->elements[i].shortest_distances= 10;
+            table_p->elements[i].shortest_distances= INF;
         else
             table_p->elements[i].shortest_distances= 0;
         table_p->elements[i].previous_nodes = INVALID_NODE;
+        table_p->elements[i].node_index= i;
     }
 
     return table_p;
@@ -25,41 +21,46 @@ void print_table(table_t_p table){
     fprintf(stdout, "\n=======DIJKSTRA' S TABLE========\n\n"
                     "NODE_index\tSHORTEST_PATH\tPREV_NODE\n");
     for(int i= 0; i<table->size; i++)
-        fprintf(stdout, "%d\t\t\t%lf\t\t\t%d\n", i, table->elements[i].shortest_distances, table->elements[i].previous_nodes);
+        fprintf(stdout, "%d\t\t\t%lf\t\t\t%d\n"
+                , table->elements[i].node_index
+                , table->elements[i].shortest_distances
+                , table->elements[i].previous_nodes);
 }
 
-//TODO Finds path only from vertex 0
-//Quicksort not working
 table_t_p run_dijkstra(graph_t graph, node_t start_node){
     unsigned int popped_from_que= 0, current_vertex;
 
     table_t_p table= initialize_start_table(graph, start_node);
     fifo_t que_to_visit= initzialize_fifo();
 
-    for(int i= 0; i<table->size; i++)
+    for(int i= 0; i<table->size; i++){
         fifo_push(que_to_visit, i);
+    }
+
 
     while(fifo_is_empty(que_to_visit) <= 0){
         print_table(table);
         current_vertex = fifo_pop(que_to_visit);
         popped_from_que++;
         node_t help = graph_get_node_with_index(graph, current_vertex);
-        printf("\nNode: %d has connections to: \n", current_vertex);
+//        printf("\nNode: %d has connections to: \n", current_vertex);
         for(unsigned j= 0; j<help->paths_count; j++) {
                 double val= help->paths[j].value;
-                printf("\t Node %d with value %lf\n", help->paths[j].connection, help->paths[j].value);
+                /*printf("\t Node %d with value %lf\n", help->paths[j].connection, help->paths[j].value);
                 printf("%lf (val) + %lf (shortest distance) <(?) %lf(shortest path for %d)\n", val
                        ,    table->elements[current_vertex].shortest_distances//table->shortest_distances[current_vertex],
                        ,    table->elements[help->paths[j].connection].shortest_distances,
-                            current_vertex);
+                            current_vertex);*/
                 if (val + table->elements[current_vertex].shortest_distances < table->elements[help->paths[j].connection].shortest_distances){
                     table->elements[help->paths[j].connection].shortest_distances= val + table->elements[current_vertex].shortest_distances;
                     table->elements[help->paths[j].connection].previous_nodes= current_vertex;
                 }
 
         }
-        //if(popped_from_que != table->size)
-            //qsort(table->elements + popped_from_que, table->size, sizeof(*table->elements), comp_for_qsort);
+        //TODO qsort the que, but by values from table->elements->shortest_distances
+        if(popped_from_que != table->size)
+            //qsort(que_to_visit->head, que_to_visit->size - popped_from_que, sizeof(*que_to_visit->head), comp_for_qsort);
+            sort_que(que_to_visit, start_node, table);
     }
 
     return table;
@@ -75,13 +76,17 @@ void free_table(table_t_p table){
     free(table);
 }
 
-int comp_for_qsort(const void *a, const void *b){
-    table_t a_p= (table_t) a;
-    table_t b_p= (table_t) b;
-    if(a_p->shortest_distances > b_p->shortest_distances)
-        return 1;
-    else if(a_p->shortest_distances == b_p->shortest_distances)
-        return 0;
-    else
-        return -1;
+void sort_que(fifo_t que, unsigned start, table_t_p tab){
+    for(int i= start; i<que->size; i++){
+        for(int j= i+1; j<que->size; j++){
+            if(tab->elements[que->queue[i]].shortest_distances > tab->elements[que->queue[j]].shortest_distances)
+                swap_elements(&que->queue[i], &que->queue[j]);
+        }
+    }
+}
+
+void swap_elements(unsigned *p1, unsigned int *p2){
+    unsigned p3= *p1;
+    *p1= *p2;
+    *p2= p3;
 }

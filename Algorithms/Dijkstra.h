@@ -1,6 +1,8 @@
 #ifndef _DIJKSTRA_H_
 #define _DIJKSTRA_H_
 
+#include <stdio.h>
+#include <stdlib.h>
 #include <float.h>
 #include <limits.h>
 #include "../FIFO/fifo.h"
@@ -12,6 +14,7 @@
 
 
 typedef struct table{
+    unsigned int    node_index;
     unsigned int    previous_nodes;
     double          shortest_distances;
 } *table_t;
@@ -28,8 +31,9 @@ void free_table(table_t_p);
 table_t_p run_dijkstra(graph_t graph_to_analyze, node_t start_node);
 void print_shortest_path(table_t pointer_to_table, node_t start_node);
 
-int comp_for_qsort(const void *a, const void *b);
-
 double get_value_for_connection(graph_t, unsigned , unsigned);
+
+void swap_elements(unsigned *pointer1, unsigned int *pointer2);
+void sort_que(fifo_t que, unsigned start, table_t_p tab);
 
 #endif /* _DIJKSTRA_H_ */
