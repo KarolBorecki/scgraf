@@ -26,6 +26,8 @@ graph_t initzialize_graph(unsigned int nodes_count);
 void enlarge_graph_nodes_memory(graph_t graph, unsigned enlrage_multiplier);
 void enlarge_graph_paths_memory(node_t node, unsigned enlrage_multiplier);
 
+void clean_graph_path(path_t path);
+void clean_graph_node(node_t node);
 void clean_graph(graph_t graph);
 
 node_t graph_add_node(graph_t graph);

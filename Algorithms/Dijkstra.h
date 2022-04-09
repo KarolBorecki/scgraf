@@ -11,8 +11,6 @@
 #define INVALID_NODE    UINT_MAX
 #define INF             DBL_MAX
 
-
-
 typedef struct table{
     unsigned int    node_index;
     unsigned int    previous_nodes;

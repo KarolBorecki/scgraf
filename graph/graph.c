@@ -22,13 +22,19 @@ void enlarge_graph_paths_memory(node_t node, unsigned enlrage_multiplier){
   node->paths = realloc(node->paths, node->paths_memory_size);
 }
 
-//TODO refactor
+void clean_graph_path(path_t path){
+  free(path);
+}
+
+void clean_graph_node(node_t node){
+  for(int j=0; j<node->paths_count; j++)
+    clean_graph_path(node->paths+j);
+  free(node);
+}
+
 void clean_graph(graph_t graph){
-  for(int i=0; i<graph->size; i++){
-    for(int j=0; j<graph->nodes[i].paths_count; j++)
-      free(graph->nodes[i].paths+j);
-    free(graph->nodes+i);
-  }
+  for(int i=0; i<graph->size; i++)
+    clean_graph_node(graph->nodes+i)
   free(graph);
 }
 
