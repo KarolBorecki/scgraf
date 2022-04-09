@@ -3,6 +3,7 @@
 
 #include "graph/graph.h"
 #include "Algorithms/BFS.h"
+#include "reader/graph_generator.h"
 
 graph_t generate_example_graph(){
   graph_t g = initzialize_graph(9);
@@ -59,7 +60,7 @@ graph_t generate_example_graph(){
 }
 
 int main(int argc, char** argv){
-  graph_t graph = generate_example_graph();
+  graph_t graph = generate_graph(5);
 
   print_graph(graph);
   return 1;

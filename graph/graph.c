@@ -34,7 +34,7 @@ void clean_graph_node(node_t node){
 
 void clean_graph(graph_t graph){
   for(int i=0; i<graph->size; i++)
-    clean_graph_node(graph->nodes+i)
+    clean_graph_node(graph->nodes+i);
   free(graph);
 }
 
@@ -71,8 +71,31 @@ node_t graph_get_node_with_index(graph_t graph, unsigned index){
   return graph->nodes+index;
 }
 
+int graph_get_connection_value(graph_t graph, unsigned node1, unsigned node2){
+  node_t node = graph_get_node_with_index(graph, node1);
+  path_t path;
+  for(int i=0; i<graph_get_node_paths_count(node); i++){
+    path = graph_get_node_path_at_index(node, i);
+    if(path->connection == node2)
+      return path->value;
+  }
+  return -1;
+}
+
 unsigned graph_size(graph_t graph){
   return graph->size;
+}
+
+unsigned graph_memory_size(graph_t graph){
+  return graph->memory_size;
+}
+
+unsigned graph_get_node_paths_count(node_t node){
+  return node->paths_count;
+}
+
+path_t graph_get_node_path_at_index(node_t node, unsigned index){
+  return node->paths+index;
 }
 
 void print_graph(graph_t graph){

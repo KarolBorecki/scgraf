@@ -35,7 +35,13 @@ path_t graph_add_path(node_t node, unsigned connection, double value);
 
 node_t graph_get_node_with_index(graph_t graph, unsigned index);
 
+int graph_get_connection_value(graph_t graph, unsigned node1, unsigned node2); /* returns -1 if connection does not exists */
+
 unsigned graph_size(graph_t graph);
+unsigned graph_memory_size(graph_t graph);
+
+unsigned graph_get_node_paths_count(node_t node);
+path_t graph_get_node_path_at_index(node_t node, unsigned index);
 
 void print_graph(graph_t);
 

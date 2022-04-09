@@ -11,7 +11,7 @@ graph_t generate_graph(unsigned int size){
 
   graph_t graph = initzialize_graph(size);
 
-  for(int i<0; i<size; i++)
+  for(int i=0; i<size; i++)
     generate_new_node(graph);
 
   return graph;
@@ -24,5 +24,8 @@ void generate_new_node(graph_t graph){
 }
 
 void generate_new_path(graph_t graph, node_t node){
-  graph_add_path(node, rand() % graph_size(graph), rand() % 10);
+  unsigned connection_index = node->index;
+  while(connection_index == node->index && graph_get_connection_value(graph, node->index, connection_index) == -1)
+    connection_index = rand() % graph_memory_size(graph);
+  graph_add_path(node, connection_index, rand() % 10);
 }
