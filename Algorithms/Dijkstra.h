@@ -9,18 +9,27 @@
 #define INVALID_NODE    UINT_MAX
 #define INF             DBL_MAX
 
+
+
 typedef struct table{
-    unsigned int    size;
-    unsigned int    *nodes_indexes;
-    unsigned int    *previous_nodes;
-    double *shortest_distances;
+    unsigned int    previous_nodes;
+    double          shortest_distances;
 } *table_t;
 
-table_t initialize_start_table(graph_t, node_t);
-void print_table(table_t);
-void free_table(table_t);
+typedef struct table_pointer{
+    table_t elements;
+    unsigned int    size;
+} *table_t_p;
 
-void dijkstra(table_t, graph_t, node_t);
-void print_shortest_path(table_t, node_t);
+table_t_p initialize_start_table(graph_t, node_t);
+void print_table(table_t_p pointer_to_table);
+void free_table(table_t_p);
+
+table_t_p run_dijkstra(graph_t graph_to_analyze, node_t start_node);
+void print_shortest_path(table_t pointer_to_table, node_t start_node);
+
+int comp_for_qsort(const void *a, const void *b);
+
+double get_value_for_connection(graph_t, unsigned , unsigned);
 
 #endif /* _DIJKSTRA_H_ */
