@@ -26,7 +26,7 @@ void enlarge_fifo(fifo_t fifo, int enlrage_multiplier){
 }
 
 unsigned int fifo_head_index(fifo_t fifo){
-  return fifo->head-fifo->queue;
+  return fifo->head - fifo->queue;
 }
 
 unsigned int fifo_queue_size(fifo_t fifo){
@@ -39,6 +39,10 @@ unsigned int fifo_size(fifo_t fifo){
 
 int fifo_is_empty(fifo_t fifo){
   return 1-fifo->size;
+}
+
+int fifo_is_queue_empty(fifo_t fifo){
+  return 1-fifo->queue_size;
 }
 
 int fifo_queue_contains_value(fifo_t fifo, unsigned int value){
@@ -65,11 +69,7 @@ unsigned int fifo_pop(fifo_t fifo){
   if(poped_value == -1) return -1;
 
   fifo->size--;
-  fifo->head++; //TODO Hurrr durr marnowanie pamięci
-
-  //To jest albo genialne albo bardzo głupie
-  //W każdym razie bardzo szybkie do napisania xD
-  //memcpy(fifo->head, fifo->head+1, fifo->size * sizeof(*(fifo->head)));
+  fifo->head++;
 
   return poped_value;
 }
