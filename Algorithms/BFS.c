@@ -28,7 +28,7 @@ void bfs_add_distinct_connections_of_node_to_queue(fifo_t q, node_t node){
 }
 
 int bfs_is_all_nodes_visited(graph_t g, fifo_t q){
-  /* this is probapbly enough, but more tests are needed */
+  /* this is probably enough, but more tests are needed */
   return (fifo_queue_size(q) - graph_size(g)) == 0 ? 1 : 0;
 
 }
