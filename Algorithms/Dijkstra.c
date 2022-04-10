@@ -1,5 +1,7 @@
 #include "dijkstra.h"
 
+#include "../utils/utils.h"
+
 table_t_p initialize_start_table(graph_t graph, node_t start_node){
     table_t_p table_p= malloc(graph->size * sizeof(*table_p));
     table_p->size= graph->size;
@@ -69,10 +71,4 @@ void sort_que(fifo_t que, unsigned start, table_t_p tab){
                 swap_elements(&que->queue[i], &que->queue[j]);
         }
     }
-}
-
-void swap_elements(unsigned *p1, unsigned int *p2){
-    unsigned p3= *p1;
-    *p1= *p2;
-    *p2= p3;
 }

@@ -31,7 +31,6 @@ void print_shortest_path(table_t pointer_to_table, node_t start_node);
 
 double get_value_for_connection(graph_t, unsigned , unsigned);
 
-void swap_elements(unsigned *pointer1, unsigned int *pointer2);
 void sort_que(fifo_t que, unsigned start, table_t_p tab);
 
 #endif /* _DIJKSTRA_H_ */
