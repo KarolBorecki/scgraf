@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "graph/graph.h"
-#include "Algorithms/BFS.h"
+#include "algorithms/bfs.h"
 #include "reader/graph_generator.h"
 
 graph_t generate_example_graph(){

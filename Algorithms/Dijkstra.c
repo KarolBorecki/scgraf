@@ -1,4 +1,4 @@
-#include "Dijkstra.h"
+#include "dijkstra.h"
 
 table_t_p initialize_start_table(graph_t graph, node_t start_node){
     table_t_p table_p= malloc(graph->size * sizeof(*table_p));
@@ -50,7 +50,7 @@ table_t_p run_dijkstra(graph_t graph, node_t start_node){
 
         }
         if(popped_from_que != table->size)
-            sort_que(que_to_visit, start_node, table);
+            sort_que(que_to_visit, start_node->index, table);
     }
 
     return table;
