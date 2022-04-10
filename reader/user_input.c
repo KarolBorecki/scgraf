@@ -31,7 +31,7 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
   batch_arguments_t arg = initzialize_arguments_struct();
 
   int opt;
-  while((opt = getopt(argc, argv, "i:o:f:t:x:y:n:c")) != -1){
+  while((opt = getopt(argc, argv, "i:o:f:t:x:y:n:c:")) != -1){
     switch(opt){
     case 'i': /* in */
       strcpy(arg->in, optarg);
@@ -60,6 +60,7 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
     default:
       throw_error(invalid_value_error, "Specified invalid argument!");
       exit (EXIT_FAILURE);
+      break;
     }
   }
   return arg;
