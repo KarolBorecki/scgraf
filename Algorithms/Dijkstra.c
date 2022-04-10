@@ -78,16 +78,20 @@ void swap_elements(unsigned *p1, unsigned int *p2){
 }
 
 //start_node must be the same node, that Dijkstra' s table was created for
-void print_shortest_path_from_to(table_t_p table, node_t start_node, node_t destination_node){
+double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t destination_node){
+    double path_len= 0.;
     if(start_node->index == destination_node->index) {
         printf("Ur at your destination node!\n");
-        return;
+        return path_len;
     }
     unsigned int i= destination_node->index;
+    path_len += table->elements[i].shortest_distances;
     printf("\nPATH FROM VERTEX: [%d] to VERTEX: [%d]\n"
            "%d->%d", start_node->index, destination_node->index, i, table->elements[i].previous_nodes);
-    i= table->elements[i].previous_nodes;
-    for(; i != start_node->index; i= table->elements[i].previous_nodes){
+    for(i= table->elements[i].previous_nodes; i != start_node->index; i= table->elements[i].previous_nodes){
         printf("->%d", table->elements[i].previous_nodes);
+        path_len += table->elements[i].shortest_distances;
     }
+
+    return path_len;
 }
