@@ -3,6 +3,7 @@
 
 #include "graph/graph.h"
 #include "Algorithms/BFS.h"
+#include "Algorithms/Dijkstra.h"
 
 graph_t generate_example_graph(){
   graph_t g = initzialize_graph(9);
@@ -62,5 +63,11 @@ int main(int argc, char** argv){
   graph_t graph = generate_example_graph();
 
   print_graph(graph);
+
+  table_t_p tab = run_dijkstra(graph, &(graph->nodes[0]));
+  for (int i = 0; i < 9; i++) {
+        print_shortest_path_from_to(tab, &(graph->nodes[0]), &(graph->nodes[i]));
+  }
+  print_shortest_path_from_to(tab, &(graph->nodes[2]), &(graph->nodes[7]));
   return 1;
 }

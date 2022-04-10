@@ -67,10 +67,6 @@ table_t_p run_dijkstra(graph_t graph, node_t start_node){
 
 }
 
-double get_value_for_connection(graph_t graph, unsigned current_vertex, unsigned connected_to){ //returns -1 if there is no connection
-    ;
-}
-
 void free_table(table_t_p table){
     free(table->elements);
     free(table);
@@ -89,4 +85,19 @@ void swap_elements(unsigned *p1, unsigned int *p2){
     unsigned p3= *p1;
     *p1= *p2;
     *p2= p3;
+}
+
+//start_node must be the same node, that Dijkstra' s table was created for
+void print_shortest_path_from_to(table_t_p table, node_t start_node, node_t destination_node){
+    if(start_node->index == destination_node->index) {
+        printf("Ur at your destination node!\n");
+        return;
+    }
+    unsigned int i= destination_node->index;
+    printf("\nPATH FROM VERTEX: [%d] to VERTEX: [%d]\n"
+           "%d->%d", start_node->index, destination_node->index, i, table->elements[i].previous_nodes);
+    i= table->elements[i].previous_nodes;
+    for(; i != start_node->index; i= table->elements[i].previous_nodes){
+        printf("->%d", table->elements[i].previous_nodes);
+    }
 }
