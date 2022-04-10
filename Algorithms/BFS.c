@@ -21,7 +21,7 @@ int bfs(graph_t graph, unsigned int start_node_index){
 
 void bfs_add_distinct_connections_of_node_to_queue(fifo_t q, node_t node){
   for(int i=0; i<node->paths_count; i++){
-    unsigned int connection_index = (node->paths+i)->connection;
+    unsigned int connection_index = graph_get_path_at_index(node, i)->connection;
     if(fifo_queue_contains_value(q, connection_index) == 0)
       fifo_push(q, connection_index);
   }
