@@ -1,6 +1,6 @@
 #include "errors.h"
 
-#include "../printer.h"
+#include "../printer/printer.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,12 +18,12 @@ void initzialize_errors(){
 }
 
 void initzialize_warnings(){
-  unknown_warning = new_warning(0, "Unknown warning");
-  data_formated_warning = new_warning(1, "Formated data");
-  default_value_warning = new_warning(2, "Taking default value");
-  duplicated_path_warning = new_warning(3, "Passed duplicated path");
+  unknown_warning            = new_warning(0, "Unknown warning");
+  data_formated_warning      = new_warning(1, "Formated data");
+  default_value_warning      = new_warning(2, "Taking default value");
+  duplicated_path_warning    = new_warning(3, "Passed duplicated path");
   inconsistent_graph_warning = new_warning(4, "Graph inconsistent");
-  node_bypasing_warning = new_warning(5, "Bypassing node");
+  node_bypasing_warning      = new_warning(5, "Bypassing node");
 }
 error_t new_error(unsigned code, char* msg){
   error_t new_err = malloc(sizeof(*new_err));
