@@ -1,5 +1,7 @@
 #include "dijkstra.h"
 
+#include "../utils/utils.h"
+
 table_t_p initialize_start_table(graph_t graph, node_t start_node){
     table_t_p table_p= malloc(graph->size * sizeof(*table_p));
     table_p->size= graph->size;
@@ -95,3 +97,4 @@ double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t de
 
     return path_len;
 }
+
