@@ -6,7 +6,7 @@
 
 typedef struct fifo{
   unsigned int* queue;
-  unsigned int* head;
+  unsigned int head;
   unsigned int size;
   unsigned int queue_size;
   unsigned int memory_size;
@@ -25,6 +25,7 @@ int fifo_queue_contains_value(fifo_t fifo, unsigned int value);
 int fifo_head_contains_value(fifo_t fifo, unsigned int value);
 int fifo_contains_value(fifo_t fifo, unsigned int value, unsigned int search_start, unsigned int search_end);
 
+unsigned int* fifo_head(fifo_t fifo);
 unsigned int fifo_peek(fifo_t fifo); /* return -1 if queue is empty */
 unsigned int fifo_pop(fifo_t fifo); /* return -1 if queue is empty, queue = head*/
 unsigned int fifo_get_at_index(fifo_t fifo, unsigned int index); /* return -1 if queue is empty, queue != head*/

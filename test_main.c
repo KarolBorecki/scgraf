@@ -4,6 +4,7 @@
 #include "graph/graph.h"
 #include "algorithms/bfs.h"
 #include "reader/graph_generator.h"
+#include "solver/graph_solver.h"
 
 graph_t generate_example_graph(){
   graph_t g = initzialize_graph(9);
@@ -16,6 +17,7 @@ graph_t generate_example_graph(){
 
   //Node 1
   help_node = graph_add_node(g);
+  graph_add_path(help_node, 0, 1.4);
   graph_add_path(help_node, 2, 0.1);
   graph_add_path(help_node, 4, 2.3);
 
@@ -60,8 +62,39 @@ graph_t generate_example_graph(){
 }
 
 int main(int argc, char** argv){
-  graph_t graph = generate_graph(5);
-
+  printf("\n\n===========Example graph:\n");
+  graph_t graph = generate_example_graph();
   print_graph(graph);
+  solver_check_graph_consistency(graph);
+/*
+  printf("\n\n===========20 graph:\n");
+   graph = generate_graph(20);
+  //print_graph(graph);
+  solver_check_graph_consistency(graph);
+
+  printf("\n\n===========30 graph:\n");
+   graph = generate_graph(30);
+  //print_graph(graph);
+  solver_check_graph_consistency(graph);
+
+  printf("\n\n===========50 graph:\n");
+   graph = generate_graph(50);
+  //print_graph(graph);
+  solver_check_graph_consistency(graph);
+
+  printf("\n\n===========80 graph:\n");
+   graph = generate_graph(80);
+  //print_graph(graph);
+  solver_check_graph_consistency(graph);
+
+  printf("\n\n===========100 graph:\n");
+   graph = generate_graph(100);
+  //print_graph(graph);
+  solver_check_graph_consistency(graph);
+
+  printf("\n\n===========150 graph:\n");
+   graph = generate_graph(150);
+  //print_graph(graph);
+  solver_check_graph_consistency(graph);*/
   return 1;
 }

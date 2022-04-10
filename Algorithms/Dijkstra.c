@@ -73,12 +73,6 @@ void sort_que(fifo_t que, unsigned start, table_t_p tab){
     }
 }
 
-void swap_elements(unsigned *p1, unsigned int *p2){
-    unsigned p3= *p1;
-    *p1= *p2;
-    *p2= p3;
-}
-
 //start_node must be the same node, that Dijkstra' s table was created for
 double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t destination_node){
     double path_len= 0.;
@@ -97,4 +91,3 @@ double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t de
 
     return path_len;
 }
-
