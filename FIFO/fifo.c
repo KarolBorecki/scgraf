@@ -86,7 +86,6 @@ unsigned fifo_get_at_index(fifo_t fifo, unsigned index){
 }
 
 void fifo_push(fifo_t fifo, unsigned value){
-
   if(fifo_queue_size(fifo) >= fifo->memory_size)
     enlarge_fifo(fifo, FIFO_ENLARGE_MULTIPLIER);
 

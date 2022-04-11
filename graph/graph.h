@@ -31,6 +31,8 @@ void clean_graph(graph_t graph);
 node_t graph_add_node(graph_t graph);
 path_t graph_add_path(node_t node, unsigned connection, double value);
 
+void graph_remove_path_at_index(node_t node, unsigned index);
+
 node_t graph_get_node_at_index(graph_t graph, unsigned index);
 path_t graph_get_path_at_index(node_t node, unsigned index);
 

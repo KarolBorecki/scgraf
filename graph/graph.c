@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "../utils/utils.h"
+#include "../errors/errors.h"
 
 graph_t initzialize_graph(unsigned nodes_count){
   graph_t graph = malloc(sizeof(*graph));
@@ -60,9 +61,15 @@ path_t graph_add_path(node_t node, unsigned connection, double value){
   return new_path;
 }
 
+void graph_remove_path_at_index(node_t node, unsigned index){
+  if(index < node->paths_count-1)
+    memcpy(node->paths+index, node->paths+index+1, (node->paths_count-index) * sizeof(*(node->paths)));
+  node->paths_count--;
+}
+
 node_t graph_get_node_at_index(graph_t graph, unsigned index){
   if(index>=graph_size(graph))
-    printf("Graf jest rozmiaru %d a ty chcesz index=%d", graph_size(graph), index);
+    throw_error(memory_error, "Out of bounds!");
   return graph->nodes+index;
 }
 

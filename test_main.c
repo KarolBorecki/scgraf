@@ -11,6 +11,7 @@
 #include "printer/printer.h"
 #include "errors/errors.h"
 #include "reader/user_input.h"
+#include "algorithms/graph_divider.h"
 
 graph_t generate_example_graph(){
   graph_t g = initzialize_graph(9);
@@ -86,8 +87,16 @@ graph_t generate_example_graph_circle(int size){
 }
 
 int main(int argc, char** argv){
-  graph_t g = generate_example_graph_circle(atoi(argv[1]));
+  graph_t g = generate_example_graph();
+
+  print_graph(g);
   solver_check_graph_consistency(g);
+
+  divide_graph(g, 2);
+
+  print_graph(g);
+  solver_check_graph_consistency(g);
+
   clean_graph(g);
   return 1;
 }
