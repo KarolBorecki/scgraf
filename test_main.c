@@ -1,12 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../graph/graph.h"
-#include "../reader/graph_generator.h"
-#include "../algorithms/BFS.h"
-#include "../algorithms/Dijkstra.h"
-#include "../reader/graph_generator.h"
-#include "../solver/graph_solver.h"
+#include "graph/graph.h"
+#include "reader/graph_generator.h"
+#include "algorithms/bfs.h"
+#include "algorithms/dijkstra.h"
+#include "reader/graph_generator.h"
+#include "solver/graph_solver.h"
+
+#include "printer/printer.h"
+#include "errors/errors.h"
+#include "reader/user_input.h"
 
 graph_t generate_example_graph(){
   graph_t g = initzialize_graph(9);
@@ -63,50 +67,59 @@ graph_t generate_example_graph(){
   return g;
 }
 
+graph_t generate_example_graph_circle(int size){
+    graph_t graph= initzialize_graph(size);
+
+    node_t help_n;
+    help_n = graph_add_node(graph);
+    graph_add_path(help_n, 1, 1.4);
+    graph_add_path(help_n, size-1, 1.4);
+    for(int i= 1; i<size-1; i++){
+        help_n = graph_add_node(graph);
+        graph_add_path(help_n, i+1, 1.4);
+        graph_add_path(help_n, i-1, 1.4);
+    }
+    help_n = graph_add_node(graph);
+    graph_add_path(help_n, 0, 1.4);
+    graph_add_path(help_n, size-2, 1.4);
+    return graph;
+}
+
 int main(int argc, char** argv){
+  graph_t graph;
+  /*
     graph_t graph= generate_graph(20);//generate_example_graph();//
     print_graph(graph);
     printf("%d -> bfs\n", bfs(graph, graph->nodes[0].index));
-    /*do{
+    do{
         graph =
-    }while(!bfs(graph, graph->nodes[0].index));*/
+    }while(!bfs(graph, graph->nodes[0].index));
     printf("%d\n", bfs(graph, graph->nodes[0].index));
     table_t_p tab= run_dijkstra(graph, &(graph->nodes[0]));
     print_table(tab);
     //printf("\n%lf", print_shortest_path_from_to(tab, &(graph->nodes[0]), &(graph->nodes[8])));
-
+*/
     printf("\n\n===========Example graph:\n");
     graph = generate_example_graph();
     print_graph(graph);
     solver_check_graph_consistency(graph);
-    printf("\n\n===========20 graph:\n");
-    graph = generate_graph(20);
-    //print_graph(graph);
-    solver_check_graph_consistency(graph);
+    print_graph(graph);
+    clean_graph(graph);
 
-    printf("\n\n===========30 graph:\n");
-    graph = generate_graph(30);
-    //print_graph(graph);
-    solver_check_graph_consistency(graph);
 
-    printf("\n\n===========50 graph:\n");
-    graph = generate_graph(50);
-    //print_graph(graph);
+    printf("\n\n=========== graph:\n");
+    graph = generate_example_graph_circle(atoi(argv[1]));
+    printf("Graf zbudowany\n");
     solver_check_graph_consistency(graph);
+    printf("Graf rozwiazny\n");
+    clean_graph(graph);
 
-    printf("\n\n===========80 graph:\n");
-    graph = generate_graph(80);
-    //print_graph(graph);
+    printf("\n\n=========== graph:\n");
+    graph = generate_example_graph_circle(atoi(argv[1]));
+    printf("Graf zbudowany\n");
     solver_check_graph_consistency(graph);
+    printf("Graf rozwiazny\n");
+    clean_graph(graph);
 
-    printf("\n\n===========100 graph:\n");
-    graph = generate_graph(100);
-    //print_graph(graph);
-    solver_check_graph_consistency(graph);
-
-    printf("\n\n===========150 graph:\n");
-    graph = generate_graph(150);
-    //print_graph(graph);
-    solver_check_graph_consistency(graph);
-      return 1;
+    return 1;
 }

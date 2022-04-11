@@ -26,14 +26,13 @@ graph_t initzialize_graph(unsigned int nodes_count);
 void enlarge_graph_nodes_memory(graph_t graph, unsigned enlrage_multiplier);
 void enlarge_graph_paths_memory(node_t node, unsigned enlrage_multiplier);
 
-void clean_graph_path(path_t path);
-void clean_graph_node(node_t node);
 void clean_graph(graph_t graph);
 
 node_t graph_add_node(graph_t graph);
 path_t graph_add_path(node_t node, unsigned connection, double value);
 
-node_t graph_get_node_with_index(graph_t graph, unsigned index);
+node_t graph_get_node_at_index(graph_t graph, unsigned index);
+path_t graph_get_path_at_index(node_t node, unsigned index);
 
 int graph_get_connection_value(node_t node, unsigned node2); /* returns -1 if connection does not exists */
 
@@ -41,7 +40,6 @@ unsigned graph_size(graph_t graph);
 unsigned graph_memory_size(graph_t graph);
 
 unsigned graph_get_node_paths_count(node_t node);
-path_t graph_get_node_path_at_index(node_t node, unsigned index);
 
 void print_graph(graph_t);
 

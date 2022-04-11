@@ -1,4 +1,4 @@
-#include "Dijkstra.h"
+#include "dijkstra.h"
 
 table_t_p initialize_start_table(graph_t graph, node_t start_node){
     table_t_p table_p= malloc(graph->size * sizeof(*table_p));
@@ -40,7 +40,7 @@ table_t_p run_dijkstra(graph_t graph, node_t start_node){
         //print_table(table);
         current_vertex = fifo_pop(que_to_visit);
         popped_from_que++;
-        node_t help = graph_get_node_with_index(graph, current_vertex);
+        node_t help = graph_get_node_at_index(graph, current_vertex);
         for(unsigned j= 0; j<help->paths_count; j++) {
                 double val= help->paths[j].value;
                 if (val + table->elements[current_vertex].shortest_distances < table->elements[help->paths[j].connection].shortest_distances){

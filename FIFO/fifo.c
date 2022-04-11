@@ -23,6 +23,8 @@ void clean_fifo(fifo_t fifo){
 void enlarge_fifo(fifo_t fifo, int enlrage_multiplier){
   fifo->memory_size *= enlrage_multiplier;
   fifo->queue = realloc(fifo->queue, fifo->memory_size);
+  if(fifo->queue == NULL) printf("-----CO\n");
+  print_fifo(fifo);
 }
 
 unsigned int fifo_head_index(fifo_t fifo){
@@ -38,11 +40,11 @@ unsigned int fifo_size(fifo_t fifo){
 }
 
 int fifo_is_empty(fifo_t fifo){
-  return 1-fifo->size;
+  return 1-fifo_size(fifo);
 }
 
 int fifo_is_queue_empty(fifo_t fifo){
-  return 1-fifo->queue_size;
+  return 1-fifo_queue_size(fifo);
 }
 
 int fifo_queue_contains_value(fifo_t fifo, unsigned int value){
@@ -65,13 +67,13 @@ unsigned int* fifo_head(fifo_t fifo){
 }
 
 unsigned int fifo_peek(fifo_t fifo){
-  return fifo_is_empty(fifo) > 0 ? -1 : *fifo_head(fifo);
+  return (fifo_is_empty(fifo) > 0 ? -1 : *fifo_head(fifo));
 }
 
 unsigned int fifo_pop(fifo_t fifo){
   unsigned int poped_value = fifo_peek(fifo);
   if(poped_value == -1) return -1;
-
+  //printf("POP val(%d) size(%d) head(%d) maxsize(%d)\n", poped_value, fifo->size, fifo->head, fifo->queue_size);
   fifo->size--;
   fifo->head++;
 
@@ -79,23 +81,21 @@ unsigned int fifo_pop(fifo_t fifo){
 }
 
 unsigned int fifo_get_at_index(fifo_t fifo, unsigned int index){
-  if(index > fifo_queue_size(fifo)) return -1;
-  unsigned int got_value = *(fifo->queue+index);
-
-  return got_value;
+  if(index >= fifo_queue_size(fifo)) return -1;
+  return *(fifo->queue+index);
 }
 
-void fifo_push(fifo_t fifo, unsigned int value){
+void fifo_push(fifo_t fifo, unsigned value){
   if(fifo_queue_size(fifo) >= fifo->memory_size)
     enlarge_fifo(fifo, FIFO_ENLARGE_MULTIPLIER);
-  fifo->queue[fifo_queue_size(fifo)] = value;
+  *(fifo->queue+fifo_queue_size(fifo)) = value;
   fifo->size++;
   fifo->queue_size++;
 }
 
 void print_fifo(fifo_t fifo){
   printf("\n=========FIFO=========\n\n");
-  printf("    Size: %d \n", fifo->size);
+  printf("    Size: %d \n", fifo_size(fifo));
   printf("    Memory: %d elements, %lu bytes per element, %lu bytes used\n\n", fifo->memory_size, sizeof(*(fifo->queue)), fifo->memory_size*sizeof(*(fifo->queue)));
   printf("Queue:\n");
   for(int i=0; i<fifo_queue_size(fifo); i++){

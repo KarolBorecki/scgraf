@@ -4,8 +4,8 @@
 #include "printer/printer.h"
 #include "errors/errors.h"
 #include "graph/graph.h"
-#include "Algorithms/BFS.h"
-#include "Algorithms/Dijkstra.h"
+#include "algorithms/bfs.h"
+#include "algorithms/dijkstra.h"
 #include "reader/graph_generator.h"
 #include "reader/user_input.h"
 
@@ -14,12 +14,29 @@ void setup_menu(){
   initzialize_warnings();
 }
 
+/*
+typedef struct batch_arguments{
+  char* in;
+  char* out;
+  unsigned from;
+  unsigned to;
+  unsigned x;
+  unsigned y;
+  unsigned n;
+  unsigned sp;
+} *batch_arguments_t;
+*/
 int main(int argc, char** argv){
   setup_menu();
-  
   print_greetings();
 
   batch_arguments_t arg = get_batch_arguments(argc, argv);
   print_arguments(arg);
+
+  //if(arg->in != NULL) -> wczytaj GRAF
+  //if(x != Null && y != null) -> generuj GRAF
+  //if(out != null && x != Null && y != null) -> zapisz graf do pliku
+  //if()
+
   return 1;
 }

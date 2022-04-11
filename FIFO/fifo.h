@@ -30,7 +30,7 @@ unsigned int fifo_peek(fifo_t fifo); /* return -1 if queue is empty */
 unsigned int fifo_pop(fifo_t fifo); /* return -1 if queue is empty, queue = head*/
 unsigned int fifo_get_at_index(fifo_t fifo, unsigned int index); /* return -1 if queue is empty, queue != head*/
 
-void fifo_push(fifo_t fifo, unsigned int value);
+void fifo_push(fifo_t fifo, unsigned value);
 
 void print_fifo(fifo_t fifo);
 
