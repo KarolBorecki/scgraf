@@ -117,4 +117,3 @@ double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t de
 
     return path_len;
 }
-

@@ -6,6 +6,7 @@
 #include "../algorithms/BFS.h"
 #include "../algorithms/Dijkstra.h"
 #include "../reader/graph_generator.h"
+#include "../solver/graph_solver.h"
 
 graph_t generate_example_graph(){
   graph_t g = initzialize_graph(9);
@@ -18,6 +19,7 @@ graph_t generate_example_graph(){
 
   //Node 1
   help_node = graph_add_node(g);
+  graph_add_path(help_node, 0, 1.4);
   graph_add_path(help_node, 2, 0.1);
   graph_add_path(help_node, 4, 2.3);
 
@@ -73,6 +75,38 @@ int main(int argc, char** argv){
     print_table(tab);
     //printf("\n%lf", print_shortest_path_from_to(tab, &(graph->nodes[0]), &(graph->nodes[8])));
 
+    printf("\n\n===========Example graph:\n");
+    graph = generate_example_graph();
+    print_graph(graph);
+    solver_check_graph_consistency(graph);
+    printf("\n\n===========20 graph:\n");
+    graph = generate_graph(20);
+    //print_graph(graph);
+    solver_check_graph_consistency(graph);
 
-  return 1;
+    printf("\n\n===========30 graph:\n");
+    graph = generate_graph(30);
+    //print_graph(graph);
+    solver_check_graph_consistency(graph);
+
+    printf("\n\n===========50 graph:\n");
+    graph = generate_graph(50);
+    //print_graph(graph);
+    solver_check_graph_consistency(graph);
+
+    printf("\n\n===========80 graph:\n");
+    graph = generate_graph(80);
+    //print_graph(graph);
+    solver_check_graph_consistency(graph);
+
+    printf("\n\n===========100 graph:\n");
+    graph = generate_graph(100);
+    //print_graph(graph);
+    solver_check_graph_consistency(graph);
+
+    printf("\n\n===========150 graph:\n");
+    graph = generate_graph(150);
+    //print_graph(graph);
+    solver_check_graph_consistency(graph);
+      return 1;
 }

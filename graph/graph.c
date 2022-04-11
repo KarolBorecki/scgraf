@@ -71,6 +71,10 @@ node_t graph_get_node_with_index(graph_t graph, unsigned index){
   return graph->nodes+index;
 }
 
+path_t graph_get_path_at_index(node_t node, unsigned index){
+  return (node->paths+index);
+}
+
 int graph_get_connection_value(node_t node, unsigned node2){
   path_t path;
   for(int i=0; i<graph_get_node_paths_count(node); i++){

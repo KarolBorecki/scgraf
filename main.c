@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "printer.h"
+#include "printer/printer.h"
 #include "errors/errors.h"
 #include "graph/graph.h"
 #include "Algorithms/BFS.h"
 #include "Algorithms/Dijkstra.h"
 #include "reader/graph_generator.h"
+#include "reader/user_input.h"
 
 void setup_menu(){
   initzialize_errors();
@@ -18,7 +19,7 @@ int main(int argc, char** argv){
   
   print_greetings();
 
-  throw_warning(default_value_warning, "");
-  throw_error(memory_error, "Not enough memory!");
+  batch_arguments_t arg = get_batch_arguments(argc, argv);
+  print_arguments(arg);
   return 1;
 }

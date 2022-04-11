@@ -7,7 +7,7 @@
 fifo_t initzialize_fifo(){
   fifo_t fifo = malloc(sizeof(*fifo));
   fifo->queue = malloc(START_QUEUE_SIZE * sizeof(*(fifo->queue)));
-  fifo->head = fifo->queue;
+  fifo->head = 0;
   fifo->memory_size = START_QUEUE_SIZE;
   fifo->size = 0;
   fifo->queue_size = 0;
@@ -26,7 +26,7 @@ void enlarge_fifo(fifo_t fifo, int enlrage_multiplier){
 }
 
 unsigned int fifo_head_index(fifo_t fifo){
-  return fifo->head - fifo->queue;
+  return fifo->head;
 }
 
 unsigned int fifo_queue_size(fifo_t fifo){
@@ -60,8 +60,12 @@ int fifo_contains_value(fifo_t fifo, unsigned int value, unsigned int search_sta
   return 0;
 }
 
+unsigned int* fifo_head(fifo_t fifo){
+  return fifo->queue + fifo_head_index(fifo);
+}
+
 unsigned int fifo_peek(fifo_t fifo){
-  return fifo_is_empty(fifo) > 0 ? -1 : *(fifo->head);
+  return fifo_is_empty(fifo) > 0 ? -1 : *fifo_head(fifo);
 }
 
 unsigned int fifo_pop(fifo_t fifo){
@@ -84,8 +88,7 @@ unsigned int fifo_get_at_index(fifo_t fifo, unsigned int index){
 void fifo_push(fifo_t fifo, unsigned int value){
   if(fifo_queue_size(fifo) >= fifo->memory_size)
     enlarge_fifo(fifo, FIFO_ENLARGE_MULTIPLIER);
-
-  fifo->queue[fifo_head_index(fifo) + fifo->size] = value;
+  fifo->queue[fifo_queue_size(fifo)] = value;
   fifo->size++;
   fifo->queue_size++;
 }
