@@ -15,6 +15,12 @@ void* realloc_block(void* ptr, size_t ptr_size, unsigned enlarger_muliplier){
   return new_p;
 }
 
+int is_element_in_array(unsigned* array, unsigned search_start, unsigned search_end, unsigned element){
+  for(int i=search_start; i<search_end; i++)
+    if(array[i] == element) return 1;
+  return 0;
+}
+
 void swap_elements(unsigned *p1, unsigned *p2){
     unsigned p3= *p1;
     *p1= *p2;

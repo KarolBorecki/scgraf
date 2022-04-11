@@ -57,10 +57,7 @@ int fifo_head_contains_value(fifo_t fifo, unsigned value){
 }
 
 int fifo_contains_value(fifo_t fifo, unsigned value, unsigned search_start, unsigned search_end){
-  for(int i=search_start; i<search_end; i++){
-    if(fifo_get_at_index(fifo, i) == value) return 1;
-  }
-  return 0;
+  return is_element_in_array(fifo->queue, search_start, search_end, value);
 }
 
 unsigned* fifo_head(fifo_t fifo){

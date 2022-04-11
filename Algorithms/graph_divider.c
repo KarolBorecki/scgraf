@@ -4,9 +4,23 @@
 #include <stdlib.h>
 #include <time.h>
 
-graph_t divide_graph(graph_t graph, unsigned divides){
-  unsigned graph_divide_point = rand() % graph_size(graph);
-  printf("Dzielenie grafu wzgledem punktu: %d\n", graph_divide_point);
+#include "../utils/utils.h"
+
+void divide_graph(graph_t graph, unsigned divides){
+  srand(time(NULL));
+  unsigned* graph_divide_points = malloc(divides * sizeof(*graph_divide_points));
+
+  for(int i=0; i<divides-1; i++){
+    do{
+      graph_divide_points[i] = rand() % graph_size(graph);
+      printf("losuje %d i dostalem = %d\n", i, graph_divide_points[i]);
+    }while(is_element_in_array(graph_divide_points, 0, (i>0 ? i-1 : 0), graph_divide_points[i]) == 1);
+    divide_graph_into_2(graph, graph_divide_points[i]);
+  }
+  free(graph_divide_points);
+}
+
+void divide_graph_into_2(graph_t graph, unsigned graph_divide_point){
   node_t node;
   node_t other_node;
   path_t path;

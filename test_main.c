@@ -92,7 +92,7 @@ int main(int argc, char** argv){
   print_graph(g);
   solver_check_graph_consistency(g);
 
-  divide_graph(g, 2);
+  divide_graph(g, atoi(argv[1]));
 
   print_graph(g);
   solver_check_graph_consistency(g);
