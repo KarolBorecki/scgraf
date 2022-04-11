@@ -67,6 +67,14 @@ void graph_remove_path_at_index(node_t node, unsigned index){
   node->paths_count--;
 }
 
+void graph_remove_path_with_connection(node_t node, unsigned connection){
+  for(int i=0; i<graph_get_node_paths_count(node); i++)
+    if(graph_get_path_at_index(node, i)->connection == connection){
+      graph_remove_path_at_index(node, i);
+      return;
+    }
+}
+
 node_t graph_get_node_at_index(graph_t graph, unsigned index){
   if(index>=graph_size(graph))
     throw_error(memory_error, "Out of bounds!");
