@@ -1,6 +1,4 @@
-#include "dijkstra.h"
-
-#include "../utils/utils.h"
+#include "Dijkstra.h"
 
 table_t_p initialize_start_table(graph_t graph, node_t start_node){
     table_t_p table_p= malloc(graph->size * sizeof(*table_p));
@@ -39,7 +37,7 @@ table_t_p run_dijkstra(graph_t graph, node_t start_node){
         fifo_push(que_to_visit, i);
 
     while(fifo_is_empty(que_to_visit) <= 0){
-        print_table(table);
+        //print_table(table);
         current_vertex = fifo_pop(que_to_visit);
         popped_from_que++;
         node_t help = graph_get_node_with_index(graph, current_vertex);
@@ -51,8 +49,9 @@ table_t_p run_dijkstra(graph_t graph, node_t start_node){
                 }
 
         }
-        if(popped_from_que != table->size)
-            sort_que(que_to_visit, start_node->index, table);
+        //if(popped_from_que != table->size)
+        //qsort_que(que_to_visit->queue, popped_from_que, table->size-1, table);
+        //sort_que(que_to_visit, *(que_to_visit->head), table);
     }
 
     return table;
@@ -65,18 +64,39 @@ void free_table(table_t_p table){
 }
 
 void sort_que(fifo_t que, unsigned start, table_t_p tab){
-    for(int i= start; i<que->size; i++){
-        for(int j= i+1; j<que->size; j++){
+    for(unsigned i= start; i<que->size; i++){
+        for(unsigned j= i+1; j<que->size; j++){
             if(tab->elements[que->queue[i]].shortest_distances > tab->elements[que->queue[j]].shortest_distances)
                 swap_elements(&que->queue[i], &que->queue[j]);
         }
     }
 }
 
-void swap_elements(unsigned *p1, unsigned int *p2){
-    unsigned p3= *p1;
-    *p1= *p2;
-    *p2= p3;
+void qsort_que(unsigned * que, unsigned start, unsigned end, table_t_p tab){
+    if (start < end){
+        unsigned pi = partition(que, start, end, tab);
+
+        qsort_que(que, start, pi - 1, tab);
+        qsort_que(que, pi + 1, end, tab);
+    }
+
+}
+
+unsigned partition (unsigned * arr, unsigned low, unsigned high, table_t_p tab)
+{
+    unsigned pivot = tab->elements[high].shortest_distances;    //ostatni element to pivot
+                                                                //porownywac elementy z tablicy arr bedziemy za
+                                                                //pomoca tab->elements[pivot].shortest_distances
+    unsigned i = (low - 1);
+
+    for (unsigned j = low; j <= high- 1; j++){
+        if (tab->elements[j].shortest_distances < pivot){
+                i++;
+                swap_elements(&(arr[i]), &(arr[j]));
+            }
+    }
+    swap_elements(&(arr[i+1]), &(arr[high]));
+    return (i + 1);
 }
 
 //start_node must be the same node, that Dijkstra' s table was created for

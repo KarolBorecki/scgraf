@@ -7,6 +7,7 @@
 #include <limits.h>
 #include "../FIFO/fifo.h"
 #include "../graph/graph.h"
+#include "../utils/utils.h"
 
 #define INVALID_NODE    UINT_MAX
 #define INF             DBL_MAX
@@ -31,5 +32,7 @@ double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t de
 
 void swap_elements(unsigned *pointer1, unsigned *pointer2);
 void sort_que(fifo_t que, unsigned start, table_t_p tab);
+void qsort_que(unsigned * que, unsigned start, unsigned end, table_t_p tab);
+unsigned partition (unsigned * arr, unsigned low, unsigned high, table_t_p tab);
 
 #endif /* _DIJKSTRA_H_ */

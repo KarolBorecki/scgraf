@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "graph/graph.h"
-#include "algorithms/bfs.h"
-#include "reader/graph_generator.h"
+#include "../graph/graph.h"
+#include "../reader/graph_generator.h"
+#include "../algorithms/BFS.h"
+#include "../algorithms/Dijkstra.h"
+#include "../reader/graph_generator.h"
 
 graph_t generate_example_graph(){
   graph_t g = initzialize_graph(9);
@@ -60,8 +62,17 @@ graph_t generate_example_graph(){
 }
 
 int main(int argc, char** argv){
-  graph_t graph = generate_graph(5);
+    graph_t graph= generate_graph(20);//generate_example_graph();//
+    print_graph(graph);
+    printf("%d -> bfs\n", bfs(graph, graph->nodes[0].index));
+    /*do{
+        graph =
+    }while(!bfs(graph, graph->nodes[0].index));*/
+    printf("%d\n", bfs(graph, graph->nodes[0].index));
+    table_t_p tab= run_dijkstra(graph, &(graph->nodes[0]));
+    print_table(tab);
+    //printf("\n%lf", print_shortest_path_from_to(tab, &(graph->nodes[0]), &(graph->nodes[8])));
 
-  print_graph(graph);
+
   return 1;
 }
