@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 graph_t initzialize_graph(unsigned nodes_count){
   graph_t graph = malloc(sizeof(*graph));
@@ -13,13 +14,19 @@ graph_t initzialize_graph(unsigned nodes_count){
 }
 
 void enlarge_graph_nodes_memory(graph_t graph, unsigned enlrage_multiplier){
-  graph->memory_size *= enlrage_multiplier;
-  graph->nodes = realloc(graph->nodes, graph->memory_size);
+  unsigned new_mem_size = graph->memory_size * enlrage_multiplier;
+  node_t new_p = realloc(graph->nodes, new_mem_size * sizeof(*graph->nodes));
+  memcpy(new_p, graph->nodes, graph->size * sizeof(*graph->nodes));
+  graph->memory_size = new_mem_size;
+  graph->nodes = new_p;
 }
 
 void enlarge_graph_paths_memory(node_t node, unsigned enlrage_multiplier){
-  node->paths_memory_size *= enlrage_multiplier;
-  node->paths = realloc(node->paths, node->paths_memory_size);
+  unsigned new_mem_size = node->paths_memory_size * enlrage_multiplier;
+  path_t new_p = realloc(node->paths, new_mem_size * sizeof(*node->paths));
+  memcpy(new_p, node->paths, node->paths_count * sizeof(*node->paths));
+  node->paths_memory_size = new_mem_size;
+  node->paths = new_p;
 }
 
 void clean_graph(graph_t graph){

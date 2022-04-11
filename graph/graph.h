@@ -10,7 +10,7 @@ typedef struct path{
 } *path_t;
 
 typedef struct node{
-  unsigned int index; /* index in array of graph_t->nodes */
+  unsigned index; /* index in array of graph_t->nodes */
   path_t paths;
   unsigned paths_count;
   unsigned paths_memory_size;
@@ -22,7 +22,7 @@ typedef struct graph{
   unsigned memory_size;
 } *graph_t;
 
-graph_t initzialize_graph(unsigned int nodes_count);
+graph_t initzialize_graph(unsigned nodes_count);
 void enlarge_graph_nodes_memory(graph_t graph, unsigned enlrage_multiplier);
 void enlarge_graph_paths_memory(node_t node, unsigned enlrage_multiplier);
 

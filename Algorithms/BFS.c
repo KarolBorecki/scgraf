@@ -5,7 +5,7 @@
 #include "../FIFO/fifo.h"
 #include "../graph/graph.h"
 
-int bfs(graph_t graph, unsigned int start_node_index){
+int bfs(graph_t graph, unsigned start_node_index){
   node_t start_node = graph_get_node_at_index(graph, start_node_index);
   fifo_t q = initzialize_fifo();
   fifo_push(q, start_node->index);

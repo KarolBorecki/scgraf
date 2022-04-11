@@ -8,9 +8,7 @@ void solver_get_shortest_path(graph_t graph, unsigned from, unsigned to){
 }
 
 void solver_check_graph_consistency(graph_t graph){
-  printf("solver_check_graph_consistency 1\n");
   int consistent = bfs(graph, 0);
-  printf("solver_check_graph_consistency 2\n");
   if(consistent > 0) printf("GRAF SPOJNY!\n");
   else printf("GRAF niespojny!\n");
 }

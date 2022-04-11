@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "graph/graph.h"
 #include "reader/graph_generator.h"
@@ -7,7 +8,6 @@
 #include "algorithms/dijkstra.h"
 #include "reader/graph_generator.h"
 #include "solver/graph_solver.h"
-
 #include "printer/printer.h"
 #include "errors/errors.h"
 #include "reader/user_input.h"
@@ -86,40 +86,12 @@ graph_t generate_example_graph_circle(int size){
 }
 
 int main(int argc, char** argv){
-  graph_t graph;
-  /*
-    graph_t graph= generate_graph(20);//generate_example_graph();//
-    print_graph(graph);
-    printf("%d -> bfs\n", bfs(graph, graph->nodes[0].index));
-    do{
-        graph =
-    }while(!bfs(graph, graph->nodes[0].index));
-    printf("%d\n", bfs(graph, graph->nodes[0].index));
-    table_t_p tab= run_dijkstra(graph, &(graph->nodes[0]));
-    print_table(tab);
-    //printf("\n%lf", print_shortest_path_from_to(tab, &(graph->nodes[0]), &(graph->nodes[8])));
-*/
-    printf("\n\n===========Example graph:\n");
-    graph = generate_example_graph();
-    print_graph(graph);
-    solver_check_graph_consistency(graph);
-    print_graph(graph);
-    clean_graph(graph);
+  fifo_t fifo = initzialize_fifo();
+  srand(time(NULL));
 
-
-    printf("\n\n=========== graph:\n");
-    graph = generate_example_graph_circle(atoi(argv[1]));
-    printf("Graf zbudowany\n");
-    solver_check_graph_consistency(graph);
-    printf("Graf rozwiazny\n");
-    clean_graph(graph);
-
-    printf("\n\n=========== graph:\n");
-    graph = generate_example_graph_circle(atoi(argv[1]));
-    printf("Graf zbudowany\n");
-    solver_check_graph_consistency(graph);
-    printf("Graf rozwiazny\n");
-    clean_graph(graph);
-
+  for(int i=0;i<atoi(argv[1]); i++)
+    fifo_push(fifo, i);
+  
+  clean_fifo(fifo);
     return 1;
 }
