@@ -11,7 +11,7 @@ int bfs(graph_t graph, unsigned int start_node_index){
   fifo_push(q, start_node->index);
   node_t actual_node;
   while(fifo_is_empty(q) <= 0){
-    print_fifo(q);
+    //print_fifo(q);
     actual_node = graph_get_node_with_index(graph, fifo_peek(q));
     bfs_add_distinct_connections_of_node_to_queue(q, actual_node);
     fifo_pop(q);
