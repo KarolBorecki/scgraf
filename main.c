@@ -32,6 +32,27 @@ int main(int argc, char** argv){
 
   batch_arguments_t arg = get_batch_arguments(argc, argv);
   print_arguments(arg);
+  /*
+  CO MOZE WYWOLAC UZYTKOWNIK:
+  -znalezc najkrotsza droge w grafie
+    WARUNKI:
+      *Podanie -from lub -to (Jezeli nie poda ktoregos z nich to wywolanie z domyslnym arg)
+      *[Podanie in] - zaladuje z pliku (jesli nie poda to z konsoli)
+      *[Podanie out] - wpisze wynik do pliku (jesli nie poda to wypisze na konsole)
+  -sprawdzic czy podany graf jest SPOJNY
+    WARUNKI:
+      *Podanie -sp
+      *[Podanie in] - zaladuje z pliku (jesli nie poda to z konsoli)
+  -podzielic graf na n grafow
+    WARUNKI:
+      *Podanie -n (divides)
+      *[Podanie in] - zaladuje z pliku (jesli nie poda to z konsoli)
+      *[Podanie out] - wpisze wynik do pliku (jesli nie poda to wypisze na konsole)
+  -wygenerowac losowy graf
+    WARUNKI:
+      *Podanie -x -y (Jezeli nie poda ktoregos z nich to wywolanie z domyslnym arg)
+      *[Podanie out] - wpisze wynik do pliku (jesli nie poda to wypisze na konsole)
+  */
 
   //if(arg->in != NULL) -> wczytaj GRAF
   //if(x != Null && y != null) -> generuj GRAF

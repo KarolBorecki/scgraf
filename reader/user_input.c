@@ -68,14 +68,14 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
 
 void print_arguments(batch_arguments_t arg){
   printf("\n=========Arguments=========\n\n");
-  printf("    IN   = %s\n", arg->in);
-  printf("    OUT  = %s\n", arg->out);
-  printf("    FROM = %d\n", arg->from);
-  printf("    TO   = %d\n", arg->to);
-  printf("    X    = %d\n", arg->x);
-  printf("    Y    = %d\n", arg->y);
-  printf("    N    = %d\n", arg->n);
-  printf("    SP   = %d\n", arg->sp);
+  printf("    IN      = %s\n", arg->in);
+  printf("    OUT     = %s\n", arg->out);
+  printf("    FROM    = %d\n", arg->from);
+  printf("    TO      = %d\n", arg->to);
+  printf("    X       = %d\n", arg->x);
+  printf("    Y       = %d\n", arg->y);
+  printf("    N       = %d\n", arg->n);
+  printf("    SP      = %d\n", arg->sp);
   printf("\n=========Arguments=========\n\n");
 
 }
