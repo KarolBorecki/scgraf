@@ -23,8 +23,8 @@ typedef struct graph{
 } *graph_t;
 
 graph_t initzialize_graph(unsigned nodes_count);
-void enlarge_graph_nodes_memory(graph_t graph, unsigned enlrage_multiplier);
-void enlarge_graph_paths_memory(node_t node, unsigned enlrage_multiplier);
+void enlarge_graph_nodes_memory(graph_t graph, unsigned enlarge_multiplier);
+void enlarge_graph_paths_memory(node_t node, unsigned enlarge_multiplier);
 
 void clean_graph(graph_t graph);
 

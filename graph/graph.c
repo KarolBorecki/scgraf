@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../utils/utils.h"
+
 graph_t initzialize_graph(unsigned nodes_count){
   graph_t graph = malloc(sizeof(*graph));
   graph->size = 0;
@@ -13,20 +15,14 @@ graph_t initzialize_graph(unsigned nodes_count){
   return graph;
 }
 
-void enlarge_graph_nodes_memory(graph_t graph, unsigned enlrage_multiplier){
-  unsigned new_mem_size = graph->memory_size * enlrage_multiplier;
-  node_t new_p = realloc(graph->nodes, new_mem_size * sizeof(*graph->nodes));
-  memcpy(new_p, graph->nodes, graph->size * sizeof(*graph->nodes));
-  graph->memory_size = new_mem_size;
-  graph->nodes = new_p;
+void enlarge_graph_nodes_memory(graph_t graph, unsigned enlarge_multiplier){
+  graph->nodes = realloc_block(graph->nodes, graph->memory_size * sizeof(*(graph->nodes)), enlarge_multiplier);
+  graph->memory_size *= enlarge_multiplier;
 }
 
-void enlarge_graph_paths_memory(node_t node, unsigned enlrage_multiplier){
-  unsigned new_mem_size = node->paths_memory_size * enlrage_multiplier;
-  path_t new_p = realloc(node->paths, new_mem_size * sizeof(*node->paths));
-  memcpy(new_p, node->paths, node->paths_count * sizeof(*node->paths));
-  node->paths_memory_size = new_mem_size;
-  node->paths = new_p;
+void enlarge_graph_paths_memory(node_t node, unsigned enlarge_multiplier){
+  node->paths = realloc_block(node->paths, node->paths_memory_size * sizeof(*(node->paths)), enlarge_multiplier);
+  node->paths_memory_size *= enlarge_multiplier;
 }
 
 void clean_graph(graph_t graph){

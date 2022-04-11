@@ -86,12 +86,8 @@ graph_t generate_example_graph_circle(int size){
 }
 
 int main(int argc, char** argv){
-  fifo_t fifo = initzialize_fifo();
-  srand(time(NULL));
-
-  for(int i=0;i<atoi(argv[1]); i++)
-    fifo_push(fifo, i);
-  
-  clean_fifo(fifo);
-    return 1;
+  graph_t g = generate_example_graph_circle(atoi(argv[1]));
+  solver_check_graph_consistency(g);
+  clean_graph(g);
+  return 1;
 }

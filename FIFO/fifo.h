@@ -1,7 +1,7 @@
 #ifndef _FIFO_H_
 #define _FIFO_H_
 
-#define START_QUEUE_SIZE 20
+#define START_QUEUE_SIZE 4
 #define FIFO_ENLARGE_MULTIPLIER 2
 
 typedef struct fifo{

@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../errors/errors.h"
+#include "../utils/utils.h"
+
 fifo_t initzialize_fifo(){
   fifo_t fifo = malloc(sizeof(*fifo));
   fifo->queue = malloc(START_QUEUE_SIZE * sizeof(*(fifo->queue)));
@@ -21,11 +24,8 @@ void clean_fifo(fifo_t fifo){
 }
 
 void enlarge_fifo(fifo_t fifo, unsigned enlrage_multiplier){
-  unsigned new_mem_size = fifo->memory_size * enlrage_multiplier;
-  unsigned* new_p = realloc(fifo->queue, new_mem_size * sizeof(*fifo->queue));
-  memcpy(new_p, fifo->queue, fifo->queue_size * sizeof(*fifo->queue));
-  fifo->memory_size = new_mem_size;
-  fifo->queue = new_p;
+  fifo->queue = realloc_block(fifo->queue, fifo->memory_size * sizeof(*(fifo->queue)), enlrage_multiplier);
+  fifo->memory_size *= enlrage_multiplier;
 }
 
 unsigned fifo_head_index(fifo_t fifo){
@@ -86,8 +86,10 @@ unsigned fifo_get_at_index(fifo_t fifo, unsigned index){
 }
 
 void fifo_push(fifo_t fifo, unsigned value){
+
   if(fifo_queue_size(fifo) >= fifo->memory_size)
     enlarge_fifo(fifo, FIFO_ENLARGE_MULTIPLIER);
+
   *(fifo->queue+fifo_queue_size(fifo)) = value;
   fifo->size++;
   fifo->queue_size++;
