@@ -1,10 +1,10 @@
 #include "../errors/errors.h"
 
-#include "../printer/printer.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "../printer/printer.h"
 
 void initzialize_errors(){
   unknown_error            = new_error(0, "Unknown error");
@@ -29,7 +29,7 @@ void initzialize_warnings(){
 error_t new_error(unsigned code, char* msg){
   error_t new_err = malloc(sizeof(*new_err));
   new_err->code = code;
-  new_err->msg = malloc(MAX_MSG_LENGTH);
+  new_err->msg = malloc(MAX_ERR_MSG_LENGTH);
   strcpy(new_err->msg, msg);
 
   return new_err;
@@ -38,7 +38,7 @@ error_t new_error(unsigned code, char* msg){
 warning_t new_warning(unsigned code, char* msg){
   warning_t new_war = malloc(sizeof(*new_war));
   new_war->code = code;
-  new_war->msg = malloc(MAX_MSG_LENGTH);
+  new_war->msg = malloc(MAX_ERR_MSG_LENGTH);
   strcpy(new_war->msg, msg);
 
   return new_war;

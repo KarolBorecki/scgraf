@@ -1,7 +1,7 @@
 #ifndef _ERRORS_H_
 #define _ERRORS_H_
 
-#define MAX_MSG_LENGTH 20
+#define MAX_ERR_MSG_LENGTH 20 /* TODO maybe make config file for #defines values */
 
 typedef struct error{
   unsigned code;

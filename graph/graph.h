@@ -1,6 +1,7 @@
 #ifndef _GRAPH_H_
 #define _GRAPH_H_
 
+/* TODO maybe make config file for #defines values */
 #define START_NODES_PATHS_COUNT 5
 #define GRAPH_ENLARGE_MULTIPLIER 2
 

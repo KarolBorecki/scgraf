@@ -1,6 +1,5 @@
 #include "graph_divider.h"
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 

@@ -1,7 +1,5 @@
 #include "bfs.h"
 
-#include <stdio.h>
-
 #include "../FIFO/fifo.h"
 #include "../graph/graph.h"
 

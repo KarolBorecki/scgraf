@@ -92,7 +92,13 @@ void fifo_push(fifo_t fifo, unsigned value){
 }
 
 void print_fifo(fifo_t fifo){
-  printf("\n=========FIFO=========\n\n");
+  set_font(PINK);
+  set_font(BOLD);
+  printf("\n");
+  print_in_center("FIFO");
+  printf("\n");
+  set_font(WHITE);
+  set_font(PINK);
   printf("    Size: %d \n", fifo_size(fifo));
   printf("    Memory: %d elements, %lu bytes per element, %lu bytes used\n\n", fifo->memory_size, sizeof(*(fifo->queue)), fifo->memory_size*sizeof(*(fifo->queue)));
   printf("Queue:\n");
@@ -101,6 +107,10 @@ void print_fifo(fifo_t fifo){
     if(i == fifo_head_index(fifo)) printf(" <-HEAD");
     printf("\n");
   }
-
-  printf("\n\n=========FIFO=========\n\n");
+  set_font(PINK);
+  set_font(BOLD);
+  printf("\n");
+  print_in_center("FIFO");
+  printf("\n");
+  set_font(WHITE);
 }

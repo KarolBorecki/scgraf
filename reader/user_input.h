@@ -1,7 +1,8 @@
 #ifndef _USER_INPUT_H_
 #define _USER_INPUT_H_
 
-#define MAX_FILE_NAME_LEN 256 /* TODO propably should be in utils.h */
+/* TODO maybe make config file for #defines values */
+#define MAX_FILE_NAME_LEN 256
 
 #define DEFAULT_FROM 0
 #define DEFAULT_TO 10

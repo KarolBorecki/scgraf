@@ -10,7 +10,7 @@ void set_font(char* font){
 }
 
 void print_in_center(char* str){
-  unsigned len = CENTER_LEN - strlen(str);
+  unsigned len = CONSOLE_OUTPUT_LEN - strlen(str);
   for(int i=0; i<len/2; i++)
     printf("=");
   printf("%s", str);

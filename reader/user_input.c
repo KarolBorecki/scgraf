@@ -1,12 +1,12 @@
 #include "user_input.h"
 
-#include "../errors/errors.h"
-#include "../printer/printer.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <getopt.h>
+
+#include "../errors/errors.h"
+#include "../printer/printer.h"
 
 batch_arguments_t initzialize_arguments_struct(){
   batch_arguments_t arg = malloc(sizeof(*arg));

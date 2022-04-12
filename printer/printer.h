@@ -1,7 +1,8 @@
 #ifndef _PRINTER_H_
 #define _PRINTER_H_
 
-#define CENTER_LEN 80
+/* TODO maybe make config file for #defines values */
+#define CONSOLE_OUTPUT_LEN 80
 
 #define WHITE      "\033[0m"
 #define GREY       "\033[37m"

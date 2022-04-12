@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <float.h>
 #include <limits.h>
+
 #include "../FIFO/fifo.h"
 #include "../graph/graph.h"
 #include "../utils/utils.h"

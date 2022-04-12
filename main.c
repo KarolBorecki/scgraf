@@ -1,20 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "printer/printer.h"
-#include "errors/errors.h"
-#include "graph/graph.h"
-#include "algorithms/bfs.h"
-#include "algorithms/dijkstra.h"
-#include "reader/graph_generator.h"
+#include "solver/graph_solver.h"
 #include "reader/user_input.h"
 #include "reader/file_reader.h"
-#include "solver/graph_solver.h"
-
-void setup_menu(){
-  initzialize_errors();
-  initzialize_warnings();
-}
+#include "reader/graph_generator.h"
+#include "graph/graph.h"
+#include "printer/printer.h"
 
 graph_t generate_example_graph(){
     graph_t g = initzialize_graph(9);
@@ -74,7 +66,8 @@ graph_t generate_example_graph(){
 int main(int argc, char** argv){
   graph_t graph;
 
-  setup_menu();
+  initzialize_errors();
+  initzialize_warnings();
   print_greetings();
 
   batch_arguments_t arg = get_batch_arguments(argc, argv);
@@ -93,17 +86,13 @@ int main(int argc, char** argv){
     //graph = get_graph_from_input(arg->in);
   }
 
-  if(arg->execute == SHORTEST_PATH){
-
+  if(arg->execute == SHORTEST_PATH)
     solver_get_shortest_path(graph, arg->from, arg->to);
-  }
-  else if(arg->execute == CHECK_CONSISTENCY){
-
+  else if(arg->execute == CHECK_CONSISTENCY)
     solver_check_graph_consistency(graph, arg->from);
-  }
-  else if(arg->execute == DIVIDE_GRAPH){
+  else if(arg->execute == DIVIDE_GRAPH)
     solver_divide_graph_into_n_graphs(graph, arg->n);
-  }
+
 
   if(arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE){
     if(strcmp(arg->out, "") != 0) printf("TUTAJ OBSLUZYC ZAPIS DO PLIKU!\n");

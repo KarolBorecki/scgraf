@@ -12,9 +12,7 @@ void solver_get_shortest_path(graph_t graph, unsigned from, unsigned to){
 
 void solver_check_graph_consistency(graph_t graph, unsigned start){
   print_consistency_greeting(start);
-
   int consistent = bfs(graph, start);
-
   print_graph_consistent_result(consistent);
 }
 
