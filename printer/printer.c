@@ -10,7 +10,7 @@ void set_font(char* font){
 
 void print_greetings(){
   set_font(BOLD);
-  printf("===============scgraf===============\n\n");
+  printf("===============SCGRAF===============\n\n");
   set_font(WHITE);
 }
 
@@ -20,4 +20,33 @@ void print_help(){
   printf("TODO ->>>> scrgraf help <<<<- TODO\n");
   set_font(WHITE);
   exit_program_normal();
+}
+
+void print_consistency_greeting(unsigned start){
+  set_font(BOLD);
+  printf("\nChecking graph consistency starting from node %d...\n\n", start);
+  set_font(WHITE);
+}
+
+void print_shortest_path_greeting(unsigned from, unsigned to){
+  set_font(BOLD);
+  printf("\nLooking for shortest path from node %d to node %d...\n\n", from, to);
+  set_font(WHITE);
+}
+
+void print_graph_division_greeting(unsigned divisions){
+  set_font(BOLD);
+  printf("\nDividing graph into %d subgraphs...\n\n", divisions);
+  set_font(WHITE);
+}
+
+void print_graph_consistent_result(int result){
+  if(result > 1){
+    set_font(GREEN);
+    printf("Graph is consistent!\n\n");
+  }else{
+    set_font(RED);
+    printf("Graph is inconsistent!\n\n");
+  }
+  set_font(WHITE);
 }

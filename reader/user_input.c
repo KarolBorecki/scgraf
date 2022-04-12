@@ -107,13 +107,13 @@ void print_arguments(batch_arguments_t arg){
   set_font(LIGHT_BLUE);
   printf("\n=========Arguments=========\n\n");
   printf("    EXECUTING : %s\n", get_string_from_functionallity(arg->execute));
-  printf("    IN        : %s\n", arg->in);
-  printf("    OUT       : %s\n", arg->out);
-  printf("    FROM      : %d\n", arg->from);
-  printf("    TO        : %d\n", arg->to);
-  printf("    X         : %d\n", arg->x);
-  printf("    Y         : %d\n", arg->y);
-  printf("    N         : %d\n", arg->n);
+  printf("    IN        : %s\n", strcmp(arg->in, "") == 0 ? "-" : arg->in);
+  printf("    OUT       : %s\n", strcmp(arg->out, "") == 0 ? "-" : arg->out);
+  printf("    FROM      : %d\n", arg->from == VALUE_NOT_SPECIFIED ? DEFAULT_FROM : arg->from);
+  printf("    TO        : %d\n", arg->to == VALUE_NOT_SPECIFIED ? DEFAULT_TO : arg->to);
+  printf("    X         : %d\n", arg->x == VALUE_NOT_SPECIFIED ? DEFAULT_X : arg->x);
+  printf("    Y         : %d\n", arg->y == VALUE_NOT_SPECIFIED ? DEFAULT_Y : arg->y);
+  printf("    N         : %d\n", arg->n == VALUE_NOT_SPECIFIED ? DEFAULT_N : arg->n);
   printf("\n=========Arguments=========\n\n");
   set_font(WHITE);
 }
