@@ -13,8 +13,13 @@ graph_t initzialize_graph(unsigned nodes_count){
   graph->size = 0;
   graph->nodes = malloc(nodes_count * sizeof(*(graph->nodes)));
   graph->memory_size = nodes_count;
+  graph->max_path_value = 3;
 
   return graph;
+}
+
+void graph_set_max_path_value(graph_t graph, double value){
+  graph->max_path_value = value;
 }
 
 void enlarge_graph_nodes_memory(graph_t graph, unsigned enlarge_multiplier){
@@ -123,7 +128,7 @@ path_t graph_get_path_for_node_index(node_t node_from, unsigned destination_node
     for(int i= 0; i<node_from->paths_count; i++)
         if(node_from->paths[i].connection == destination_node_index)
             return &(node_from->paths[i]);
-    
+
     return NULL;
 }
 
@@ -144,13 +149,13 @@ void graph_convert_directed_to_undirected(graph_t graph){
 }
 
 void print_graph(graph_t graph){
-  set_font(BLUE);
+  set_font(LIGHT_BLUE);
   set_font(BOLD);
   printf("\n");
   print_in_center("Graph");
   printf("\n");
   set_font(WHITE);
-  set_font(BLUE);
+  set_font(LIGHT_BLUE);
   printf("    Nodes: %d \n", graph->size);
   printf("    Memory: %d size, %lu bytes per node, %lu bytes used \n\n",
   graph->memory_size,
@@ -165,12 +170,21 @@ void print_graph(graph_t graph){
     printf("   %d) %d -> ", i, n->index);
     for(int j=0; j<graph_get_node_paths_count(n); j++){
       p = graph_get_path_at_index(n, j);
-      printf("%d(%.4f)", p->connection, p->value);
+      printf("%d(", p->connection);
+      if(p->value <= graph->max_path_value)
+        set_font(RED);
+      if(p->value < graph->max_path_value*2/3)
+        set_font(YELLOW);
+      if(p->value < graph->max_path_value/3)
+        set_font(GREEN);
+      printf("%.4f", p->value);
+      set_font(LIGHT_BLUE);
+      printf(")");
       if(j != n->paths_count-1) printf(" - ");
     }
     printf("\n");
   }
-  set_font(BLUE);
+  set_font(LIGHT_BLUE);
   set_font(BOLD);
   printf("\n");
   print_in_center("Graph");
