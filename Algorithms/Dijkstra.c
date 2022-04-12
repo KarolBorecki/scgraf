@@ -1,5 +1,4 @@
-#include "Dijkstra.h"
-
+#include "dijkstra.h"
 
 table_t_p initialize_start_table(graph_t graph, node_t start_node, unsigned mode_2){
     table_t_p table_p= malloc(graph->size * sizeof(*table_p));

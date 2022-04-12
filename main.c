@@ -85,7 +85,7 @@ int main(int argc, char** argv){
     print_help();
 
   if(arg->execute == GENERATE){
-    printf("TUTAJ OBSLUZYC GENEROWANIE GRAFU O WIELKOSCI %d (tak naprawde teraz to generuje przykladowy)\n", arg->n); //TODO implemente generate_graph;
+    printf("TUTAJ OBSLUZYC GENEROWANIE GRAFU O WIELKOSCI %d x %d (tak naprawde teraz to generuje przykladowy)\n", arg->x, arg->y); //TODO implemente generate_graph;
     graph = generate_example_graph();
   } else {
     printf("TUTAJ OBSLUZYC CZYTANIE GRAFU Z PLIKU %s (tak naprawde teraz to generuje przykladowy)\n", arg->in); //TODO implemente read_graph_from_file;
