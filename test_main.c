@@ -11,7 +11,7 @@
 #include "../reader/file_reader.h"
 #include "../reader/data_reader.h"
 
-graph_t generate_example_graph(){
+graph_t generate_ewidthample_graph(){
     graph_t g = initzialize_graph(9);
 
     node_t help_node;
@@ -66,7 +66,7 @@ graph_t generate_example_graph(){
     return g;
 }
 
-graph_t generate_example_graph_circle(int size){
+graph_t generate_ewidthample_graph_circle(int size){
     graph_t graph= initzialize_graph(size);
 
     node_t help_n;
@@ -84,7 +84,7 @@ graph_t generate_example_graph_circle(int size){
     return graph;
 }
 
-graph_t generate_example_graph_2(){
+graph_t generate_ewidthample_graph_2(){
     graph_t g = initzialize_graph(6);
     node_t help;
 
@@ -121,7 +121,7 @@ graph_t generate_example_graph_2(){
     return g;
 }
 
-graph_t generate_example_graph_mesh(){
+graph_t generate_ewidthample_graph_mesh(){
     graph_t g = initzialize_graph(6);
     node_t help;
 
@@ -157,8 +157,8 @@ graph_t generate_example_graph_mesh(){
 }
 
 int main(int argc, char** argv){
-    graph_t graph= generate_example_graph_circle(20);//
-    graph= generate_example_graph_2();
+    graph_t graph= generate_ewidthample_graph_circle(20);//
+    graph= generate_ewidthample_graph_2();
     solver_check_graph_consistency(graph);
     //print_graph(graph);
 
@@ -169,16 +169,19 @@ int main(int argc, char** argv){
     print_table(tab);
 
 
-    unsigned int x, y;
-    graph= get_graph_from_file("../test_files/mygraph", &y, &x);
+    unsigned int width, height;
+    graph= get_graph_from_file("../test_files/mygraph", &width, &height);
     print_graph(graph);
 
-    graph_t graph_mesh= generate_example_graph_mesh();
+    graph_t graph_mesh= generate_ewidthample_graph_mesh();
 
-    printf("Dimensions of a graph: %d[width] x %d[height]\n", x, y);
-    printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph, x, y));
-    printf("Dimensions of a graph: %d[width] x %d[height]\n", y, x);
-    printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph, y, x));
+    printf("Dimensions of a graph: %d[width] x %d[height]\n", width, height);
+    printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph, width, height));
+    printf("Dimensions of a graph: %d[width] x %d[height]\n", height, width);
+    printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph, height, width));
+    printf("Dimensions of a graph: %d[width] x %d[height]\n", 3, 2);
     printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph_mesh, 3, 2));
+    printf("Dimensions of a graph: %d[width] x %d[height]\n", 2, 3);
+    printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph_mesh, 2, 3));
     return 1;
 }

@@ -12,21 +12,21 @@ graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * d
     node_t help_node;
     graph_t graph;
 
-    unsigned x, y, lines= 0, amount_of_nodes, max_node_index;
+    unsigned width, height, lines= 0, amount_of_nodes, max_node_index;
     char msg[WARNING_SIZE];
     char line[MAXBUF];
 
     fgets(line, MAXBUF, IN);
     //printf("%s", line);
 
-    if(sscanf(line, "%d %d", &x, &y) == 2){
+    if(sscanf(line, "%d %d", &width, &height) == 2){
         lines++;
-        if(x <= 0 || y <= 0) {
+        if(width <= 0 || height <= 0) {
             sprintf(msg, "not positive dimensions of graph in line: %d", lines);
             //throw_error(invalid_value_error, msg);
             return NULL;
         }
-        amount_of_nodes = x * y;
+        amount_of_nodes = width * height;
         max_node_index  = amount_of_nodes - 1;
         graph= initzialize_graph(amount_of_nodes);
     }else{
@@ -35,7 +35,7 @@ graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * d
         return NULL;
     }
 
-    for(int i= 0; i < x * y; i++) {
+    for(int i= 0; i < amount_of_nodes; i++) {
         unsigned node_index, read_nodes, offset1;
         double value;
         fgets(line, MAXBUF, IN);
@@ -73,10 +73,10 @@ graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * d
     printf("\n====READING FINISHED====\n"
            "Declared size: %d x %d\n"
            "Read lines: %d\n"
-           "Read nodes: %d\n",x ,y ,lines, amount_of_nodes);
+           "Read nodes: %d\n", width, height, lines, amount_of_nodes);
 
-    *dim_width=     x;
-    *dim_height=    y;
+    *dim_width=     width;
+    *dim_height=    height;
     return graph;
 }
 
