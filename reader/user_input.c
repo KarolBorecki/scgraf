@@ -10,6 +10,7 @@
 
 batch_arguments_t initzialize_arguments_struct(){
   batch_arguments_t arg = malloc(sizeof(*arg));
+  arg->execute = UNKNOWN;
   arg->in = malloc(MAX_FILE_NAME_LEN);
   arg->out = malloc(MAX_FILE_NAME_LEN);
   arg->from = 0;
@@ -72,8 +73,10 @@ enum functionality get_functionallity_from_string(char* str){
     return CHECK_CONSISTENCY;
   else if(strcmp(str, "divide") == 0)
     return DIVIDE_GRAPH;
+  else if(strcmp(str, "generate") == 0)
+    return GENERATE;
   else
-    throw_error(invalid_value_error, "Specified invalid functionallity on argument -e!");
+    throw_warning(default_value_warning, "Specified invalid functionallity on argument -e!");
   return UNKNOWN;
 }
 
@@ -84,7 +87,10 @@ char* get_string_from_functionallity(enum functionality func){
     return "Checking graph consistency";
   else if(func==DIVIDE_GRAPH)
     return "Dividing graph";
-  else return "Unknown";
+  else if(func==GENERATE)
+    return "Generating graph";
+
+  return "Unknown";
 }
 
 void print_arguments(batch_arguments_t arg){

@@ -1,11 +1,12 @@
-#ifndef SCGRAF_FILE_READER_H
-#define SCGRAF_FILE_READER_H
+#ifndef _SCGRAF_FILE_READER_H_
+#define _SCGRAF_FILE_READER_H_
 
 #include <stdio.h>
-#include "../graph/graph.h"
-#include "../errors/errors.h"
 #include <string.h>
 #include <stdlib.h>
+
+#include "../graph/graph.h"
+#include "../errors/errors.h"
 
 #define MAXBUF      2000
 #define MAXLINES    1000
@@ -20,4 +21,4 @@ int is_value_valid(double value);
 int check_if_empty(char * line);
 int read_all_nodes_from_line(char * line);
 
-#endif //SCGRAF_FILE_READER_H
+#endif /* _SCGRAF_FILE_READER_H_ */

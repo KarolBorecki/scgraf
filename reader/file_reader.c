@@ -1,5 +1,7 @@
 #include "../reader/file_reader.h"
 
+#include <limits.h>
+
 FILE * open_file(char * file_name){
     FILE * IN = fopen(file_name, "r");
     return IN;
@@ -117,4 +119,3 @@ int read_all_nodes_from_line(char * line){
     }
     return read_nodes;
 }
-

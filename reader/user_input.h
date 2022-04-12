@@ -3,7 +3,7 @@
 
 #define MAX_FILE_NAME_LEN 256
 
-enum functionality{SHORTEST_PATH, CHECK_CONSISTENCY, DIVIDE_GRAPH, UNKNOWN};
+enum functionality{UNKNOWN, SHORTEST_PATH, CHECK_CONSISTENCY, DIVIDE_GRAPH, GENERATE};
 
 typedef struct batch_arguments{
   enum functionality execute;
