@@ -116,13 +116,9 @@ void graph_make_existing_path_two_way(graph_t graph, unsigned node_index, unsign
     path_t path_to_connection= graph_get_path_for_node_index(&(graph->nodes[node_index]), connection);
     path_t path_to_node= graph_get_path_for_node_index(&(graph->nodes[connection]), node_index);
 
-    printf("%d [%lf] connected to %d [%lf]\n\n",    path_to_node->connection, path_to_node->value,
-                                                    path_to_connection->connection, path_to_connection->value);
-
     if( path_to_node != NULL && path_to_connection != NULL) {
         path_to_connection->value= path_to_node->value;
     }
-
 }
 
 void graph_convert_directed_to_undirected(graph_t graph){

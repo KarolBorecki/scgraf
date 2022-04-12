@@ -132,7 +132,6 @@ graph_t generate_example_graph_mesh(unsigned width, unsigned height){
     for(int i= 0; i < height-1; i++){//Bottom layer below the loop
         for(int j= 0; j < width; j++){
             unsigned current_node = i*width + j;
-            printf("%d <- c_node\n");
             def_val= (double) rand() / (double) RAND_MAX;
             if(i == 0){//Top row
                 if(j == 0){//left top corner
@@ -278,5 +277,8 @@ int main(int argc, char** argv){
     //graph_make_existing_path_two_way(new_graph, 7, 8);
     graph_convert_directed_to_undirected(graph);
     print_graph(graph);
+
+    new_graph = generate_example_graph_mesh(10, 10);
+    printf("\n%lf [path len]", get_shortest_distance_from_to(new_graph, 10, 78));
     return 1;
 }

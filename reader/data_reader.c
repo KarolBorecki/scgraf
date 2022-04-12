@@ -1,5 +1,4 @@
 #include "../reader/data_reader.h"
-
 //#include <stdio.h>
 
 int check_if_graph_is_mesh(graph_t graph,unsigned dimension_width, unsigned dimension_height){
@@ -12,6 +11,7 @@ int check_if_graph_is_mesh(graph_t graph,unsigned dimension_width, unsigned dime
                 return 0;
         }
     }
+
     return 1;
 }
 

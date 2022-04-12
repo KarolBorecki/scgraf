@@ -7,7 +7,7 @@ table_t_p initialize_start_table(graph_t graph, node_t start_node, unsigned mode
 
     for(int i= 0; i<table_p->size; i++) {
         if(graph->nodes[i].index != start_node->index)
-            table_p->elements[i].shortest_distances= (mode_2 == longest ? ZERO : INF);
+            table_p->elements[i].shortest_distances= (mode_2 == LONGEST ? ZERO : INF);
         else
             table_p->elements[i].shortest_distances= 0;
         table_p->elements[i].previous_nodes = INVALID_NODE;
@@ -43,7 +43,7 @@ table_t_p run_dijkstra(graph_t graph, node_t start_node, unsigned mode, unsigned
         node_t help = graph_get_node_with_index(graph, current_vertex);
         for(unsigned j= 0; j<help->paths_count; j++) {
             double val= help->paths[j].value;
-            if (mode_2 == longest
+            if (mode_2 == LONGEST
                 ?   val + table->elements[current_vertex].shortest_distances > table->elements[help->paths[j].connection].shortest_distances
                 :   val + table->elements[current_vertex].shortest_distances < table->elements[help->paths[j].connection].shortest_distances
             ){
@@ -73,7 +73,7 @@ void bsort_que(fifo_t que, unsigned start, table_t_p tab, unsigned mode_2){
     for(unsigned i= start; i<tab->size; i++){
         for(unsigned j= i+1; j<tab->size; j++){
             //printf("COMPARING: %lf [i] > %lf [j]\nRES: %d\n", tab->elements[que->queue[i]].shortest_distances, tab->elements[que->queue[j]].shortest_distances,tab->elements[que->queue[i]].shortest_distances > tab->elements[que->queue[j]].shortest_distances);
-            if(mode_2 == longest
+            if(mode_2 == LONGEST
             ?   tab->elements[que->queue[i]].shortest_distances < tab->elements[que->queue[j]].shortest_distances
             :   tab->elements[que->queue[i]].shortest_distances > tab->elements[que->queue[j]].shortest_distances
             ){
@@ -128,6 +128,30 @@ double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t de
         printf("->%d", table->elements[i].previous_nodes);
         path_len += table->elements[i].shortest_distances;
     }
+
+    return path_len;
+}
+
+double get_shortest_distance_from_to(graph_t graph, unsigned start_node, unsigned destination_node){
+    char msg[MAXMSG];
+    if(start_node < 0 || start_node > graph->size - 1){
+        sprintf(msg, "incorrect start node in function get_shortest_distance_from_to()!\n");
+        //throw_error(, msg);
+        return -1;
+    }
+    if(destination_node < 0 || destination_node > graph->size - 1){
+        sprintf(msg, "incorrect start node in function get_shortest_distance_from_to()!\n");
+        //throw_error(, msg);
+        return -1;
+    }
+    node_t  start=  &(graph->nodes[start_node]);
+    node_t  end=    &(graph->nodes[destination_node]);
+    double path_len;
+
+    table_t_p dijkstras_table= initialize_start_table(graph, start, SHORTEST);
+    dijkstras_table= run_dijkstra(graph, start, BUBBLE, SHORTEST);
+    path_len = print_shortest_path_from_to(dijkstras_table, start, end);
+    free_table(dijkstras_table);
 
     return path_len;
 }
