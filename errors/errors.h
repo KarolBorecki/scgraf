@@ -28,6 +28,7 @@ warning_t default_value_warning;
 warning_t duplicated_path_warning;
 warning_t inconsistent_graph_warning;
 warning_t node_bypasing_warning;
+warning_t arg_bypasing_warning;
 
 void initzialize_errors();
 

@@ -24,6 +24,7 @@ void initzialize_warnings(){
   duplicated_path_warning    = new_warning(3, "Passed duplicated path");
   inconsistent_graph_warning = new_warning(4, "Graph inconsistent");
   node_bypasing_warning      = new_warning(5, "Bypassing node");
+  arg_bypasing_warning       = new_warning(6, "Bypassing argument");
 }
 error_t new_error(unsigned code, char* msg){
   error_t new_err = malloc(sizeof(*new_err));

@@ -13,11 +13,11 @@ batch_arguments_t initzialize_arguments_struct(){
   arg->execute = UNKNOWN;
   arg->in = malloc(MAX_FILE_NAME_LEN);
   arg->out = malloc(MAX_FILE_NAME_LEN);
-  arg->from = 0;
-  arg->to = 10;
-  arg->x = 0;
-  arg->y = 10;
-  arg->n = 2;
+  arg->from = -1;
+  arg->to = -1;
+  arg->x = -1;
+  arg->y = -1;
+  arg->n = -1;
   return arg;
 }
 
@@ -44,18 +44,28 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
         break;
       case 'f': /* from */
         arg->from = atoi(optarg);
+        if(arg->from < 0)
+          throw_error(invalid_value_error, "Specified argument -f is invalid - should be positive!");
         break;
       case 't': /* to */
         arg->to = atoi(optarg);
+        if(arg->to < 0)
+          throw_error(invalid_value_error, "Specified argument -t is invalid - should be positive!");
         break;
       case 'x': /* x */
         arg->x = atoi(optarg);
+        if(arg->x < 0)
+          throw_error(invalid_value_error, "Specified argument -x is invalid - should be positive!");
         break;
       case 'y': /* y */
         arg->y = atoi(optarg);
+        if(arg->y < 0)
+          throw_error(invalid_value_error, "Specified argument -y is invalid - should be positive!");
         break;
       case 'n': /* n */
         arg->n = atoi(optarg);
+        if(arg->n < 2)
+          throw_error(invalid_value_error, "Specified argument -n is invalid - should be bigger than 1!");
         break;
       default:
         throw_error(invalid_value_error, "Specified invalid argument!");

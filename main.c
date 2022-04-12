@@ -76,15 +76,20 @@ int main(int argc, char** argv){
   if(arg->execute == UNKNOWN)
     print_help();
 
-  if(arg->execute == GENERATE) printf("TUTAJ GENERUJEMY\n");
-  graph = get_graph_from_input(arg->in);
+  if(arg->execute == GENERATE){
+    printf("TUTAJ GENERUJEMY\n");
+    if(arg->from )
+  } else graph = get_graph_from_input(arg->in);
 
-  if(arg->execute == SHORTEST_PATH)
+  if(arg->execute == SHORTEST_PATH){
     solver_get_shortest_path(graph, arg->from, arg->to);
-  else if(arg->execute == CHECK_CONSISTENCY)
+  }
+  else if(arg->execute == CHECK_CONSISTENCY){
     solver_check_graph_consistency(graph);
-  else if(arg->execute == DIVIDE_GRAPH)
+  }
+  else if(arg->execute == DIVIDE_GRAPH){
     solver_divide_graph_into_n_graphs(graph, arg->n);
+  }
 
   return 0;
 }
