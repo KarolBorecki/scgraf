@@ -53,6 +53,18 @@ void print_graph_division_greeting(unsigned divisions){
   set_font(WHITE);
 }
 
+void print_file_output_greetings(char * out_file_name){
+  set_font(BOLD);
+  printf("\nPrinting output to file \"%s\"...\n\n", out_file_name);
+  set_font(WHITE);
+}
+
+void print_done_greeting(){
+  set_font(BOLD);
+  printf("\nDONE!\n\n");
+  set_font(WHITE);
+}
+
 void print_graph_consistent_result(int result){
   if(result > 0){
     set_font(GREEN);

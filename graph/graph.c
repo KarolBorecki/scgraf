@@ -14,8 +14,14 @@ graph_t initzialize_graph(unsigned nodes_count){
   graph->nodes = malloc(nodes_count * sizeof(*(graph->nodes)));
   graph->memory_size = nodes_count;
   graph->max_path_value = 3;
-
+  graph->height= 0;
+  graph->width= 0;
   return graph;
+}
+
+void graph_set_width_and_height(graph_t graph, unsigned width, unsigned height){
+  graph->height= height;
+  graph->width= width;
 }
 
 void graph_set_max_path_value(graph_t graph, double value){

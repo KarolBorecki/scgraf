@@ -240,6 +240,7 @@ graph_t generate_example_graph_mesh(unsigned width, unsigned height, double max_
         }
     }
 
+    graph_set_width_and_height(g, width, height);
     graph_set_max_path_value(g, max_weight);
 
     return g;

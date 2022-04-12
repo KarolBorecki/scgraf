@@ -33,11 +33,10 @@ TODO:
 */
 
   if(arg->execute == GENERATE){
-    printf("TUTAJ OBSLUZYC GENEROWANIE GRAFU O WIELKOSCI %d x %d (tak naprawde teraz to generuje przykladowy)\n", arg->x, arg->y); //TODO implemente generate_graph;
     graph = generate_example_graph_mesh(arg->x, arg->y, arg->max_path_value); //TODO delete
   } else {
     int width, height;
-    graph = get_graph_from_file(arg->in, &width, &height); //TODO delete
+    graph = get_graph_from_file(arg->in); //TODO delete
   }
 
   if(arg->execute == SHORTEST_PATH)
@@ -49,8 +48,10 @@ TODO:
 
 
   if(arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE){
-    if(strcmp(arg->out, "") != 0) printf("TUTAJ OBSLUZYC ZAPIS DO PLIKU!\n");
-    else print_graph(graph);
+    if(strcmp(arg->out, "") != 0){
+        solver_graph_to_file(graph, arg->out);
+    }else
+        print_graph(graph);
   }
 
   return 0;

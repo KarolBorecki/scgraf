@@ -7,7 +7,7 @@ FILE * open_file(char * file_name){
     return IN;
 }
 
-graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * dim_height){
+graph_t get_graph_from_file(char * file_name){
     FILE * IN= open_file(file_name);
     printf("\n====READING GRAPH====\n"
            "Reading from file: \"%s\"\n", file_name);
@@ -80,10 +80,9 @@ graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * d
            "Read lines: %d\n"
            "Read nodes: %d\n"
            "Max weight value: %lf\n", width, height, lines, amount_of_nodes, max_weight);
-
-    *dim_width=     width;
-    *dim_height=    height;
+           
     graph_set_max_path_value(graph, max_weight);
+    graph_set_width_and_height(graph, width, height);
     return graph;
 }
 

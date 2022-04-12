@@ -23,6 +23,8 @@ void print_help();
 void print_consistency_greeting(unsigned start);
 void print_shortest_path_greeting(unsigned from, unsigned to);
 void print_graph_division_greeting(unsigned divisions);
+void print_file_output_greetings(char * out_file_name);
+void print_done_greeting();
 
 void print_graph_consistent_result(int result);
 

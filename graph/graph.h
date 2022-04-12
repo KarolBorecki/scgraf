@@ -22,10 +22,13 @@ typedef struct graph{
   unsigned size;
   unsigned memory_size;
   double max_path_value;
+  unsigned width;
+  unsigned height;
 } *graph_t;
 
 graph_t initzialize_graph(unsigned nodes_count);
 void graph_set_max_path_value(graph_t graph, double value);
+void graph_set_width_and_height(graph_t graph, unsigned width, unsigned height);
 void enlarge_graph_nodes_memory(graph_t graph, unsigned enlarge_multiplier);
 void enlarge_graph_paths_memory(node_t node, unsigned enlarge_multiplier);
 
