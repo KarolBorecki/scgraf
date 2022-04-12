@@ -123,5 +123,8 @@ int main(int argc, char** argv){
     solver_divide_graph_into_n_graphs(graph, arg->n);
   }
 
+  if(strcmp(arg->out, "") != 0) printf("TUTAJ OBSLUZYC ZAPIS DO PLIKU!\n");
+  else print_graph(graph);
+
   return 0;
 }

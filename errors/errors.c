@@ -45,8 +45,9 @@ warning_t new_warning(unsigned code, char* msg){
 }
 
 void throw_error(error_t err, char* additional_msg){
-  set_font(RED);
-  printf("Error!\n");
+  set_font(RED); set_font(BOLD);
+  printf("\nError!\n");
+  set_font(WHITE); set_font(RED);
   printf("    Error code: E0%d \n", err->code);
   printf("    Error message: %s", err->msg);
   if(strlen(additional_msg) > 0)
@@ -57,8 +58,9 @@ void throw_error(error_t err, char* additional_msg){
 }
 
 void throw_warning(warning_t war, char* additional_msg){
-  set_font(YELLOW);
-  printf("Warning!\n");
+  set_font(YELLOW); set_font(BOLD);
+  printf("\nWarning!\n");
+  set_font(WHITE); set_font(YELLOW);
   printf("    Warning code: W0%d \n", war->code);
   printf("    Warning message: %s", war->msg);
   if(strlen(additional_msg) > 0)

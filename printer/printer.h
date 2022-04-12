@@ -1,6 +1,8 @@
 #ifndef _PRINTER_H_
 #define _PRINTER_H_
 
+#define CENTER_LEN 80
+
 #define WHITE      "\033[0m"
 #define GREY       "\033[37m"
 #define LIGHT_BLUE "\033[36m"
@@ -13,6 +15,8 @@
 
 
 void set_font(char* font);
+
+void print_in_center(char* str);
 
 void print_greetings();
 void print_help();

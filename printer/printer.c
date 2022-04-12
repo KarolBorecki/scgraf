@@ -1,6 +1,7 @@
 #include "printer.h"
 
 #include <stdio.h>
+#include <string.h>
 
 #include "../errors/errors.h"
 
@@ -8,9 +9,21 @@ void set_font(char* font){
   printf("%s", font);
 }
 
+void print_in_center(char* str){
+  unsigned len = CENTER_LEN - strlen(str);
+  for(int i=0; i<len/2; i++)
+    printf("=");
+  printf("%s", str);
+  for(int i=0; i<len/2; i++)
+    printf("=");
+  printf("\n");
+}
+
 void print_greetings(){
   set_font(BOLD);
-  printf("===============SCGRAF===============\n\n");
+  printf("\n");
+  print_in_center("SCGRAF");
+  printf("\n");
   set_font(WHITE);
 }
 

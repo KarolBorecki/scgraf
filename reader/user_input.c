@@ -105,7 +105,12 @@ char* get_string_from_functionallity(enum functionality func){
 
 void print_arguments(batch_arguments_t arg){
   set_font(LIGHT_BLUE);
-  printf("\n=========Arguments=========\n\n");
+  set_font(BOLD);
+  printf("\n");
+  print_in_center("Arguments");
+  printf("\n");
+  set_font(WHITE);
+  set_font(LIGHT_BLUE);
   printf("    EXECUTING : %s\n", get_string_from_functionallity(arg->execute));
   printf("    IN        : %s\n", strcmp(arg->in, "") == 0 ? "-" : arg->in);
   printf("    OUT       : %s\n", strcmp(arg->out, "") == 0 ? "-" : arg->out);
@@ -114,6 +119,8 @@ void print_arguments(batch_arguments_t arg){
   printf("    X         : %d\n", arg->x == VALUE_NOT_SPECIFIED ? DEFAULT_X : arg->x);
   printf("    Y         : %d\n", arg->y == VALUE_NOT_SPECIFIED ? DEFAULT_Y : arg->y);
   printf("    N         : %d\n", arg->n == VALUE_NOT_SPECIFIED ? DEFAULT_N : arg->n);
-  printf("\n=========Arguments=========\n\n");
+  set_font(BOLD);
+  printf("\n");
+  print_in_center("Arguments");
   set_font(WHITE);
 }

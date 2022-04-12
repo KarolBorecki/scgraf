@@ -6,6 +6,7 @@
 
 #include "../utils/utils.h"
 #include "../errors/errors.h"
+#include "../printer/printer.h"
 
 graph_t initzialize_graph(unsigned nodes_count){
   graph_t graph = malloc(sizeof(*graph));
@@ -108,7 +109,13 @@ unsigned graph_get_node_paths_count(node_t node){
 }
 
 void print_graph(graph_t graph){
-  printf("\n=========Graph=========\n\n");
+  set_font(BLUE);
+  set_font(BOLD);
+  printf("\n");
+  print_in_center("Graph");
+  printf("\n");
+  set_font(WHITE);
+  set_font(BLUE);
   printf("    Nodes: %d \n", graph->size);
   printf("    Memory: %d size, %lu bytes per node, %lu bytes used \n\n",
   graph->memory_size,
@@ -128,5 +135,10 @@ void print_graph(graph_t graph){
     }
     printf("\n");
   }
-  printf("\n=========Graph=========\n\n");
+  set_font(BLUE);
+  set_font(BOLD);
+  printf("\n");
+  print_in_center("Graph");
+  printf("\n");
+  set_font(WHITE);
 }
