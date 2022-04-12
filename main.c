@@ -99,12 +99,12 @@ int main(int argc, char** argv){
 
   if(arg->execute == GENERATE){
     printf("GENERUJE GRAF O WIELKOSCI %d\n", arg->n); //TODO implemente generate_graph;
+    graph = generate_example_graph();
   } else {
-    printf("CZYTAM GRAF z pliku \n", arg->in); //TODO implemente read_graph_from_file;
+    printf("CZYTAM GRAF z pliku %s (tak naprawde to generuje przykladowy)\n", arg->in); //TODO implemente read_graph_from_file;
+    graph = generate_example_graph();
     //graph = get_graph_from_input(arg->in);
   }
-
-  graph = generate_example_graph();
 
   if(arg->execute == SHORTEST_PATH){
 
@@ -118,9 +118,10 @@ int main(int argc, char** argv){
     solver_divide_graph_into_n_graphs(graph, arg->n);
   }
 
-/*
-  if(strcmp(arg->out, "") != 0) printf("TUTAJ OBSLUZYC ZAPIS DO PLIKU!\n");
-  else print_graph(graph);
-*/
+  if(arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE){
+    if(strcmp(arg->out, "") != 0) printf("TUTAJ OBSLUZYC ZAPIS DO PLIKU!\n");
+    else print_graph(graph);
+  }
+
   return 0;
 }

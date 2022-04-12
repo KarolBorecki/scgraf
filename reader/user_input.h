@@ -29,6 +29,9 @@ void free_arguments_struct(batch_arguments_t arg);
 
 void check_arguments(batch_arguments_t arg);
 
+void check_arguments_for_defaults(batch_arguments_t arg);
+void check_arguments_for_bypassing(batch_arguments_t arg);
+
 batch_arguments_t get_batch_arguments(int argc, char** argv);
 
 enum functionality get_functionallity_from_string(char* str);
