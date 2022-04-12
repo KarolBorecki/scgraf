@@ -7,14 +7,14 @@
 #include "../printer/printer.h"
 
 void initzialize_errors(){
-  unknown_error            = new_error(0, "Unknown error");
-  invalid_value_error      = new_error(1, "Invalid value");
-  calculation_error        = new_error(2, "Calculation error");
-  memory_error             = new_error(3, "Memory error");
-  file_read_error          = new_error(4, "File reading error");
-  file_error               = new_error(5, "File error");
-  graph_error              = new_error(6, "Graph error");
-  information_needed_error = new_error(7, "Information needed error");
+    unknown_error            = new_error(0, "Unknown error");
+    invalid_value_error      = new_error(1, "Invalid value");
+    calculation_error        = new_error(2, "Calculation error");
+    memory_error             = new_error(3, "Memory error");
+    file_read_error          = new_error(4, "File reading error");
+    file_error               = new_error(5, "File error");
+    graph_error              = new_error(6, "Graph error");
+    information_needed_error = new_error(7, "Information needed error");
 }
 
 void initzialize_warnings(){
@@ -32,7 +32,7 @@ error_t new_error(unsigned code, char* msg){
   new_err->msg = malloc(MAX_ERR_MSG_LENGTH);
   strcpy(new_err->msg, msg);
 
-  return new_err;
+    return new_err;
 }
 
 warning_t new_warning(unsigned code, char* msg){
@@ -41,7 +41,7 @@ warning_t new_warning(unsigned code, char* msg){
   new_war->msg = malloc(MAX_ERR_MSG_LENGTH);
   strcpy(new_war->msg, msg);
 
-  return new_war;
+    return new_war;
 }
 
 void throw_error(error_t err, char* additional_msg){

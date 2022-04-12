@@ -15,8 +15,9 @@
 #define ZERO            0
 #define BUBBLE          1
 #define QUICK           2
-#define longest         1
+#define LONGEST         1
 #define SHORTEST        0
+#define MAXMSG         2048
 
 typedef struct table{
     unsigned int    node_index;
@@ -30,6 +31,8 @@ typedef struct table_pointer{
 } *table_t_p;
 
 table_t_p initialize_start_table(graph_t, node_t, unsigned mode_2);
+//SHORTEST - shortest path
+//LONGEST - longest  path TODO
 void print_table(table_t_p pointer_to_table);
 void free_table(table_t_p);
 
@@ -42,5 +45,7 @@ double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t de
 void bsort_que(fifo_t que, unsigned start, table_t_p tab, unsigned mode_2);
 void qsort_que(unsigned * que, unsigned start, unsigned end, table_t_p tab);
 unsigned partition (unsigned * arr, unsigned low, unsigned high, table_t_p tab);
+
+double get_shortest_distance_from_to(graph_t graph, unsigned start_node_index, unsigned destination_node_index);
 
 #endif /* _DIJKSTRA_H_ */

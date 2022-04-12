@@ -4,13 +4,13 @@
 #define MAX_ERR_MSG_LENGTH 20 /* TODO maybe make config file for #defines values */
 
 typedef struct error{
-  unsigned code;
-  char* msg;
+    unsigned code;
+    char* msg;
 } *error_t;
 
 typedef struct warning{
-  unsigned code;
-  char* msg;
+    unsigned code;
+    char* msg;
 } *warning_t;
 
 error_t unknown_error;

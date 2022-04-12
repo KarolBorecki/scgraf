@@ -1,17 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
-#include "graph/graph.h"
-#include "reader/graph_generator.h"
-#include "algorithms/bfs.h"
-#include "algorithms/dijkstra.h"
-#include "reader/graph_generator.h"
-#include "solver/graph_solver.h"
-#include "printer/printer.h"
-#include "errors/errors.h"
-#include "reader/user_input.h"
-#include "algorithms/graph_divider.h"
+#include "../graph/graph.h"
+#include "../reader/graph_generator.h"
+#include "../algorithms/bfs.h"
+#include "../algorithms/dijkstra.h"
+#include "../reader/graph_generator.h"
+#include "../solver/graph_solver.h"
+#include "../reader/file_reader.h"
+#include "../reader/data_reader.h"
 
 graph_t generate_example_graph(){
     graph_t g = initzialize_graph(9);
@@ -59,11 +58,11 @@ graph_t generate_example_graph(){
     help_node = graph_add_node(g);
     graph_add_path(help_node, 4, 3.0);
     graph_add_path(help_node, 6, 0.2);
-    graph_add_path(help_node, 8, 1.0);
+    graph_add_path(help_node, 8, 1.4);
 
     //Node 8
     help_node = graph_add_node(g);
-    graph_add_path(help_node, 7, 1.0);
+    graph_add_path(help_node, 7, 2382.232);
 
     return g;
 }
@@ -123,17 +122,163 @@ graph_t generate_example_graph_2(){
     return g;
 }
 
+graph_t generate_example_graph_mesh(unsigned width, unsigned height){
+    srand(time(NULL));
+    graph_t g = initzialize_graph(width * height);
+    node_t help;
+    double def_val= 0.782;
+    unsigned node_to_the_right, node_to_the_left, node_below, node_up;
+
+    for(int i= 0; i < height-1; i++){//Bottom layer below the loop
+        for(int j= 0; j < width; j++){
+            unsigned current_node = i*width + j;
+            def_val= (double) rand() / (double) RAND_MAX;
+            if(i == 0){//Top row
+                if(j == 0){//left top corner
+                    node_to_the_right= current_node + 1;
+                    node_below= current_node + width;
+
+                    help= graph_add_node(g);
+                    graph_add_path(help, node_to_the_right, def_val);
+                    def_val= (double) rand() / (double) RAND_MAX;
+                    graph_add_path(help, node_below, def_val);
+                }else if(j == width - 1){//right top corner
+                    node_to_the_left= current_node - 1;
+                    node_below= current_node + width;
+
+                    help= graph_add_node(g);
+                    graph_add_path(help, node_to_the_left, def_val);
+                    def_val= (double) rand() / (double) RAND_MAX;
+                    graph_add_path(help, node_below, def_val);
+                }else{
+                    node_to_the_left= current_node - 1;
+                    node_to_the_right= current_node + 1;
+                    node_below= current_node + width;
+
+                    help= graph_add_node(g);
+                    graph_add_path(help, node_to_the_left, def_val);
+                    graph_add_path(help, node_to_the_right, def_val);
+                    graph_add_path(help, node_below, def_val);
+                }
+            }else if(j == 0 || j == width - 1){//Middle rows, left and right coulmn
+                if(j == 0){
+                    node_to_the_right= current_node + 1;
+                    node_below= current_node + width;
+                    node_up= current_node - width;
+
+                    help= graph_add_node(g);
+                    graph_add_path(help, node_to_the_right, def_val);
+                    graph_add_path(help, node_below, def_val);
+                    graph_add_path(help, node_up, def_val);
+                }else if(j == width - 1){
+                    node_to_the_left= current_node + 1;
+                    node_below= current_node + width;
+                    node_up= current_node - width;
+
+                    help= graph_add_node(g);
+                    graph_add_path(help, node_to_the_left, def_val);
+                    def_val= (double) rand() / (double) RAND_MAX;
+                    graph_add_path(help, node_below, def_val);
+                    def_val= (double) rand() / (double) RAND_MAX;
+                    graph_add_path(help, node_up, def_val);
+                }
+            }
+            else{//Middle vertices that have all conections
+                node_to_the_left= current_node - 1;
+                node_to_the_right= current_node + 1;
+                node_below= current_node + width;
+                node_up= current_node - width;
+
+                help= graph_add_node(g);
+                graph_add_path(help, node_to_the_left, def_val);
+                def_val= (double) rand() / (double) RAND_MAX;
+                graph_add_path(help, node_to_the_right, def_val);
+                def_val= (double) rand() / (double) RAND_MAX;
+                graph_add_path(help, node_below, def_val);
+                def_val= (double) rand() / (double) RAND_MAX;
+                graph_add_path(help, node_up, def_val);
+            }
+        }
+    }
+    //Bottom layer
+    for(int i= 0; i<width; i++){
+        def_val= (double) rand() / (double) RAND_MAX;
+        unsigned current_node= (height - 1)*width + i;
+        if(i == 0){
+            node_to_the_right= current_node + 1;
+            node_up= current_node - width;
+
+            help= graph_add_node(g);
+            graph_add_path(help, node_to_the_right, def_val);
+            def_val= (double) rand() / (double) RAND_MAX;
+            graph_add_path(help, node_up, def_val);
+        }else if(i == width - 1){
+            node_up= current_node - width;
+            node_to_the_left= current_node - 1;
+
+            help= graph_add_node(g);
+            graph_add_path(help, node_to_the_left, def_val);
+            def_val= (double) rand() / (double) RAND_MAX;
+            graph_add_path(help, node_up, def_val);
+        }else{
+            node_up= current_node - width;
+            node_to_the_left= current_node - 1;
+            node_to_the_right= current_node + 1;
+
+            help= graph_add_node(g);
+            graph_add_path(help, node_to_the_left, def_val);
+            def_val= (double) rand() / (double) RAND_MAX;
+            graph_add_path(help, node_to_the_right, def_val);
+            def_val= (double) rand() / (double) RAND_MAX;
+            graph_add_path(help, node_up, def_val);
+            def_val= (double) rand() / (double) RAND_MAX;
+        }
+    }
+
+    return g;
+}
+
 int main(int argc, char** argv){
-  graph_t g = generate_example_graph();
+    graph_t graph= generate_example_graph_circle(20);//
+    graph= generate_example_graph_2();
+    solver_check_graph_consistency(graph);
+    //print_graph(graph);
 
-  print_graph(g);
-  solver_check_graph_consistency(g);
+    printf("%d -> bfs\n", bfs(graph, graph->nodes[0].index));
+    printf("%d\n", bfs(graph, graph->nodes[0].index));
 
-  divide_graph(g, atoi(argv[1]));
+    table_t_p tab= run_dijkstra(graph, &(graph->nodes[2]), BUBBLE, SHORTEST);
+    print_table(tab);
 
-  print_graph(g);
-  solver_check_graph_consistency(g);
 
-  clean_graph(g);
-  return 1;
+    unsigned int width, height;
+    graph= get_graph_from_file("../test_files/mygraph", &width, &height);
+    print_graph(graph);
+    tab= run_dijkstra(graph, &(graph->nodes[9]), BUBBLE, SHORTEST);
+    print_table(tab);
+
+    graph_t graph_mesh= generate_example_graph_mesh(3, 2);
+
+    printf("Dimensions of a graph: %d[width] x %d[height]\n", width, height);
+    printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph, width, height));
+    printf("Dimensions of a graph: %d[width] x %d[height]\n", height, width);
+    printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph, height, width));
+    printf("Dimensions of a graph: %d[width] x %d[height]\n", 3, 2);
+    printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph_mesh, 3, 2));
+    printf("Dimensions of a graph: %d[width] x %d[height]\n", 2, 3);
+    printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph_mesh, 2, 3));
+
+    graph_mesh= generate_example_graph_mesh(3, 2);
+    print_graph(graph_mesh);
+    printf("%d [is mesh]\n", check_if_graph_is_mesh(graph_mesh, 3, 2));
+
+    graph_t new_graph= generate_example_graph();
+    print_graph(graph);
+    //graph_make_existing_path_two_way(new_graph, 7, 8);
+    graph_convert_directed_to_undirected(graph);
+    print_graph(graph);
+
+    new_graph = generate_example_graph_mesh(10, 10);
+    printf("\n%lf [path len]", get_shortest_distance_from_to(new_graph, 10, 78));
+    return 1;
 }
