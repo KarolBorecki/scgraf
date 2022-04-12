@@ -21,9 +21,11 @@ typedef struct graph{
   node_t nodes;
   unsigned size;
   unsigned memory_size;
+  double max_path_value;
 } *graph_t;
 
 graph_t initzialize_graph(unsigned nodes_count);
+void graph_set_max_path_value(graph_t graph, double value);
 void enlarge_graph_nodes_memory(graph_t graph, unsigned enlarge_multiplier);
 void enlarge_graph_paths_memory(node_t node, unsigned enlarge_multiplier);
 
@@ -45,11 +47,11 @@ unsigned graph_memory_size(graph_t graph);
 
 unsigned graph_get_node_paths_count(node_t node);
 
-void  graph_add_path_two_way(graph_t graph, node_t node, unsigned connection, double value);
+void graph_add_path_two_way(graph_t graph, node_t node, unsigned connection, double value);
 
-void    graph_make_existing_path_two_way(graph_t graph, unsigned node_index, unsigned connection);
+void graph_make_existing_path_two_way(graph_t graph, unsigned node_index, unsigned connection);
 path_t graph_get_path_for_node_index(node_t node_from, unsigned destination_node_index);
-void    graph_convert_directed_to_undirected(graph_t graph);
+void graph_convert_directed_to_undirected(graph_t graph);
 void print_graph(graph_t);
 
 #endif /* _GRAPH_H_ */

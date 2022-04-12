@@ -13,8 +13,13 @@ graph_t initzialize_graph(unsigned nodes_count){
   graph->size = 0;
   graph->nodes = malloc(nodes_count * sizeof(*(graph->nodes)));
   graph->memory_size = nodes_count;
+  graph->max_path_value = 0;
 
   return graph;
+}
+
+void graph_set_max_path_value(graph_t graph, double value){
+  graph->max_path_value = value;
 }
 
 void enlarge_graph_nodes_memory(graph_t graph, unsigned enlarge_multiplier){
@@ -123,7 +128,7 @@ path_t graph_get_path_for_node_index(node_t node_from, unsigned destination_node
     for(int i= 0; i<node_from->paths_count; i++)
         if(node_from->paths[i].connection == destination_node_index)
             return &(node_from->paths[i]);
-    
+
     return NULL;
 }
 
@@ -165,6 +170,7 @@ void print_graph(graph_t graph){
     printf("   %d) %d -> ", i, n->index);
     for(int j=0; j<graph_get_node_paths_count(n); j++){
       p = graph_get_path_at_index(n, j);
+      //if(p->value)
       printf("%d(%.4f)", p->connection, p->value);
       if(j != n->paths_count-1) printf(" - ");
     }

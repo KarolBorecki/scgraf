@@ -13,11 +13,12 @@ batch_arguments_t initzialize_arguments_struct(){
   arg->execute = UNKNOWN;
   arg->in = malloc(MAX_FILE_NAME_LEN);
   arg->out = malloc(MAX_FILE_NAME_LEN);
-  arg->from = -1;
-  arg->to = -1;
-  arg->x = -1;
-  arg->y = -1;
-  arg->n = -1;
+  arg->from = VALUE_NOT_SPECIFIED;
+  arg->to = VALUE_NOT_SPECIFIED;
+  arg->x = VALUE_NOT_SPECIFIED;
+  arg->y = VALUE_NOT_SPECIFIED;
+  arg->n = VALUE_NOT_SPECIFIED;
+  arg->max_path_value = VALUE_NOT_SPECIFIED;
   return arg;
 }
 
@@ -70,25 +71,32 @@ void check_arguments_for_defaults(batch_arguments_t arg){
       throw_warning(default_value_warning, msg);
     }
   }
+  if(arg->max_path_value == VALUE_NOT_SPECIFIED){
+    arg->max_path_value = DEFAULT_MAX_PATH_VAL;
+    if(arg->execute == GENERATE){
+      sprintf(msg, "The -v value is not specified, taking default value v = %d", DEFAULT_MAX_PATH_VAL);
+      throw_warning(default_value_warning, msg);
+    }
+  }
 }
 void check_arguments_for_bypassing(batch_arguments_t arg){
   char msg[MAX_FILE_NAME_LEN];
 
   if(arg->execute == GENERATE && (arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED))
-    throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph generating I only need -x and -y [or -o, -n]!");
-  if(arg->execute == SHORTEST_PATH && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED))
+    throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor graph generating I only need -x and -y [or -o, -n]!");
+  if(arg->execute == SHORTEST_PATH && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED || arg->max_path_value != VALUE_NOT_SPECIFIED))
     throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor shortest path finding I only need -f and -t!");
-  if(arg->execute == CHECK_CONSISTENCY && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED))
+  if(arg->execute == CHECK_CONSISTENCY && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED || arg->max_path_value != VALUE_NOT_SPECIFIED))
     throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor graph consistency check I only need -f [or -i]!");
-  if(arg->execute == DIVIDE_GRAPH && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED))
+  if(arg->execute == DIVIDE_GRAPH && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED || arg->max_path_value != VALUE_NOT_SPECIFIED))
     throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor graph dviding I only need -n [or -o, -i]!");
 
   if(arg->execute != GENERATE && strcmp(arg->in, "") == 0){
-    sprintf(msg, "The in file is not specified, the random graph will be generated with x = %d and y = %d", arg->x, arg->y);
+    sprintf(msg, "The in file is not specified, \nthe random graph will be generated with x = %d and y = %d", arg->x, arg->y);
     throw_warning(default_value_warning, msg);
   }
   if(strcmp(arg->out, "") == 0)
-    throw_warning(default_value_warning, "Out file is not specified, the output will be shown in the console!");
+    throw_warning(default_value_warning, "Out file is not specified, \nthe output will be shown in the console!");
 
 }
 
@@ -96,7 +104,7 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
   batch_arguments_t arg = initzialize_arguments_struct();
 
   int opt;
-  while((opt = getopt(argc, argv, "e:i:o:f:t:x:y:n:")) != -1){
+  while((opt = getopt(argc, argv, "e:i:o:f:t:x:y:n:v:")) != -1){
     switch(opt){
       case 'e':
           arg->execute = get_functionallity_from_string(optarg);
@@ -131,6 +139,11 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
         arg->n = atoi(optarg);
         if(arg->n < 2)
           throw_error(invalid_value_error, "Specified argument -n is invalid - should be bigger than 1!");
+        break;
+      case 'v': /* n */
+        arg->max_path_value = atof(optarg);
+        if(arg->max_path_value <= 0)
+          throw_error(invalid_value_error, "Specified argument -v is invalid - should be bigger than 0!");
         break;
       default:
         throw_error(invalid_value_error, "Specified invalid argument!");
@@ -176,14 +189,15 @@ void print_arguments(batch_arguments_t arg){
   printf("\n");
   set_font(WHITE);
   set_font(LIGHT_BLUE);
-  printf("    EXECUTING : %s\n", get_string_from_functionallity(arg->execute));
-  printf("    IN        : %s\n", strcmp(arg->in, "") == 0 ? "-" : arg->in);
-  printf("    OUT       : %s\n", strcmp(arg->out, "") == 0 ? "-" : arg->out);
-  printf("    FROM      : %d\n", arg->from);
-  printf("    TO        : %d\n", arg->to);
-  printf("    X         : %d\n", arg->x);
-  printf("    Y         : %d\n", arg->y);
-  printf("    N         : %d\n", arg->n);
+  printf("    EXECUTING    : %s\n", get_string_from_functionallity(arg->execute));
+  printf("    IN           : %s\n", strcmp(arg->in, "") == 0 ? "-" : arg->in);
+  printf("    OUT          : %s\n", strcmp(arg->out, "") == 0 ? "-" : arg->out);
+  printf("    FROM         : %d\n", arg->from);
+  printf("    TO           : %d\n", arg->to);
+  printf("    X            : %d\n", arg->x);
+  printf("    Y            : %d\n", arg->y);
+  printf("    N            : %d\n", arg->n);
+  printf("    MAX_PATH_VAL : %lf\n", arg->max_path_value);
   set_font(BOLD);
   printf("\n");
   print_in_center("Arguments");

@@ -9,6 +9,7 @@
 #define DEFAULT_X 5
 #define DEFAULT_Y 5
 #define DEFAULT_N 2
+#define DEFAULT_MAX_PATH_VAL 1
 
 #define VALUE_NOT_SPECIFIED -1
 
@@ -28,6 +29,7 @@ typedef struct batch_arguments{
   int to;
   int x;
   int y;
+  double max_path_value;
   int n;
 } *batch_arguments_t;
 
