@@ -15,18 +15,6 @@ void setup_menu(){
   initzialize_errors();
   initzialize_warnings();
 }
-/*
-graph_t get_graph_from_input(char* in){
-  graph_t result;
-  if(strcmp(in, "") != 0) result = get_graph_from_file(in);
-  else {
-    printf("TUTAJ WCZYTAMY Z KONSOLI narazie generuje\n");
-    result = generate_graph(10);
-  }
-
-  return result;
-}
-*/
 
 graph_t generate_example_graph(){
     graph_t g = initzialize_graph(9);
@@ -83,7 +71,6 @@ graph_t generate_example_graph(){
     return g;
 }
 
-//TODO obsluzyc bledy wywolan w solverze i generate_graph
 int main(int argc, char** argv){
   graph_t graph;
 
@@ -98,10 +85,10 @@ int main(int argc, char** argv){
     print_help();
 
   if(arg->execute == GENERATE){
-    printf("GENERUJE GRAF O WIELKOSCI %d\n", arg->n); //TODO implemente generate_graph;
+    printf("TUTAJ OBSLUZYC GENEROWANIE GRAFU O WIELKOSCI %d (tak naprawde teraz to generuje przykladowy)\n", arg->n); //TODO implemente generate_graph;
     graph = generate_example_graph();
   } else {
-    printf("CZYTAM GRAF z pliku %s (tak naprawde to generuje przykladowy)\n", arg->in); //TODO implemente read_graph_from_file;
+    printf("TUTAJ OBSLUZYC CZYTANIE GRAFU Z PLIKU %s (tak naprawde teraz to generuje przykladowy)\n", arg->in); //TODO implemente read_graph_from_file;
     graph = generate_example_graph();
     //graph = get_graph_from_input(arg->in);
   }
