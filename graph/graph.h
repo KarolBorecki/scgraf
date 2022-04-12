@@ -43,10 +43,11 @@ unsigned graph_memory_size(graph_t graph);
 unsigned graph_get_node_paths_count(node_t node);
 path_t graph_get_node_path_at_index(node_t node, unsigned index);
 
-path_t  graph_add_path_two_way(graph_t graph, node_t node, unsigned connection, double value);
+void  graph_add_path_two_way(graph_t graph, node_t node, unsigned connection, double value);
+
+void    graph_make_existing_path_two_way(graph_t graph, unsigned node_index, unsigned connection);
+path_t graph_get_path_for_node_index(node_t node_from, unsigned destination_node_index);
 void    graph_convert_directed_to_undirected(graph_t graph);
-
-
 void print_graph(graph_t);
 
 #endif /* _GRAPH_H_ */

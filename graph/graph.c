@@ -97,15 +97,39 @@ path_t graph_get_node_path_at_index(node_t node, unsigned index){
   return node->paths+index;
 }
 
-path_t graph_add_path_two_way(graph_t graph, node_t node, unsigned connection, double value){
+void graph_add_path_two_way(graph_t graph, node_t node, unsigned connection, double value){
     //Function can be only used once all nodes in the graph were initialized
     graph_add_path(node, connection, value);
     if(&(graph->nodes[connection]) != NULL)
         graph_add_path(&(graph->nodes[connection]), node->index, value);
 }
 
+path_t graph_get_path_for_node_index(node_t node_from, unsigned destination_node_index){
+    for(int i= 0; i<node_from->paths_count; i++){
+        if(node_from->paths[i].connection == destination_node_index)
+            return &(node_from->paths[i]);
+    }
+    return NULL;
+}
+
 void graph_make_existing_path_two_way(graph_t graph, unsigned node_index, unsigned connection){
-    graph->nodes[node_index].paths[connection].value= graph->nodes[connection].paths[node_index].value;
+    path_t path_to_connection= graph_get_path_for_node_index(&(graph->nodes[node_index]), connection);
+    path_t path_to_node= graph_get_path_for_node_index(&(graph->nodes[connection]), node_index);
+
+    printf("%d [%lf] connected to %d [%lf]\n\n",    path_to_node->connection, path_to_node->value,
+                                                    path_to_connection->connection, path_to_connection->value);
+
+    if( path_to_node != NULL && path_to_connection != NULL) {
+        path_to_connection->value= path_to_node->value;
+    }
+
+}
+
+void graph_convert_directed_to_undirected(graph_t graph){
+    for(int i= 0; i<graph->size; i++){
+        for(int j= 0; j<graph->nodes[i].paths_count; j++)
+            graph_make_existing_path_two_way(graph, graph->nodes[i].index, graph->nodes[i].paths[j].connection);
+    }
 }
 
 void print_graph(graph_t graph){

@@ -58,11 +58,11 @@ graph_t generate_example_graph(){
     help_node = graph_add_node(g);
     graph_add_path(help_node, 4, 3.0);
     graph_add_path(help_node, 6, 0.2);
-    graph_add_path(help_node, 8, 1.0);
+    graph_add_path(help_node, 8, 1.4);
 
     //Node 8
     help_node = graph_add_node(g);
-    graph_add_path(help_node, 7, 1.0);
+    graph_add_path(help_node, 7, 2382.232);
 
     return g;
 }
@@ -255,6 +255,8 @@ int main(int argc, char** argv){
     unsigned int width, height;
     graph= get_graph_from_file("../test_files/mygraph", &width, &height);
     print_graph(graph);
+    tab= run_dijkstra(graph, &(graph->nodes[9]), BUBBLE, SHORTEST);
+    print_table(tab);
 
     graph_t graph_mesh= generate_example_graph_mesh(3, 2);
 
@@ -267,8 +269,14 @@ int main(int argc, char** argv){
     printf("Dimensions of a graph: %d[width] x %d[height]\n", 2, 3);
     printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph_mesh, 2, 3));
 
-    graph_mesh= generate_example_graph_mesh(3, 3);
+    graph_mesh= generate_example_graph_mesh(3, 2);
     print_graph(graph_mesh);
-    printf("%d [is mesh]\n", check_if_graph_is_mesh(graph_mesh, 3, 3));
+    printf("%d [is mesh]\n", check_if_graph_is_mesh(graph_mesh, 3, 2));
+
+    graph_t new_graph= generate_example_graph();
+    print_graph(graph);
+    //graph_make_existing_path_two_way(new_graph, 7, 8);
+    graph_convert_directed_to_undirected(graph);
+    print_graph(graph);
     return 1;
 }
