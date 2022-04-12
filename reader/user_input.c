@@ -27,6 +27,65 @@ void free_arguments_struct(batch_arguments_t arg){
   free(arg);
 }
 
+void check_arguments(batch_arguments_t arg){
+  if(arg->execute == UNKNOWN) return;
+  char msg[MAX_FILE_NAME_LEN];
+
+  if(arg->execute == GENERATE){
+    if(arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED)
+      throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph generating I only need -x and -y [or -o, -n]!");
+
+    if(arg->x == VALUE_NOT_SPECIFIED){
+      arg->x = DEFAULT_X;
+      sprintf(msg, "The -x value is needed for generating, taking default value x = %d", DEFAULT_X);
+      throw_warning(default_value_warning, msg);
+    }
+    if(arg->y == VALUE_NOT_SPECIFIED){
+      arg->y = DEFAULT_Y;
+      sprintf(msg, "The -y value is needed for generating, taking default value y = %d", DEFAULT_Y);
+      throw_warning(default_value_warning, msg);
+    }
+  }else if(arg->execute == SHORTEST_PATH){
+    if(arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED)
+      throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor shortest path finding I only need -f and -t!");
+    if(arg->from == VALUE_NOT_SPECIFIED){
+      arg->from = DEFAULT_FROM;
+      sprintf(msg, "The -f value is needed for shortest path, taking default value from = %d", DEFAULT_FROM);
+      throw_warning(default_value_warning, msg);
+    }
+    if(arg->to == VALUE_NOT_SPECIFIED){
+      arg->to = DEFAULT_TO;
+      sprintf(msg, "The -t value is needed for shortest path, taking default value to = %d", DEFAULT_TO);
+      throw_warning(default_value_warning, msg);
+    }
+  }else if(arg->execute == CHECK_CONSISTENCY){
+    if(arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED)
+      throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor graph consistency check I only need -f [or -i]!");
+    if(arg->from == VALUE_NOT_SPECIFIED){
+      arg->from = DEFAULT_FROM;
+      sprintf(msg, "The -f value is needed for consistency checking, taking default value from = %d", DEFAULT_FROM);
+      throw_warning(default_value_warning, msg);
+    }
+  }else if(arg->execute == DIVIDE_GRAPH){
+    if(arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED)
+      throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor graph dviding I only need -n [or -o, -i]!");
+      if(arg->n == VALUE_NOT_SPECIFIED){
+        arg->n = DEFAULT_N;
+        sprintf(msg, "The -n value is needed for dividing graph, taking default value n = %d", DEFAULT_N);
+        throw_warning(default_value_warning, msg);
+      }
+  }
+  if(arg->execute != GENERATE && strcmp(arg->in, "") == 0){
+    arg->x = DEFAULT_X;
+    arg->y = DEFAULT_Y;
+    sprintf(msg, "The in file is not specified, the random graph will be generated with x = %d and y = %d", arg->x, arg->y);
+    throw_warning(default_value_warning, msg);
+  }
+  if(strcmp(arg->out, "") == 0){
+    throw_warning(default_value_warning, "Out file is not specified, the output will be shown in the console!");
+  }
+}
+
 batch_arguments_t get_batch_arguments(int argc, char** argv){
   batch_arguments_t arg = initzialize_arguments_struct();
 
@@ -114,13 +173,15 @@ void print_arguments(batch_arguments_t arg){
   printf("    EXECUTING : %s\n", get_string_from_functionallity(arg->execute));
   printf("    IN        : %s\n", strcmp(arg->in, "") == 0 ? "-" : arg->in);
   printf("    OUT       : %s\n", strcmp(arg->out, "") == 0 ? "-" : arg->out);
-  printf("    FROM      : %d\n", arg->from == VALUE_NOT_SPECIFIED ? DEFAULT_FROM : arg->from);
-  printf("    TO        : %d\n", arg->to == VALUE_NOT_SPECIFIED ? DEFAULT_TO : arg->to);
-  printf("    X         : %d\n", arg->x == VALUE_NOT_SPECIFIED ? DEFAULT_X : arg->x);
-  printf("    Y         : %d\n", arg->y == VALUE_NOT_SPECIFIED ? DEFAULT_Y : arg->y);
-  printf("    N         : %d\n", arg->n == VALUE_NOT_SPECIFIED ? DEFAULT_N : arg->n);
+  printf("    FROM      : %d\n", arg->from);
+  printf("    TO        : %d\n", arg->to);
+  printf("    X         : %d\n", arg->x);
+  printf("    Y         : %d\n", arg->y);
+  printf("    N         : %d\n", arg->n);
   set_font(BOLD);
   printf("\n");
   print_in_center("Arguments");
+  printf("\n");
   set_font(WHITE);
+  printf("\n");
 }

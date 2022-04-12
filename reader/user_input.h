@@ -3,13 +3,11 @@
 
 #define MAX_FILE_NAME_LEN 256 /* TODO propably should be in utils.h */
 
-#define DEFAULT_IN    stdin
-#define DEFAULT_OUT   "out.txt"
-#define DEFAULT_FROM  0
-#define DEFAULT_TO    10
-#define DEFAULT_X     5
-#define DEFAULT_Y     5
-#define DEFAULT_N     2
+#define DEFAULT_FROM 0
+#define DEFAULT_TO 10
+#define DEFAULT_X 5
+#define DEFAULT_Y 5
+#define DEFAULT_N 2
 
 #define VALUE_NOT_SPECIFIED -1
 
@@ -28,6 +26,8 @@ typedef struct batch_arguments{
 
 batch_arguments_t initzialize_arguments_struct();
 void free_arguments_struct(batch_arguments_t arg);
+
+void check_arguments(batch_arguments_t arg);
 
 batch_arguments_t get_batch_arguments(int argc, char** argv);
 

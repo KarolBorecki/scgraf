@@ -91,6 +91,7 @@ int main(int argc, char** argv){
   print_greetings();
 
   batch_arguments_t arg = get_batch_arguments(argc, argv);
+  check_arguments(arg);
   print_arguments(arg);
 
   if(arg->execute == UNKNOWN)
@@ -98,8 +99,6 @@ int main(int argc, char** argv){
 
   if(arg->execute == GENERATE){
     printf("GENERUJE GRAF O WIELKOSCI %d\n", arg->n); //TODO implemente generate_graph;
-    if(arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED)
-      throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph generating I only need -x and -y [or -o, -n]!");
   } else {
     printf("CZYTAM GRAF z pliku \n", arg->in); //TODO implemente read_graph_from_file;
     //graph = get_graph_from_input(arg->in);
@@ -108,23 +107,20 @@ int main(int argc, char** argv){
   graph = generate_example_graph();
 
   if(arg->execute == SHORTEST_PATH){
-    if(arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED)
-      throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor shortest path finding I only need -f and -t!");
+
     solver_get_shortest_path(graph, arg->from, arg->to);
   }
   else if(arg->execute == CHECK_CONSISTENCY){
-    if(arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED)
-      throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor graph consistency check I only need -f [or -i]!");
+
     solver_check_graph_consistency(graph, arg->from);
   }
   else if(arg->execute == DIVIDE_GRAPH){
-    if(arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED)
-      throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor graph dviding I only need -n [or -o, -i]!");
     solver_divide_graph_into_n_graphs(graph, arg->n);
   }
 
+/*
   if(strcmp(arg->out, "") != 0) printf("TUTAJ OBSLUZYC ZAPIS DO PLIKU!\n");
   else print_graph(graph);
-
+*/
   return 0;
 }

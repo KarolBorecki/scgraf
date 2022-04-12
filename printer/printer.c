@@ -54,7 +54,7 @@ void print_graph_division_greeting(unsigned divisions){
 }
 
 void print_graph_consistent_result(int result){
-  if(result > 1){
+  if(result > 0){
     set_font(GREEN);
     printf("Graph is consistent!\n\n");
   }else{
