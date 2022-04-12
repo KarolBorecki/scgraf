@@ -141,7 +141,7 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
   return arg;
 }
 
-enum functionality get_functionallity_from_string(char* str){
+func_t get_functionallity_from_string(char* str){
   if(strcmp(str, "shortest") == 0)
     return SHORTEST_PATH;
   else if(strcmp(str, "consistency") == 0)
@@ -155,7 +155,7 @@ enum functionality get_functionallity_from_string(char* str){
   return UNKNOWN;
 }
 
-char* get_string_from_functionallity(enum functionality func){
+char* get_string_from_functionallity(func_t func){
   if(func==SHORTEST_PATH)
     return "Shortest path";
   else if(func==CHECK_CONSISTENCY)
