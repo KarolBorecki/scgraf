@@ -1,7 +1,7 @@
 #ifndef _GRAPH_H_
 #define _GRAPH_H_
 
-#define START_NODES_PATHS_COUNT 4
+#define START_NODES_PATHS_COUNT 5
 #define GRAPH_ENLARGE_MULTIPLIER 2
 
 typedef struct path{

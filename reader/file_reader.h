@@ -3,11 +3,21 @@
 
 #include <stdio.h>
 #include "../graph/graph.h"
+#include "../errors/errors.h"
+#include <string.h>
+#include <stdlib.h>
 
-#define MAXBUF      20000000
-#define MAXLINES    1000000
+#define MAXBUF      2000
+#define MAXLINES    1000
+#define WARNING_SIZE    126
 
-graph_t file_read(char *buf[], FILE *IN);
-char * get_buf_from_file(FILE *IN);
+FILE * open_file(char * file_name);
+
+graph_t get_graph_from_file(char * file_name);
+
+int is_node_valid(int node, int max_index);
+int is_value_valid(double value);
+int check_if_empty(char * line);
+int read_all_nodes_from_line(char * line);
 
 #endif //SCGRAF_FILE_READER_H

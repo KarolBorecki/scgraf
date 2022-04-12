@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../graph/graph.h"
 #include "../reader/graph_generator.h"
-#include "../algorithms/BFS.h"
-#include "../algorithms/Dijkstra.h"
+#include "../Algorithms/BFS.h"
+#include "../Algorithms/Dijkstra.h"
 #include "../reader/graph_generator.h"
 #include "../solver/graph_solver.h"
+#include "../reader/file_reader.h"
 
 graph_t generate_example_graph(){
     graph_t g = initzialize_graph(9);
@@ -130,47 +132,9 @@ int main(int argc, char** argv){
     table_t_p tab= run_dijkstra(graph, &(graph->nodes[2]), BUBBLE, SHORTEST);
     print_table(tab);
 
-    /*for(int i= 0; i<tab->size; i++) {
-        double len= print_shortest_path_from_to(tab, &(graph->nodes[0]), &(graph->nodes[i]));
-        printf("\nlen of that path = %lf\n", tab->elements[i].shortest_distances);
-    }*/
-
-    //for(int i= 0; i<9; i++)
-        //printf("\n%lf", print_shortest_path_from_to(tab, &(graph->nodes[0]), &(graph->nodes[i])));
-
-    /*printf("\n\n===========Example graph:\n");
-    graph = generate_example_graph();
+    char path[100];
+    strcpy(path, "../test_files/mygraph");
+    graph= get_graph_from_file(path);
     print_graph(graph);
-    solver_check_graph_consistency(graph);
-
-    printf("\n\n===========20 graph:\n");
-    graph = generate_graph(20);
-    //print_graph(graph);
-    solver_check_graph_consistency(graph);
-
-    *//*printf("\n\n===========30 graph:\n");
-    graph = generate_graph(30);
-    //print_graph(graph);
-    solver_check_graph_consistency(graph);*//*
-
-    printf("\n\n===========50 graph:\n");
-    graph = generate_graph(50);
-    //print_graph(graph);
-    solver_check_graph_consistency(graph);
-
-    printf("\n\n===========80 graph:\n");
-    graph = generate_graph(80);
-    //print_graph(graph);
-    solver_check_graph_consistency(graph);
-
-    printf("\n\n===========100 graph:\n");
-    graph = generate_graph(100);
-    //print_graph(graph);
-    solver_check_graph_consistency(graph);
-
-    printf("\n\n===========150 graph:\n");
-    graph = generate_graph(150);
-    //print_graph(graph);
-    solver_check_graph_consistency(graph);*/
     return 1;
 }
