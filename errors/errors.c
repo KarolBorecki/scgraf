@@ -44,24 +44,24 @@ warning_t new_warning(unsigned code, char* msg){
 }
 
 void throw_error(error_t err, char* additional_msg){
-  font_color_red();
+  set_font(RED);
   printf("Error!\n");
   printf("    Error code: E0%d \n", err->code);
   printf("    Error message: %s", err->msg);
   if(strlen(additional_msg) > 0)
     printf(" - %s", additional_msg);
   printf("\n\n");
-  font_color_reset();
+  set_font(WHITE);
   exit(EXIT_FAILURE);
 }
 
 void throw_warning(warning_t war, char* additional_msg){
-  font_color_yellow();
+  set_font(YELLOW);
   printf("Warning!\n");
   printf("    Warning code: W0%d \n", war->code);
   printf("    Warning message: %s", war->msg);
   if(strlen(additional_msg) > 0)
     printf(" - %s", additional_msg);
-  font_color_reset();
+  set_font(WHITE);
   printf("\n\n");
 }
