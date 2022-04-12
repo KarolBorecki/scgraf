@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "printer/printer.h"
-#include "errors/errors.h"
+//#include "errors/errors.h"
 #include "graph/graph.h"
 #include "Algorithms/BFS.h"
 #include "Algorithms/Dijkstra.h"
@@ -10,8 +10,8 @@
 #include "reader/user_input.h"
 
 void setup_menu(){
-  initzialize_errors();
-  initzialize_warnings();
+  //initzialize_errors();
+  //initzialize_warnings();
 }
 
 int main(int argc, char** argv){

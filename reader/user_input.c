@@ -1,6 +1,6 @@
 #include "user_input.h"
 
-#include "../errors/errors.h"
+//#include "../errors/errors.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -58,7 +58,7 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
       arg->sp = atoi(optarg);
       break;
     default:
-      throw_error(invalid_value_error, "Specified invalid argument!");
+      //throw_error(invalid_value_error, "Specified invalid argument!");
       exit (EXIT_FAILURE);
       break;
     }

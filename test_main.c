@@ -9,6 +9,7 @@
 #include "../reader/graph_generator.h"
 #include "../solver/graph_solver.h"
 #include "../reader/file_reader.h"
+#include "../reader/data_reader.h"
 
 graph_t generate_example_graph(){
     graph_t g = initzialize_graph(9);
@@ -120,6 +121,41 @@ graph_t generate_example_graph_2(){
     return g;
 }
 
+graph_t generate_example_graph_mesh(){
+    graph_t g = initzialize_graph(6);
+    node_t help;
+
+    //NODE 0
+    help= graph_add_node(g);
+    graph_add_path(help, 1, 1);
+    graph_add_path(help, 3, 1.2);
+
+    //NODE 1
+    help= graph_add_node(g);
+    graph_add_path(help, 0, 1);
+    graph_add_path(help, 2, 1.2);
+
+    //NODE 2
+    help= graph_add_node(g);
+    graph_add_path(help, 1, 1.2);
+    graph_add_path(help, 5, 7.8);
+
+    //NODE 3
+    help= graph_add_node(g);
+    graph_add_path(help, 0, 1.2);
+    graph_add_path(help, 4, 3.4);
+
+    //NODE 4
+    help= graph_add_node(g);
+    graph_add_path(help, 3, 3.4);
+
+    //NODE 5
+    help= graph_add_node(g);
+    graph_add_path(help, 2, 7.8);
+
+    return g;
+}
+
 int main(int argc, char** argv){
     graph_t graph= generate_example_graph_circle(20);//
     graph= generate_example_graph_2();
@@ -132,9 +168,17 @@ int main(int argc, char** argv){
     table_t_p tab= run_dijkstra(graph, &(graph->nodes[2]), BUBBLE, SHORTEST);
     print_table(tab);
 
-    char path[100];
-    strcpy(path, "../test_files/mygraph");
-    graph= get_graph_from_file(path);
+
+    unsigned int x, y;
+    graph= get_graph_from_file("../test_files/mygraph", &y, &x);
     print_graph(graph);
+
+    graph_t graph_mesh= generate_example_graph_mesh();
+
+    printf("Dimensions of a graph: %d[width] x %d[height]\n", x, y);
+    printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph, x, y));
+    printf("Dimensions of a graph: %d[width] x %d[height]\n", y, x);
+    printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph, y, x));
+    printf("%d <- is graph mesh\n", check_if_graph_is_mesh(graph_mesh, 3, 2));
     return 1;
 }

@@ -1,9 +1,9 @@
-#ifndef SCGRAF_FILE_READER_H
-#define SCGRAF_FILE_READER_H
+#ifndef _SCGRAF_FILE_READER_H_
+#define _SCGRAF_FILE_READER_H_
 
 #include <stdio.h>
 #include "../graph/graph.h"
-#include "../errors/errors.h"
+//#include "../errors/errors.h"
 #include <string.h>
 #include <stdlib.h>
 
@@ -13,7 +13,7 @@
 
 FILE * open_file(char * file_name);
 
-graph_t get_graph_from_file(char * file_name);
+graph_t get_graph_from_file(char * file_name, unsigned * dimension_height, unsigned * dimension_width);
 
 int is_node_valid(int node, int max_index);
 int is_value_valid(double value);
