@@ -7,12 +7,13 @@ FILE * open_file(char * file_name){
     return IN;
 }
 
-graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * dim_height){
+graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * dim_height, double * max_weight){
     FILE * IN= open_file(file_name);
     printf("\n====READING GRAPH====\n"
            "Reading from file: \"%s\"\n", file_name);
     node_t help_node;
     graph_t graph;
+    *max_weight= 0.;
 
     unsigned width, height, lines= 0, amount_of_nodes, max_node_index;
     char msg[WARNING_SIZE];
@@ -25,7 +26,7 @@ graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * d
         lines++;
         if(width <= 0 || height <= 0) {
             sprintf(msg, "not positive dimensions of graph in line: %d", lines);
-            //throw_error(invalid_value_error, msg);
+            throw_error(file_error, msg);
             return NULL;
         }
         amount_of_nodes = width * height;
@@ -33,7 +34,7 @@ graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * d
         graph= initzialize_graph(amount_of_nodes);
     }else{
         sprintf(msg, "expected 2 positive integers in the 1st line in line: %d", lines);
-        //throw_error(file_error, msg);
+        throw_error(file_error, msg);
         return NULL;
     }
 
@@ -46,7 +47,7 @@ graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * d
         if ((read_nodes = read_all_nodes_from_line(line)) < 1) {
             if (!check_if_empty(line)) {
                 sprintf(msg, "incorrect line format at line: %d", lines);
-                //throw_error(file_error, msg);
+                throw_error(file_error, msg);
                 return NULL;
             } else {          //empty line, so it' s okay for now
                 continue;   //but we won' t be adding nothing to graph
@@ -60,13 +61,15 @@ graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * d
             int cond1;
             if( (cond1 = is_node_valid(node_index, max_node_index)) && is_value_valid(value)){
                 graph_add_path(help_node, node_index, value);
+                if(value > *max_weight)
+                *max_weight= value;
             }else if(!cond1){
                 sprintf(msg, "incorrect node_index in line: %d", lines);
-                //throw_error(invalid_value_error, msg);
+                throw_error(file_error, msg);
                 return NULL;
             }else if(is_value_valid(value)){
                 sprintf(msg, "incorrect node_index in line %d", lines);
-                //throw_error(invalid_value_error, msg);
+                throw_error(file_error, msg);
                 return NULL;
             }
         }
@@ -75,7 +78,8 @@ graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * d
     printf("\n====READING FINISHED====\n"
            "Declared size: %d x %d\n"
            "Read lines: %d\n"
-           "Read nodes: %d\n", width, height, lines, amount_of_nodes);
+           "Read nodes: %d\n"
+           "Max weight value: %lf\n", width, height, lines, amount_of_nodes, *max_weight);
 
     *dim_width=     width;
     *dim_height=    height;

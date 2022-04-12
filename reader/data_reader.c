@@ -1,7 +1,7 @@
 #include "../reader/data_reader.h"
 //#include <stdio.h>
 
-int check_if_graph_is_mesh(graph_t graph,unsigned dimension_width, unsigned dimension_height){
+int check_if_graph_is_mesh(graph_t graph, unsigned dimension_width, unsigned dimension_height){
     for(int i= 0; i<dimension_height; i++){
         for(int j= 0; j<dimension_width; j++){
             unsigned current_node= i*dimension_width + j;

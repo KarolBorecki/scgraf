@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 void* realloc_block(void* ptr, size_t ptr_size, unsigned enlarger_muliplier){
   void* new_p = malloc(ptr_size * enlarger_muliplier);
@@ -25,4 +26,10 @@ void swap_elements(unsigned *p1, unsigned *p2){
     unsigned p3= *p1;
     *p1= *p2;
     *p2= p3;
+}
+
+double rand_double_from_to(double min, double max){
+    srand(time(NULL));
+    double value = min + ((double) rand() / (double)RAND_MAX) * max;
+    return value;
 }
