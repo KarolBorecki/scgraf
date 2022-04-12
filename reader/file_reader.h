@@ -8,9 +8,9 @@
 #include "../graph/graph.h"
 #include "../errors/errors.h"
 
-#define MAXBUF      2000
-#define MAXLINES    1000
-#define WARNING_SIZE    126
+#define MAXBUF        8192
+#define MAXLINES      8192
+#define WARNING_SIZE  126
 
 FILE * open_file(char * file_name);
 

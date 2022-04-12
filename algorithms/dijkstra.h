@@ -17,7 +17,7 @@
 #define QUICK           2
 #define LONGEST         1
 #define SHORTEST        0
-#define MAXMSG         2048
+#define MAXMSG          100
 
 typedef struct table{
     unsigned int    node_index;

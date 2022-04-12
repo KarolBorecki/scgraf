@@ -14,9 +14,7 @@
 #define GREEN      "\033[32m"
 #define BOLD       "\033[1m"
 
-
 void set_font(char* font);
-
 void print_in_center(char* str);
 
 void print_greetings();

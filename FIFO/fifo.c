@@ -6,6 +6,7 @@
 
 #include "../errors/errors.h"
 #include "../utils/utils.h"
+#include "../printer/printer.h"
 
 fifo_t initzialize_fifo(){
   fifo_t fifo = malloc(sizeof(*fifo));

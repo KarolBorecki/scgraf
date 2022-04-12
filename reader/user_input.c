@@ -29,8 +29,8 @@ void free_arguments_struct(batch_arguments_t arg){
 
 void check_arguments(batch_arguments_t arg){
   if(arg->execute == UNKNOWN) return;
-  check_arguments_for_bypassing(arg);
   check_arguments_for_defaults(arg);
+  check_arguments_for_bypassing(arg);
 }
 
 void check_arguments_for_defaults(batch_arguments_t arg){

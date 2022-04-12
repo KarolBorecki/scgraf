@@ -76,14 +76,23 @@ int main(int argc, char** argv){
 
   if(arg->execute == UNKNOWN)
     print_help();
+/*
+TODO:
+  1. Zapis do pliku
+  2. Testy
+  3. makefile
+  4. graph_solver - uzupelnienie
+
+-refaktoryzacja generowanie GRAFU
+-config.h
+*/
 
   if(arg->execute == GENERATE){
     printf("TUTAJ OBSLUZYC GENEROWANIE GRAFU O WIELKOSCI %d x %d (tak naprawde teraz to generuje przykladowy)\n", arg->x, arg->y); //TODO implemente generate_graph;
-    graph = generate_example_graph();
+    graph = generate_example_graph(); //TODO delete
   } else {
     printf("TUTAJ OBSLUZYC CZYTANIE GRAFU Z PLIKU %s (tak naprawde teraz to generuje przykladowy)\n", arg->in); //TODO implemente read_graph_from_file;
-    graph = generate_example_graph();
-    //graph = get_graph_from_input(arg->in);
+    graph = generate_example_graph(); //TODO delete
   }
 
   if(arg->execute == SHORTEST_PATH)

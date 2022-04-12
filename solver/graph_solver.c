@@ -18,7 +18,5 @@ void solver_check_graph_consistency(graph_t graph, unsigned start){
 
 void solver_divide_graph_into_n_graphs(graph_t graph, unsigned divides){
   print_graph_division_greeting(divides);
-  /*
   divide_graph(graph, divides);
-  */
 }
