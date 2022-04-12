@@ -53,7 +53,7 @@ void throw_error(error_t err, char* additional_msg){
     printf(" - %s", additional_msg);
   printf("\n\n");
   set_font(WHITE);
-  exit(EXIT_FAILURE);
+  exit_program_failure();
 }
 
 void throw_warning(warning_t war, char* additional_msg){
@@ -65,4 +65,12 @@ void throw_warning(warning_t war, char* additional_msg){
     printf(" - %s", additional_msg);
   set_font(WHITE);
   printf("\n\n");
+}
+
+void exit_program_normal(){
+  exit(EXIT_SUCCESS);
+}
+
+void exit_program_failure(){
+  exit(EXIT_FAILURE);
 }

@@ -40,4 +40,8 @@ warning_t new_warning(unsigned code, char* msg);
 void throw_error(error_t err, char* additional_msg);
 void throw_warning(warning_t war, char* additional_msg);
 
+void exit_program_normal();
+void exit_program_failure();
+
+
 #endif /* _ERRORS_H_ */

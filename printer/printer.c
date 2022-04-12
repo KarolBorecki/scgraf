@@ -2,6 +2,8 @@
 
 #include <stdio.h>
 
+#include "../errors/errors.h"
+
 void set_font(char* font){
   printf("%s", font);
 }
@@ -17,5 +19,5 @@ void print_help(){
   set_font(RED);
   printf("TODO ->>>> scrgraf help <<<<- TODO\n");
   set_font(WHITE);
-  exit(0);
+  exit_program_normal();
 }

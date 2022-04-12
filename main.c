@@ -8,6 +8,8 @@
 #include "algorithms/dijkstra.h"
 #include "reader/graph_generator.h"
 #include "reader/user_input.h"
+#include "reader/file_reader.h"
+#include "solver/graph_solver.h"
 
 void setup_menu(){
   initzialize_errors();
@@ -16,54 +18,16 @@ void setup_menu(){
 
 graph_t get_graph_from_input(char* in){
   graph_t result;
-  if(strcmp(in, "") == 0) result = get_graph_from_file(in);
+  if(strcmp(in, "") != 0) result = get_graph_from_file(in);
   else {
     printf("TUTAJ WCZYTAMY Z KONSOLI narazie generuje\n");
-    result = graph_generator(10);
+    result = generate_graph(10);
   }
 
   return result;
 }
 
-/*
-CO MOZE WYWOLAC UZYTKOWNIK:
--znalezc najkrotsza droge w grafie
-  WARUNKI:
-    *Podanie -from lub -to (Jezeli nie poda ktoregos z nich to wywolanie z domyslnym arg)
-    *[Podanie in] - zaladuje z pliku (jesli nie poda to z konsoli)
-    *[Podanie out] - wpisze wynik do pliku (jesli nie poda to wypisze na konsole)
--sprawdzic czy podany graf jest SPOJNY
-  WARUNKI:
-    *Podanie -sp
-    *[Podanie in] - zaladuje z pliku (jesli nie poda to z konsoli)
--podzielic graf na n grafow
-  WARUNKI:
-    *Podanie -n (divides)
-    *[Podanie in] - zaladuje z pliku (jesli nie poda to z konsoli)
-    *[Podanie out] - wpisze wynik do pliku (jesli nie poda to wypisze na konsole)
--wygenerowac losowy graf
-  WARUNKI:
-    *Podanie -x -y (Jezeli nie poda ktoregos z nich to wywolanie z domyslnym arg)
-    *[Podanie out] - wpisze wynik do pliku (jesli nie poda to wypisze na konsole)
-*/
-
-//if(arg->in != NULL) -> wczytaj GRAF
-//if(x != Null && y != null) -> generuj GRAF
-//if(out != null && x != Null && y != null) -> zapisz graf do pliku
-//if()
-
-/*
-typedef struct batch_arguments{
-  char* in;
-  char* out;
-  unsigned from;
-  unsigned to;
-  unsigned x;
-  unsigned y;
-  unsigned n;
-  unsigned sp;
-} *batch_arguments_t;
-*/
+//TODO obsluzyc bledy wywolan w solverze i generate_graph
 int main(int argc, char** argv){
   graph_t graph;
 
@@ -77,18 +41,25 @@ int main(int argc, char** argv){
     print_help();
 
   if(arg->execute == GENERATE){
-    printf("TUTAJ GENERUJEMY\n");
-    if(arg->from )
+    generate_graph(arg->n);
+    if(arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED)
+      throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph generating I only need -x and -y [or -o, -n]!");
   } else graph = get_graph_from_input(arg->in);
 
   if(arg->execute == SHORTEST_PATH){
     solver_get_shortest_path(graph, arg->from, arg->to);
+    if(arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED)
+      throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for shortest path finding I only need -f and -t!");
   }
   else if(arg->execute == CHECK_CONSISTENCY){
     solver_check_graph_consistency(graph);
+    if(arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED)
+      throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph consistency check I only need -f [or -i]!");
   }
   else if(arg->execute == DIVIDE_GRAPH){
     solver_divide_graph_into_n_graphs(graph, arg->n);
+    if(arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED)
+      throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph dviding I only need -n [or -o, -i]!");
   }
 
   return 0;
