@@ -97,6 +97,17 @@ path_t graph_get_node_path_at_index(node_t node, unsigned index){
   return node->paths+index;
 }
 
+path_t graph_add_path_two_way(graph_t graph, node_t node, unsigned connection, double value){
+    //Function can be only used once all nodes in the graph were initialized
+    graph_add_path(node, connection, value);
+    if(&(graph->nodes[connection]) != NULL)
+        graph_add_path(&(graph->nodes[connection]), node->index, value);
+}
+
+void graph_make_existing_path_two_way(graph_t graph, unsigned node_index, unsigned connection){
+    graph->nodes[node_index].paths[connection].value= graph->nodes[connection].paths[node_index].value;
+}
+
 void print_graph(graph_t graph){
   printf("\n=========Graph=========\n\n");
   printf("    Nodes: %d \n", graph->size);
