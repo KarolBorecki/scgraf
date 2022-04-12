@@ -1,4 +1,4 @@
-#include "errors.h"
+#include "../errors/errors.h"
 
 #include "../printer/printer.h"
 

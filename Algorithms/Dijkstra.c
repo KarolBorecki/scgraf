@@ -1,13 +1,14 @@
-#include "dijkstra.h"
+#include "Dijkstra.h"
 
-table_t_p initialize_start_table(graph_t graph, node_t start_node){
+
+table_t_p initialize_start_table(graph_t graph, node_t start_node, unsigned mode_2){
     table_t_p table_p= malloc(graph->size * sizeof(*table_p));
     table_p->size= graph->size;
     table_p->elements= malloc(graph->size * sizeof(*table_p->elements));
 
     for(int i= 0; i<table_p->size; i++) {
         if(graph->nodes[i].index != start_node->index)
-            table_p->elements[i].shortest_distances= INF;
+            table_p->elements[i].shortest_distances= (mode_2 == longest ? ZERO : INF);
         else
             table_p->elements[i].shortest_distances= 0;
         table_p->elements[i].previous_nodes = INVALID_NODE;
@@ -27,10 +28,10 @@ void print_table(table_t_p table){
                 , table->elements[i].previous_nodes);
 }
 
-table_t_p run_dijkstra(graph_t graph, node_t start_node){
+table_t_p run_dijkstra(graph_t graph, node_t start_node, unsigned mode, unsigned mode_2){
     unsigned int popped_from_que= 0, current_vertex;
 
-    table_t_p table= initialize_start_table(graph, start_node);
+    table_t_p table= initialize_start_table(graph, start_node, mode_2);
     fifo_t que_to_visit= initzialize_fifo();
 
     for(int i= 0; i<table->size; i++)
@@ -42,16 +43,21 @@ table_t_p run_dijkstra(graph_t graph, node_t start_node){
         popped_from_que++;
         node_t help = graph_get_node_at_index(graph, current_vertex);
         for(unsigned j= 0; j<help->paths_count; j++) {
-                double val= help->paths[j].value;
-                if (val + table->elements[current_vertex].shortest_distances < table->elements[help->paths[j].connection].shortest_distances){
+            double val= help->paths[j].value;
+            if (mode_2 == longest
+                ?   val + table->elements[current_vertex].shortest_distances > table->elements[help->paths[j].connection].shortest_distances
+                :   val + table->elements[current_vertex].shortest_distances < table->elements[help->paths[j].connection].shortest_distances
+            ){
                     table->elements[help->paths[j].connection].shortest_distances= val + table->elements[current_vertex].shortest_distances;
                     table->elements[help->paths[j].connection].previous_nodes= current_vertex;
-                }
+            }
 
         }
-        //if(popped_from_que != table->size)
-        //qsort_que(que_to_visit->queue, popped_from_que, table->size-1, table);
-        //sort_que(que_to_visit, *(que_to_visit->head), table);
+
+        if(mode == BUBBLE)
+            bsort_que(que_to_visit, popped_from_que, table, mode_2);
+        else if(mode == QUICK)
+            qsort_que(que_to_visit->queue + fifo_head_index(que_to_visit), popped_from_que, table->size-1, table);
     }
 
     return table;
@@ -63,13 +69,24 @@ void free_table(table_t_p table){
     free(table);
 }
 
-void sort_que(fifo_t que, unsigned start, table_t_p tab){
-    for(unsigned i= start; i<que->size; i++){
-        for(unsigned j= i+1; j<que->size; j++){
-            if(tab->elements[que->queue[i]].shortest_distances > tab->elements[que->queue[j]].shortest_distances)
+
+void bsort_que(fifo_t que, unsigned start, table_t_p tab, unsigned mode_2){
+/*    printf("\n====QUE PRE SORT====\n");
+    print_fifo(que);*/
+    for(unsigned i= start; i<tab->size; i++){
+        for(unsigned j= i+1; j<tab->size; j++){
+            //printf("COMPARING: %lf [i] > %lf [j]\nRES: %d\n", tab->elements[que->queue[i]].shortest_distances, tab->elements[que->queue[j]].shortest_distances,tab->elements[que->queue[i]].shortest_distances > tab->elements[que->queue[j]].shortest_distances);
+            if(mode_2 == longest
+            ?   tab->elements[que->queue[i]].shortest_distances < tab->elements[que->queue[j]].shortest_distances
+            :   tab->elements[que->queue[i]].shortest_distances > tab->elements[que->queue[j]].shortest_distances
+            ){
                 swap_elements(&que->queue[i], &que->queue[j]);
+            }
+
         }
     }
+/*    printf("\n====QUE AFTER SORT====\n");
+    print_fifo(que);*/
 }
 
 void qsort_que(unsigned * que, unsigned start, unsigned end, table_t_p tab){
