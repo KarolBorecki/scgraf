@@ -34,11 +34,10 @@ TODO:
 
   if(arg->execute == GENERATE){
     printf("TUTAJ OBSLUZYC GENEROWANIE GRAFU O WIELKOSCI %d x %d (tak naprawde teraz to generuje przykladowy)\n", arg->x, arg->y); //TODO implemente generate_graph;
-    graph = generate_example_graph(); //TODO delete
+    graph = generate_example_graph_mesh(arg->x, arg->y, arg->max_path_value); //TODO delete
   } else {
-    printf("TUTAJ OBSLUZYC CZYTANIE GRAFU Z PLIKU %s (tak naprawde teraz to generuje przykladowy)\n", arg->in); //TODO implemente read_graph_from_file;
     int width, height;
-    graph = get_graph_from_file(arg->in, &width, &height,); //TODO delete
+    graph = get_graph_from_file(arg->in, &width, &height); //TODO delete
   }
 
   if(arg->execute == SHORTEST_PATH)

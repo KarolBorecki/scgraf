@@ -29,7 +29,6 @@ void swap_elements(unsigned *p1, unsigned *p2){
 }
 
 double rand_double_from_to(double min, double max){
-    srand(time(NULL));
     double value = min + ((double) rand() / (double)RAND_MAX) * max;
     return value;
 }

@@ -8,6 +8,7 @@
 
 void solver_get_shortest_path(graph_t graph, unsigned from, unsigned to){
   print_shortest_path_greeting(from, to);
+  get_shortest_distance_from_to(graph, from, to);
 }
 
 void solver_check_graph_consistency(graph_t graph, unsigned start){

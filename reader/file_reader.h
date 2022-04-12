@@ -14,7 +14,7 @@
 
 FILE * open_file(char * file_name);
 
-graph_t get_graph_from_file(char * file_name, unsigned * dimension_height, unsigned * dimension_width, double * max_weight);
+graph_t get_graph_from_file(char * file_name, unsigned * dimension_height, unsigned * dimension_width);
 
 int is_node_valid(int node, int max_index);
 int is_value_valid(double value);

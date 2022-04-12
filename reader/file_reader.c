@@ -7,13 +7,13 @@ FILE * open_file(char * file_name){
     return IN;
 }
 
-graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * dim_height, double * max_weight){
+graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * dim_height){
     FILE * IN= open_file(file_name);
     printf("\n====READING GRAPH====\n"
            "Reading from file: \"%s\"\n", file_name);
     node_t help_node;
     graph_t graph;
-    *max_weight= 0.;
+    double max_weight= 0.;
 
     unsigned width, height, lines= 0, amount_of_nodes, max_node_index;
     char msg[WARNING_SIZE];
@@ -61,8 +61,8 @@ graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * d
             int cond1;
             if( (cond1 = is_node_valid(node_index, max_node_index)) && is_value_valid(value)){
                 graph_add_path(help_node, node_index, value);
-                if(value > *max_weight)
-                *max_weight= value;
+                if(value > max_weight)
+                    max_weight= value;
             }else if(!cond1){
                 sprintf(msg, "incorrect node_index in line: %d", lines);
                 throw_error(file_error, msg);
@@ -79,10 +79,11 @@ graph_t get_graph_from_file(char * file_name, unsigned * dim_width, unsigned * d
            "Declared size: %d x %d\n"
            "Read lines: %d\n"
            "Read nodes: %d\n"
-           "Max weight value: %lf\n", width, height, lines, amount_of_nodes, *max_weight);
+           "Max weight value: %lf\n", width, height, lines, amount_of_nodes, max_weight);
 
     *dim_width=     width;
     *dim_height=    height;
+    graph_set_max_path_value(graph, max_weight);
     return graph;
 }
 

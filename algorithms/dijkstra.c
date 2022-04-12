@@ -1,4 +1,7 @@
 #include "dijkstra.h"
+#include "../errors/errors.h"
+#include "bfs.h"
+#include "../printer/printer.h"
 
 table_t_p initialize_start_table(graph_t graph, node_t start_node, unsigned mode_2){
     table_t_p table_p= malloc(graph->size * sizeof(*table_p));
@@ -118,6 +121,7 @@ unsigned partition (unsigned * arr, unsigned low, unsigned high, table_t_p tab)
 //start_node must be the same node, that Dijkstra' s table was created for
 double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t destination_node){
     double path_len= 0.;
+    print_in_center("SHORTEST PATH IN THE GRAPH");
     if(start_node->index == destination_node->index) {
         printf("Ur at your destination node!\n");
         return path_len;
@@ -130,20 +134,26 @@ double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t de
         printf("->%d", table->elements[i].previous_nodes);
         path_len += table->elements[i].shortest_distances;
     }
-
+    printf("\nLENGTH OF FOLLOWING PATH= %.4lf\n", path_len);
+    print_in_center("SHORTEST PATH IN THE GRAPH");
     return path_len;
 }
 
 double get_shortest_distance_from_to(graph_t graph, unsigned start_node, unsigned destination_node){
     char msg[MAXMSG];
+    if(bfs(graph, start_node) <= 0){
+      sprintf(msg, "Graph is not consistant, we cant search for shortest path (yet!)\n");
+      throw_warning(inconsistent_graph_warning, msg);
+      return -1;
+    }
     if(start_node < 0 || start_node > graph->size - 1){
         sprintf(msg, "incorrect start node in function get_shortest_distance_from_to()!\n");
-        //throw_error(, msg);
+        throw_error(invalid_value_error, msg);
         return -1;
     }
     if(destination_node < 0 || destination_node > graph->size - 1){
         sprintf(msg, "incorrect start node in function get_shortest_distance_from_to()!\n");
-        //throw_error(, msg);
+        throw_error(invalid_value_error, msg);
         return -1;
     }
     node_t  start=  &(graph->nodes[start_node]);
