@@ -8,6 +8,18 @@
 #include "graph/graph.h"
 #include "printer/printer.h"
 
+/*
+TODO:
+  1. Testy
+  2. makefile
+
+  -Refaktoryzacja generowanie GRAFU
+  -config.h
+  -Może jak zapisujemy do pliku to dodac opcje -p dla print? (Żeby zawsze mozna bylo mimo zapisu do pliku wyswietlic)
+  -Uspojnic graph_generator.c
+  -Moze uspojnic file_reader i file_printer na file_manager i data_manager?
+*/
+
 int main(int argc, char** argv){
   graph_t graph;
 
@@ -21,22 +33,15 @@ int main(int argc, char** argv){
 
   if(arg->execute == UNKNOWN)
     print_help();
-/*
-TODO:
-  1. Zapis do pliku
-  2. Testy
-  3. makefile
-  4. graph_solver - uzupelnienie
-
--refaktoryzacja generowanie GRAFU
--config.h
-*/
 
   if(arg->execute == GENERATE){
-    graph = generate_example_graph_mesh(arg->x, arg->y, arg->max_path_value); //TODO delete
+    graph = generate_example_graph_mesh(arg->x, arg->y, arg->max_path_value);
   } else {
     int width, height;
-    graph = get_graph_from_file(arg->in); //TODO delete
+    if(strcmp(arg->in, "") == 0)
+      graph = generate_example_graph();
+    else
+      graph = get_graph_from_file(arg->in);
   }
 
   if(arg->execute == SHORTEST_PATH)

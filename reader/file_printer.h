@@ -7,6 +7,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int print_graph_to_file(graph_t g, char * file_name_out);
+void print_graph_to_file(graph_t g, char * file_name_out);
 
-#endif //file_printer.h
+#endif  /* _FILE_PRINTER_H_ */

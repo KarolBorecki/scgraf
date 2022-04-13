@@ -33,7 +33,8 @@ void generate_new_path(graph_t graph, node_t node){
 
 graph_t generate_example_graph(void){
     graph_t g = initzialize_graph(9);
-
+    g->width = 3;
+    g->height = 3;
     node_t help_node;
 
     //Node 0

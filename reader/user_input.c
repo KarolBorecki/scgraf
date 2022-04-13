@@ -83,20 +83,19 @@ void check_arguments_for_bypassing(batch_arguments_t arg){
   char msg[MAX_FILE_NAME_LEN];
 
   if(arg->execute == GENERATE && (arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED))
-    throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor graph generating I only need -x and -y [or -o, -n]!");
+    throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph generating I only need -x and -y [or -o, -n]!");
   if(arg->execute == SHORTEST_PATH && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED || arg->max_path_value != VALUE_NOT_SPECIFIED))
-    throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor shortest path finding I only need -f and -t!");
+    throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for shortest path finding I only need -f and -t!");
   if(arg->execute == CHECK_CONSISTENCY && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED || arg->max_path_value != VALUE_NOT_SPECIFIED))
-    throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor graph consistency check I only need -f [or -i]!");
+    throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph consistency check I only need -f [or -i]!");
   if(arg->execute == DIVIDE_GRAPH && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED || arg->max_path_value != VALUE_NOT_SPECIFIED))
-    throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, \nfor graph dviding I only need -n [or -o, -i]!");
+    throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph dviding I only need -n [or -o, -i]!");
 
   if(arg->execute != GENERATE && strcmp(arg->in, "") == 0){
-    sprintf(msg, "The in file is not specified, \nthe random graph will be generated with x = %d and y = %d", arg->x, arg->y);
-    throw_warning(default_value_warning, msg);
+    throw_warning(default_value_warning, "The in file is not specified, the example will be taken.");
   }
   if(strcmp(arg->out, "") == 0)
-    throw_warning(default_value_warning, "Out file is not specified, \nthe output will be shown in the console!");
+    throw_warning(default_value_warning, "Out file is not specified, the output will be shown in the console!");
 
 }
 
@@ -185,7 +184,7 @@ void print_arguments(batch_arguments_t arg){
   set_font(LIGHT_BLUE);
   set_font(BOLD);
   printf("\n");
-  print_in_center("Arguments");
+  print_in_center("Passed arguments");
   printf("\n");
   set_font(WHITE);
   set_font(LIGHT_BLUE);
@@ -200,7 +199,7 @@ void print_arguments(batch_arguments_t arg){
   printf("    MAX_PATH_VAL : %lf\n", arg->max_path_value);
   set_font(BOLD);
   printf("\n");
-  print_in_center("Arguments");
+  print_in_center("Passed arguments");
   printf("\n");
   set_font(WHITE);
   printf("\n");

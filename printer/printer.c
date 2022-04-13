@@ -61,7 +61,7 @@ void print_file_output_greetings(char * out_file_name){
 
 void print_done_greeting(){
   set_font(BOLD);
-  printf("\nDONE!\n\n");
+  printf("Done!\n\n");
   set_font(WHITE);
 }
 
