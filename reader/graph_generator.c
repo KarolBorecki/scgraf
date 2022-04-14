@@ -149,95 +149,9 @@ graph_t generate_example_graph_mesh(unsigned width, unsigned height, double max_
     node_t help;
     unsigned node_to_the_right, node_to_the_left, node_below, node_up;
 
-    for(int i= 0; i < height-1; i++){//Bottom layer below the loop
+    for(int i= 0; i < height; i++){
         for(int j= 0; j < width; j++){
-            unsigned current_node = i*width + j;
-            if(i == 0){//Top row
-                if(j == 0){//left top corner
-                    node_to_the_right= current_node + 1;
-                    node_below= current_node + width;
-
-                    help= graph_add_node(g);
-                    graph_add_path(help, node_to_the_right, rand_double_from_to(0., max_weight));
-                    graph_add_path(help, node_below, rand_double_from_to(0., max_weight));
-                }else if(j == width - 1){//right top corner
-                    node_to_the_left= current_node - 1;
-                    node_below= current_node + width;
-
-                    help= graph_add_node(g);
-                    graph_add_path(help, node_to_the_left, rand_double_from_to(0., max_weight));
-                    graph_add_path(help, node_below, rand_double_from_to(0., max_weight));
-                }else{
-                    node_to_the_left= current_node - 1;
-                    node_to_the_right= current_node + 1;
-                    node_below= current_node + width;
-
-                    help= graph_add_node(g);
-                    graph_add_path(help, node_to_the_left, rand_double_from_to(0., max_weight));
-                    graph_add_path(help, node_to_the_right, rand_double_from_to(0., max_weight));
-                    graph_add_path(help, node_below, rand_double_from_to(0., max_weight));
-                }
-            }else if(j == 0 || j == width - 1){//Middle rows, left and right coulmn
-                if(j == 0){
-                    node_to_the_right= current_node + 1;
-                    node_below= current_node + width;
-                    node_up= current_node - width;
-
-                    help= graph_add_node(g);
-                    graph_add_path(help, node_to_the_right, rand_double_from_to(0., max_weight));
-                    graph_add_path(help, node_below, rand_double_from_to(0., max_weight));
-                    graph_add_path(help, node_up, rand_double_from_to(0., max_weight));
-                }else if(j == width - 1){
-                    node_to_the_left= current_node + 1;
-                    node_below= current_node + width;
-                    node_up= current_node - width;
-
-                    help= graph_add_node(g);
-                    graph_add_path(help, node_to_the_left, rand_double_from_to(0., max_weight));
-                    graph_add_path(help, node_below, rand_double_from_to(0., max_weight));
-                    graph_add_path(help, node_up, rand_double_from_to(0., max_weight));
-                }
-            }
-            else{//Middle vertices that have all conections
-                node_to_the_left= current_node - 1;
-                node_to_the_right= current_node + 1;
-                node_below= current_node + width;
-                node_up= current_node - width;
-
-                help= graph_add_node(g);
-                graph_add_path(help, node_to_the_left, rand_double_from_to(0., max_weight));
-                graph_add_path(help, node_to_the_right, rand_double_from_to(0., max_weight));
-                graph_add_path(help, node_below, rand_double_from_to(0., max_weight));
-                graph_add_path(help, node_up, rand_double_from_to(0., max_weight));
-            }
-        }
-    }
-    //Bottom layer
-    for(int i= 0; i<width; i++){
-        unsigned current_node= (height - 1)*width + i;
-        if(i == 0){
-            node_to_the_right= current_node + 1;
-            node_up= current_node - width;
-
-            help= graph_add_node(g);
-            graph_add_path(help, node_to_the_right, rand_double_from_to(0., max_weight));
-            graph_add_path(help, node_up, rand_double_from_to(0., max_weight));
-        }else if(i == width - 1){
-            node_up= current_node - width;
-            node_to_the_left= current_node - 1;
-
-            help= graph_add_node(g);
-            graph_add_path(help, node_to_the_left, rand_double_from_to(0., max_weight));
-            graph_add_path(help, node_up, rand_double_from_to(0., max_weight));
-        }else{
-            node_up= current_node - width;
-            node_to_the_left= current_node - 1;
-            node_to_the_right= current_node + 1;
-
-            help= graph_add_node(g);
-            graph_add_path(help, node_to_the_left, rand_double_from_to(0., max_weight));
-            graph_add_path(help, node_to_the_right, rand_double_from_to(0., max_weight));
-            graph_add_path(help, node_up, rand_double_from_to(0., max_weight));
+            generate_add_nodes_to_graph(g, width, height, i, j, max_weight);
         }
     }
 
@@ -245,4 +159,21 @@ graph_t generate_example_graph_mesh(unsigned width, unsigned height, double max_
     graph_set_max_path_value(g, max_weight);
 
     return g;
+}
+
+void generate_add_nodes_to_graph(graph_t graph, unsigned width, unsigned height, unsigned position_on_X_axis, unsigned position_on_Y_axis, double max_weight){
+
+    node_t help= graph_add_node(graph);
+
+    unsigned node_index= position_on_Y_axis * width + position_on_X_axis;
+
+    if(position_on_X_axis != 0)
+        graph_add_path(help, node_index - 1, rand_double_from_to(0., max_weight));
+    if(position_on_X_axis != width - 1)
+        graph_add_path(help, node_index + 1, rand_double_from_to(0., max_weight));
+    if(position_on_Y_axis != 0)
+        graph_add_path(help, node_index - width, rand_double_from_to(0., max_weight));
+    if(position_on_Y_axis != height - 1)
+        graph_add_path(help, node_index + width, rand_double_from_to(0., max_weight));
+
 }
