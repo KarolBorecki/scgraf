@@ -75,6 +75,25 @@ void test_consistency(){
   set_font(WHITE);
 }
 
-void test_format_of_input(char * input_file){
+void test_format_of_input(char * input_file, int is_correct){
+    ;
+}
+void test_if_right_path(char * input_file, double value){
+    ;
+}
+void test_if_right_consistency(char * input_file, int is_consistant){
+    ;
+}
+void test_max_size_generation(unsigned width, unsigned height){
+    ;
+}
+void test_compare_time(char *file_with_results){
+    FILE * in= fopen("../tests/results", "w+");
+    if(in == NULL)
+        return;
 
+}
+
+void run_all_tests(void){
+    ;
 }

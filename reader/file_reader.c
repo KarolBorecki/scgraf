@@ -9,6 +9,10 @@ FILE * open_file(char * file_name){
 
 graph_t get_graph_from_file(char * file_name){
     FILE * IN= open_file(file_name);
+    if(IN == NULL){
+        throw_error(file_read_error, "Couldnt open file!");
+        return NULL;
+    }
     printf("\n====READING GRAPH====\n"
            "Reading from file: \"%s\"\n", file_name);
     node_t help_node;
@@ -68,7 +72,7 @@ graph_t get_graph_from_file(char * file_name){
                 throw_error(file_error, msg);
                 return NULL;
             }else if(is_value_valid(value)){
-                sprintf(msg, "incorrect node_index in line %d", lines);
+                sprintf(msg, "incorrect value in line %d", lines);
                 throw_error(file_error, msg);
                 return NULL;
             }
@@ -80,8 +84,7 @@ graph_t get_graph_from_file(char * file_name){
            "Read lines: %d\n"
            "Read nodes: %d\n"
            "Max weight value: %lf\n", width, height, lines, amount_of_nodes, max_weight);
-           
-    graph_set_max_path_value(graph, max_weight);
+
     graph_set_width_and_height(graph, width, height);
     return graph;
 }
@@ -91,7 +94,7 @@ int is_node_valid(int node, int max_index){
 }
 
 int is_value_valid(double value){
-    return (value > 0. && value < 1.) ? 1 : 0;
+    return (value > 0. /*&& value < max_value*/) ? 1 : 0;
 }
 
 int check_if_empty(char * line){
