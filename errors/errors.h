@@ -43,5 +43,7 @@ void throw_warning(warning_t war, char* additional_msg);
 void exit_program_normal();
 void exit_program_failure();
 
+void free_warnings();
+void free_errors();
 
 #endif /* _ERRORS_H_ */

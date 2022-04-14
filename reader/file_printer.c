@@ -17,4 +17,5 @@ void print_graph_to_file(graph_t g, char * file_name_out){
       fprintf(OUT, "\n");
   }
   fclose(OUT);
+
 }

@@ -26,6 +26,7 @@ void initzialize_warnings(){
   node_bypasing_warning      = new_warning(5, "Bypassing node");
   arg_bypasing_warning       = new_warning(6, "Bypassing argument");
 }
+
 error_t new_error(unsigned code, char* msg){
   error_t new_err = malloc(sizeof(*new_err));
   new_err->code = code;
@@ -77,4 +78,25 @@ void exit_program_normal(){
 
 void exit_program_failure(){
   exit(EXIT_FAILURE);
+}
+
+void free_errors(){
+    free(unknown_error );
+    free(invalid_value_error);
+    free(calculation_error);
+    free(memory_error);
+    free(file_read_error);
+    free(file_error);
+    free(graph_error);
+    free(information_needed_error);
+}
+
+void free_warnings(){
+    free(unknown_warning);
+    free(arg_bypasing_warning);
+    free(data_formated_warning);
+    free(default_value_warning);
+    free(duplicated_path_warning);
+    free(inconsistent_graph_warning);
+    free(node_bypasing_warning);
 }

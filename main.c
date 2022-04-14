@@ -53,11 +53,16 @@ int main(int argc, char** argv){
 
 
   if(arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE){
-    if(strcmp(arg->out, "") != 0){
+      if(strcmp(arg->out, "") != 0){
         solver_graph_to_file(graph, arg->out);
     }else
         print_graph(graph);
   }
+
+  clean_graph(graph);
+  free_arguments_struct(arg);
+  free_errors();
+  free_warnings();
 
   return 0;
 }
