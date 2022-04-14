@@ -154,6 +154,18 @@ void graph_convert_directed_to_undirected(graph_t graph){
     }
 }
 
+double update_max_path_value(graph_t graph){
+    int initialized= 0;
+    for(int i= 0; i<graph->size; i++) {
+        !initialized ? graph->nodes[i].paths_count ? graph->max_path_value = graph->nodes[i].paths[0].value && initialized++ : (0) : (0);
+        for (int j = 0; j < graph->nodes[i].paths_count; j++)
+            if (graph->nodes[i].paths[j].value > graph->max_path_value)
+                graph->max_path_value = graph->nodes[i].paths[j].value;
+    }
+
+    return graph->max_path_value;
+}
+
 void print_graph(graph_t graph){
   set_font(LIGHT_BLUE);
   set_font(BOLD);

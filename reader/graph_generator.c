@@ -3,6 +3,7 @@
 
 #include <time.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #define GENERATED_NODE_CONNECTIONS_COUNT 4
 #define GENERATED_PATH_MAX_VALUE 10
@@ -144,19 +145,16 @@ graph_t generate_example_graph_2(void){
 
 graph_t generate_example_graph_mesh(unsigned width, unsigned height, double max_weight){
     srand(time(NULL));
-
     graph_t g = initzialize_graph(width * height);
-    node_t help;
-    unsigned node_to_the_right, node_to_the_left, node_below, node_up;
 
     for(int i= 0; i < height; i++){
         for(int j= 0; j < width; j++){
             generate_add_nodes_to_graph(g, width, height, i, j, max_weight);
         }
     }
-
     graph_set_width_and_height(g, width, height);
-    graph_set_max_path_value(g, max_weight);
+    graph_convert_directed_to_undirected(g);
+    update_max_path_value(g);
 
     return g;
 }
@@ -164,7 +162,6 @@ graph_t generate_example_graph_mesh(unsigned width, unsigned height, double max_
 void generate_add_nodes_to_graph(graph_t graph, unsigned width, unsigned height, unsigned position_on_X_axis, unsigned position_on_Y_axis, double max_weight){
 
     node_t help= graph_add_node(graph);
-
     unsigned node_index= position_on_Y_axis * width + position_on_X_axis;
 
     if(position_on_X_axis != 0)
@@ -175,5 +172,4 @@ void generate_add_nodes_to_graph(graph_t graph, unsigned width, unsigned height,
         graph_add_path(help, node_index - width, rand_double_from_to(0., max_weight));
     if(position_on_Y_axis != height - 1)
         graph_add_path(help, node_index + width, rand_double_from_to(0., max_weight));
-
 }
