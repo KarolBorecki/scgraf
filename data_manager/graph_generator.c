@@ -1,4 +1,4 @@
-#include "../reader/graph_generator.h"
+#include "graph_generator.h"
 
 #include <time.h>
 #include <stdlib.h>

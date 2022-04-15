@@ -9,7 +9,7 @@
 
 #include "../FIFO/fifo.h"
 #include "../graph/graph.h"
-#include "../reader/graph_generator.h"
+#include "../data_manager/graph_generator.h"
 
 #define FIFO_TEST_SIZE 100000
 #define FIFO_TEST_MAX_VAL 100000

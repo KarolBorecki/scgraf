@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 #include "solver/graph_solver.h"
-#include "reader/user_input.h"
-#include "reader/file_reader.h"
-#include "reader/graph_generator.h"
+#include "data_manager/user_input.h"
+#include "data_manager/graph_generator.h"
+#include "data_manager/data_manager.h"
 #include "graph/graph.h"
 #include "printer/printer.h"
 

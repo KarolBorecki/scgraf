@@ -1,6 +1,64 @@
-#include "../reader/file_reader.h"
+#include "data_manager.h"
 
 #include <limits.h>
+
+/* data reader */
+
+int check_if_graph_is_mesh(graph_t graph, unsigned dimension_width, unsigned dimension_height){
+    for(int i= 0; i<dimension_height; i++){
+        for(int j= 0; j<dimension_width; j++){
+            unsigned current_node= i*dimension_width + j;
+            //printf("i[%d] * j[%d] + j[%d] == %d < c_node\n", i, j, j, current_node);
+            //printf("[%d] <- node [%d] <- paths count", graph->nodes[current_node].index, graph->nodes[current_node].paths_count);
+            if(!is_node_mesh(&(graph->nodes[current_node]), dimension_width, graph->size-1))
+                return 0;
+        }
+    }
+
+    return 1;
+}
+
+int is_node_mesh(node_t node, unsigned dim_width, unsigned max_node_index){
+    //printf("I got node: [%d] that has [%d] paths\n", node->index, node->paths_count);
+    for(int i= 0; i < node->paths_count; i++){
+        //printf("\tchecking connection: [%d]\n", node->paths[i].connection);
+        if( node->paths[i].connection >= 0
+        &&  node->paths[i].connection <= max_node_index
+        &&  node->paths[i].connection != node->index - 1
+        &&  node->paths[i].connection != node->index + 1
+        &&  node->paths[i].connection != node->index - dim_width
+        &&  node->paths[i].connection != node->index + dim_width
+        ){
+            return 0;
+        }
+    }
+    return 1;
+}
+
+
+/* file printer */
+
+void print_graph_to_file(graph_t g, char * file_name_out){
+  FILE * OUT = fopen(file_name_out, "w");
+
+  if(OUT == NULL)
+    throw_error(file_read_error, "cannot create file to open!\n");
+
+
+  fprintf(OUT, "%d %d\n", g->width, g->height);
+  for(int i= 0; i<g->size; i++){
+    fprintf(OUT, "\t");
+    for(int j= 0; j<g->nodes[i].paths_count; j++){
+      fprintf(OUT, "%d :%lf ", g->nodes[i].paths[j].connection, g->nodes[i].paths[j].value);
+    }
+    if(i != g->size - 1)
+      fprintf(OUT, "\n");
+  }
+  fclose(OUT);
+
+}
+
+/* file reader */
 
 FILE * open_file(char * file_name){
     FILE * IN = fopen(file_name, "r");

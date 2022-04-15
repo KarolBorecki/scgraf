@@ -5,7 +5,7 @@
 #include "../algorithms/dijkstra.h"
 #include "../algorithms/graph_divider.h"
 #include "../printer/printer.h"
-#include "../reader/file_printer.h"
+#include "../data_manager/data_manager.h"
 
 void solver_get_shortest_path(graph_t graph, unsigned from, unsigned to){
   print_shortest_path_greeting(from, to);
