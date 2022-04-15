@@ -55,3 +55,9 @@ graph_t solver_get_graph_from_file(char* in){
 
   return graph;
 }
+
+void solver_graph_to_undirected(graph_t graph){
+  print_convert_graph_to_undirected_greetings();
+  graph_convert_directed_to_undirected(graph);
+  print_done_greeting();
+}

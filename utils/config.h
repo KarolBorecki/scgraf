@@ -3,6 +3,13 @@
 
 #include <limits.h>
 
+/* user_input.h */
+#define SHORTEST_PATH_EXEC "shortest"
+#define CONSISTENCY_EXEC "consistency"
+#define DIVIDE_EXEC "divide"
+#define GENERATE_EXEC "generate"
+#define MAKE_UNDIRECTED_EXEC "make_undirected"
+
 /* dijkstra.h */
 #define INVALID_NODE    UINT_MAX
 #define INF             DBL_MAX
@@ -21,7 +28,7 @@
 #define FIFO_ENLARGE_MULTIPLIER 2
 
 /* graph.h */
-#define START_NODES_PATHS_COUNT 5
+#define START_NODES_PATHS_COUNT 2
 #define GRAPH_ENLARGE_MULTIPLIER 2
 
 /* printer.h */
@@ -33,7 +40,7 @@
 #define WARNING_SIZE  126
 
 /* graph_generator.h */
-#define GENERATED_NODE_CONNECTIONS_COUNT 4
+#define GENERATED_NODE_CONNECTIONS_COUNT 5
 #define GENERATED_PATH_MAX_VALUE 10
 
 /* user_input.h */

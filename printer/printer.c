@@ -47,15 +47,16 @@ void print_greetings(){
 
 void print_help(){
   set_font(BOLD);
-  set_font(WHITE);
+  set_font(GREY);
   print_in_center("SCGRAF ARGUMENTS");
   printf("\n");
   set_font(WHITE);
   print_argument_list("-e", "specify the functionallity You want to execute.\n");
-  print_execute_option_list("generate", "generate graph of width [-x] height [-y] and max path weight [-v].\n");
-  print_execute_option_list("divide", "divide input graph [-i] into n [-n] subgraphs \n                (if input graph is not specified, the example graph will be taken).\n");
-  print_execute_option_list("consistency", "check input graph [-i] consistency.\n");
-  print_execute_option_list("shortest", "find shortest path in input graph [-i] from node [-f] to node [-t].\n\n");
+  print_execute_option_list(GENERATE_EXEC, "generate graph of width [-x] height [-y] and max path weight [-v].\n");
+  print_execute_option_list(DIVIDE_EXEC, "divide input graph [-i] into n [-n] subgraphs \n                (if input graph is not specified, the example graph will be taken).\n");
+  print_execute_option_list(CONSISTENCY_EXEC, "check input graph [-i] consistency.\n");
+  print_execute_option_list(SHORTEST_PATH_EXEC, "find shortest path in input graph [-i] from node [-f] to node [-t].\n");
+  print_execute_option_list(MAKE_UNDIRECTED_EXEC, "converts input graph [-i] paths to not be single-way \n                         (makes graph undirected).\n\n");
 
   print_argument_list("-i", "specify input file.\n");
   print_argument_list("-o", "specify output file (used only with generate and divide functionallity).\n");
@@ -69,7 +70,7 @@ void print_help(){
 
 
   set_font(BOLD);
-  set_font(WHITE);
+  set_font(GREY);
   print_in_center("SCGRAF ARGUMENTS");
   set_font(WHITE);
   print_greetings();
@@ -115,6 +116,12 @@ void print_graph_example_generating_greetings(){
 void print_get_graph_from_file_greeting(){
   set_font(BOLD);
   printf("\nGetting graph from file...\n\n");
+  set_font(WHITE);
+}
+
+void print_convert_graph_to_undirected_greetings(){
+  set_font(BOLD);
+  printf("\nConverting graph to undirected...\n\n");
   set_font(WHITE);
 }
 

@@ -25,6 +25,7 @@ void initzialize_warnings(){
   inconsistent_graph_warning = new_warning(4, "Graph inconsistent");
   node_bypasing_warning      = new_warning(5, "Bypassing node");
   arg_bypasing_warning       = new_warning(6, "Bypassing argument");
+  invalid_value_warning      = new_warning(7, "Invalid value");
 }
 
 error_t new_error(unsigned code, char* msg){

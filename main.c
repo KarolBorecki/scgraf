@@ -49,6 +49,8 @@ int main(int argc, char** argv){
     solver_check_graph_consistency(graph, arg->from);
   else if(arg->execute == DIVIDE_GRAPH)
     solver_divide_graph_into_n_graphs(graph, arg->n);
+  else if(arg->execute == MAKE_UNDIRECTED)
+    solver_graph_to_undirected(graph);
 
 
   if(strcmp(arg->out, "") != 0)

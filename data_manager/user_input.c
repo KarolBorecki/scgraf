@@ -84,13 +84,15 @@ void check_arguments_for_defaults(batch_arguments_t arg){
 void check_arguments_for_bypassing(batch_arguments_t arg){
   char msg[MAX_ERR_ADDITIONAL_MSG_LENGTH];
 
-  if(arg->execute == GENERATE && (arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED))
+  if(arg->execute == GENERATE && (arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED ))
     throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph generating I only need -x and -y [or -o, -n]!");
   if(arg->execute == SHORTEST_PATH && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED || arg->max_path_value != VALUE_NOT_SPECIFIED))
     throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for shortest path finding I only need -f and -t!");
   if(arg->execute == CHECK_CONSISTENCY && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED || arg->max_path_value != VALUE_NOT_SPECIFIED))
     throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph consistency check I only need -f [or -i]!");
   if(arg->execute == DIVIDE_GRAPH && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED || arg->max_path_value != VALUE_NOT_SPECIFIED))
+    throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph dviding I only need -n [or -o, -i]!");
+  if(arg->execute == MAKE_UNDIRECTED && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED || arg->max_path_value != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED))
     throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph dviding I only need -n [or -o, -i]!");
 
   if(arg->execute != GENERATE && strcmp(arg->in, "") == 0){
@@ -159,16 +161,18 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
 }
 
 func_t get_functionallity_from_string(char* str){
-  if(strcmp(str, "shortest") == 0)
+  if(strcmp(str, SHORTEST_PATH_EXEC) == 0)
     return SHORTEST_PATH;
-  else if(strcmp(str, "consistency") == 0)
+  else if(strcmp(str, CONSISTENCY_EXEC) == 0)
     return CHECK_CONSISTENCY;
-  else if(strcmp(str, "divide") == 0)
+  else if(strcmp(str, DIVIDE_EXEC) == 0)
     return DIVIDE_GRAPH;
-  else if(strcmp(str, "generate") == 0)
+  else if(strcmp(str, GENERATE_EXEC) == 0)
     return GENERATE;
+  else if(strcmp(str, MAKE_UNDIRECTED_EXEC) == 0)
+    return MAKE_UNDIRECTED;
   else
-    throw_warning(default_value_warning, "Specified invalid functionallity on argument -e!");
+    throw_warning(invalid_value_warning, "Specified invalid functionallity on argument -e!");
   return UNKNOWN;
 }
 
@@ -181,18 +185,20 @@ char* get_string_from_functionallity(func_t func){
     return "Dividing graph";
   else if(func==GENERATE)
     return "Generating graph";
+  else if(func==MAKE_UNDIRECTED)
+    return "Converting graph to be consistent";
 
   return "Unknown";
 }
 
 void print_arguments(batch_arguments_t arg){
-  set_font(GREEN);
+  set_font(BLUE);
   set_font(BOLD);
   printf("\n");
   print_in_center("Passed arguments");
   printf("\n");
   set_font(WHITE);
-  set_font(GREEN);
+  set_font(BLUE);
   printf("    EXECUTING    : %s\n", get_string_from_functionallity(arg->execute));
   printf("    IN           : %s\n", strcmp(arg->in, "") == 0 ? "-" : arg->in);
   printf("    OUT          : %s\n", strcmp(arg->out, "") == 0 ? "-" : arg->out);

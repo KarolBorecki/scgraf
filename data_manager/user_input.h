@@ -8,7 +8,8 @@ typedef enum functionality{
   SHORTEST_PATH,
   CHECK_CONSISTENCY,
   DIVIDE_GRAPH,
-  GENERATE
+  GENERATE,
+  MAKE_UNDIRECTED
 } func_t;
 
 typedef struct batch_arguments{

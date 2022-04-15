@@ -10,4 +10,5 @@ void solver_graph_to_file(graph_t graph, char * out_file);
 graph_t solver_generate_graph(unsigned width, unsigned height, double max_weight);
 graph_t solver_generate_example_graph();
 graph_t solver_get_graph_from_file(char* in);
+void solver_graph_to_undirected(graph_t graph);
 #endif /* _SOLVER_H_ */
