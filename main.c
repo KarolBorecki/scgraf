@@ -14,8 +14,6 @@ TODO:
   2. makefile
 
   -Refaktoryzacja generowanie GRAFU
-  -config.h
-  -Może jak zapisujemy do pliku to dodac opcje -p dla print? (Żeby zawsze mozna bylo mimo zapisu do pliku wyswietlic)
   -Uspojnic graph_generator.c
   -Moze uspojnic file_reader i file_printer na file_manager i data_manager?
 */

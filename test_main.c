@@ -6,7 +6,7 @@
 int main(int argc, char** argv){
   if(argc < 2) return 1;
   if(strcmp(argv[1], "fifo") == 0)
-    test_fifo();
+    test_fifo(FIFO_TEST_SIZE, FIFO_TEST_MAX_VAL);
   else if(strcmp(argv[1], "graph") == 0)
     test_graph();
   else if(strcmp(argv[1], "dijkstra") == 0)
