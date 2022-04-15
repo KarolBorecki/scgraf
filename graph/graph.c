@@ -154,6 +154,13 @@ void graph_convert_directed_to_undirected(graph_t graph){
     }
 }
 
+unsigned graph_get_memory_size_for_paths(graph_t graph){
+  unsigned size = 0;
+  for(int i=0; i<graph_size(graph); i++)
+    size += graph_get_node_at_index(graph, i)->paths_memory_size;
+  return size;
+}
+
 void print_graph(graph_t graph){
   set_font(LIGHT_BLUE);
   set_font(BOLD);
@@ -163,10 +170,16 @@ void print_graph(graph_t graph){
   set_font(WHITE);
   set_font(LIGHT_BLUE);
   printf("    Nodes: %d \n", graph->size);
-  printf("    Memory: %d size, %lu bytes per node, %lu bytes used \n\n",
+  printf("    Memory: %d size for nodes, %d size for paths\n",
   graph->memory_size,
+  graph_get_memory_size_for_paths(graph));
+  printf("    Memory: around %lu bytes per node and %lu bytes per path\n",
   sizeof(*(graph->nodes)),
-  graph->memory_size * sizeof(*(graph->nodes)));
+  sizeof(*(graph->nodes->paths)));
+  printf("    Memory: %lu bytes used \n\n",
+  sizeof(*graph) +
+  sizeof(*(graph->nodes)) *  graph->memory_size +
+  sizeof(*(graph->nodes->paths)) * graph_get_memory_size_for_paths(graph));
 
   printf("Nodes:\n");
   node_t n;

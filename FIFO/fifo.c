@@ -101,7 +101,7 @@ void print_fifo(fifo_t fifo){
   set_font(WHITE);
   set_font(PINK);
   printf("    Size: %d \n", fifo_size(fifo));
-  printf("    Memory: %d elements, %lu bytes per element, %lu bytes used\n\n", fifo->memory_size, sizeof(*(fifo->queue)), fifo->memory_size*sizeof(*(fifo->queue)));
+  printf("    Memory: %d elements, %lu bytes per element, %lu bytes used\n\n", fifo->memory_size, sizeof(*(fifo->queue)), sizeof(fifo) + fifo->memory_size*sizeof(*(fifo->queue)));
   printf("Queue:\n");
   for(int i=0; i<fifo_queue_size(fifo); i++){
     printf("    %d) %d", i, fifo_get_at_index(fifo, i));
