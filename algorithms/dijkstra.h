@@ -11,33 +11,30 @@
 #include "../utils/utils.h"
 #include "../utils/config.h"
 
-typedef struct table{
+typedef struct dijkstra_data{
     unsigned int    node_index;
     unsigned int    previous_nodes;
     double          shortest_distances;
-} *table_t;
+} *dijkstra_data_t;
 
-typedef struct table_pointer{
-    table_t elements;
+typedef struct dijkstra_table{
+    dijkstra_data_t elements;
     unsigned int    size;
-} *table_t_p;
+} *dijkstra_table_t;
 
-table_t_p initialize_start_table(graph_t, node_t, unsigned mode_2);
-//SHORTEST - shortest path
-//LONGEST - longest  path TODO
-void print_table(table_t_p pointer_to_table);
-void free_table(table_t_p);
+dijkstra_table_t initialize_dijkstra_table(graph_t, node_t);
+void free_dijkstra_table(dijkstra_table_t);
 
-table_t_p run_dijkstra(graph_t graph_to_analyze, node_t start_node, unsigned mode, unsigned mode_2);
-//BUBBLE- with bubblesorting
-//QUCIK - with quicksort
-//0     - no sorting
-double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t destination_node);
+dijkstra_table_t dijkstra(graph_t graph, node_t start_node);
 
-void bsort_que(fifo_t que, unsigned start, table_t_p tab, unsigned mode_2);
-void qsort_que(unsigned * que, unsigned start, unsigned end, table_t_p tab);
-unsigned partition(unsigned * arr, unsigned low, unsigned high, table_t_p tab);
 
-double get_shortest_distance_from_to(graph_t graph, unsigned start_node_index, unsigned destination_node_index);
+void set_fifo_head(fifo_t fifo, dijkstra_table_t tab);
+void bsort_que(fifo_t que, unsigned start, dijkstra_table_t tab);
+
+void get_shortest_distance_from_to(graph_t graph, unsigned start_node_index, unsigned destination_node_index);
+
+//start_node must be the same node, that Dijkstra' s table was created for
+void print_shortest_path_from_to(dijkstra_table_t table, node_t start_node, node_t destination_node);
+void print_dijkstra_table(dijkstra_table_t pointer_to_table);
 
 #endif /* _DIJKSTRA_H_ */

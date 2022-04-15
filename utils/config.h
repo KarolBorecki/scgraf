@@ -14,10 +14,6 @@
 #define INVALID_NODE    UINT_MAX
 #define INF             DBL_MAX
 #define ZERO            0
-#define BUBBLE          1
-#define QUICK           2
-#define LONGEST         1
-#define SHORTEST        0
 
 /* errors.h */
 #define MAX_ERR_MSG_LENGTH 20

@@ -89,7 +89,7 @@ graph_t generate_example_graph(void){
     help_node = graph_add_node(g);
     graph_add_path(help_node, 4, 3.0);
     graph_add_path(help_node, 6, 0.2);
-    graph_add_path(help_node, 8, 1.4);
+    graph_add_path(help_node, 8, 1.0);
 
     //Node 8
     help_node = graph_add_node(g);

@@ -98,7 +98,7 @@ void check_arguments_for_bypassing(batch_arguments_t arg){
   if(arg->execute != GENERATE && strcmp(arg->in, "") == 0){
     throw_warning(default_value_warning, "The in file is not specified, the example graph will be taken.");
   }
-  if(strcmp(arg->out, "") == 0 && arg->execute != SHORTEST && arg->execute != CHECK_CONSISTENCY)
+  if(strcmp(arg->out, "") == 0 && arg->execute != SHORTEST_PATH && arg->execute != CHECK_CONSISTENCY)
     throw_warning(default_value_warning, "Out file is not specified, the output will be shown in the console!");
 
 }
