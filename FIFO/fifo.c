@@ -54,7 +54,7 @@ int fifo_queue_contains_value(fifo_t fifo, unsigned value){
 }
 
 int fifo_head_contains_value(fifo_t fifo, unsigned value){
-  return fifo_contains_value(fifo, value, 0, fifo_queue_size(fifo));
+  return fifo_contains_value(fifo, value, 0, fifo_queue_size(fifo)-fifo_head_index(fifo));
 }
 
 int fifo_contains_value(fifo_t fifo, unsigned value, unsigned search_start, unsigned search_end){
@@ -71,7 +71,9 @@ unsigned fifo_peek(fifo_t fifo){
 
 unsigned fifo_pop(fifo_t fifo){
   unsigned poped_value = fifo_peek(fifo);
-  if(poped_value == -1) return -1;
+  if(poped_value == -1)
+    throw_error(memory_error, "FIFO peek out of bounds!");
+    
   fifo->size--;
   fifo->head++;
 

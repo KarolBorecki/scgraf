@@ -195,7 +195,7 @@ void print_arguments(batch_arguments_t arg){
   set_font(BLUE);
   set_font(BOLD);
   printf("\n");
-  print_in_center("Passed arguments");
+  print_in_center("Passed Arguments");
   printf("\n");
   set_font(WHITE);
   set_font(BLUE);
@@ -210,7 +210,7 @@ void print_arguments(batch_arguments_t arg){
   printf("    MAX_PATH_VAL : %lf\n", arg->max_path_value);
   set_font(BOLD);
   printf("\n");
-  print_in_center("Passed arguments");
+  print_in_center("Passed Arguments");
   printf("\n");
   set_font(WHITE);
 }

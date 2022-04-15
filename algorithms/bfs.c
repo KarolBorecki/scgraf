@@ -10,23 +10,20 @@ int bfs(graph_t graph, unsigned start_node_index){
   fifo_t q = initzialize_fifo();
   fifo_push(q, start_node->index);
   node_t actual_node;
-  int i=0;
   while(fifo_is_empty(q) <= 0){
     actual_node = graph_get_node_at_index(graph, fifo_peek(q));
     bfs_add_distinct_connections_of_node_to_queue(q, actual_node);
     fifo_pop(q);
-    printf("bfs %d\n", i);
-    i++;
   }
   return bfs_is_all_nodes_visited(graph, q);
 }
 
+/* Knowing that graaph is mesh graph we could propably really make it quicker */
 void bfs_add_distinct_connections_of_node_to_queue(fifo_t q, node_t node){
   for(int i=0; i<node->paths_count; i++){
     unsigned connection_index = graph_get_path_at_index(node, i)->connection;
-    if(fifo_queue_contains_value(q, connection_index) == 0){
+    if(fifo_queue_contains_value(q, connection_index) == 0)
       fifo_push(q, connection_index);
-    }
   }
 }
 

@@ -40,7 +40,7 @@ void print_greetings(){
   set_font(BOLD);
   set_font(GREEN);
   printf("\n");
-  print_in_center("SCGRAF");
+  print_in_center("scgraf");
   printf("\n");
   set_font(WHITE);
 }
@@ -48,7 +48,7 @@ void print_greetings(){
 void print_help(){
   set_font(BOLD);
   set_font(GREY);
-  print_in_center("SCGRAF ARGUMENTS");
+  print_in_center("scgraf arguments");
   printf("\n");
   set_font(WHITE);
   print_argument_list("-e", "specify the functionallity You want to execute.\n");
@@ -71,7 +71,7 @@ void print_help(){
 
   set_font(BOLD);
   set_font(GREY);
-  print_in_center("SCGRAF ARGUMENTS");
+  print_in_center("scgraf arguments");
   set_font(WHITE);
   print_greetings();
   exit_program_normal();
@@ -79,49 +79,49 @@ void print_help(){
 
 void print_consistency_greeting(unsigned start){
   set_font(BOLD);
-  printf("\nChecking graph consistency starting from node %d...\n\n", start);
+  printf("\nChecking graph consistency starting from node %d... \n", start);
   set_font(WHITE);
 }
 
 void print_shortest_path_greeting(unsigned from, unsigned to){
   set_font(BOLD);
-  printf("\nLooking for shortest path from node %d to node %d...\n\n", from, to);
+  printf("\nLooking for shortest path from node %d to node %d... \n", from, to);
   set_font(WHITE);
 }
 
 void print_graph_division_greeting(unsigned divisions){
   set_font(BOLD);
-  printf("\nDividing graph into %d subgraphs...\n\n", divisions);
+  printf("\nDividing graph into %d subgraphs... \n", divisions);
   set_font(WHITE);
 }
 
 void print_file_output_greetings(char * out_file_name){
   set_font(BOLD);
-  printf("\nPrinting output to file \"%s\"...\n\n", out_file_name);
+  printf("\nPrinting output to file \"%s\"...\n", out_file_name);
   set_font(WHITE);
 }
 
 void print_graph_generating_greetings(unsigned width, unsigned height, double max_weight){
   set_font(BOLD);
-  printf("\nGenerating graph with width = %d, height = %d and max path weigth = %lf...\n\n", width, height, max_weight);
+  printf("\nGenerating graph with width = %d, height = %d and max path weigth = %lf... \n", width, height, max_weight);
   set_font(WHITE);
 }
 
 void print_graph_example_generating_greetings(){
   set_font(BOLD);
-  printf("\nGenerating example graph...\n\n");
+  printf("\nGenerating example graph... \n");
   set_font(WHITE);
 }
 
 void print_get_graph_from_file_greeting(){
   set_font(BOLD);
-  printf("\nGetting graph from file...\n\n");
+  printf("\nGetting graph from file... \n\n");
   set_font(WHITE);
 }
 
 void print_convert_graph_to_undirected_greetings(){
   set_font(BOLD);
-  printf("\nConverting graph to undirected...\n\n");
+  printf("\nConverting graph to undirected... \n");
   set_font(WHITE);
 }
 

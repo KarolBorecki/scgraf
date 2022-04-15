@@ -58,7 +58,7 @@ int main(int argc, char** argv){
 
   if(arg->print == 1 ||
   ((arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE) && strcmp(arg->out, "") == 0))
-    print_graph(graph, arg->execute == DIVIDE_GRAPH ? "Divided graph" : (arg->execute == GENERATE ? "Generated graph" : "Graph"));
+    print_graph(graph, arg->execute == DIVIDE_GRAPH ? "Divided Graph" : (arg->execute == GENERATE ? "Generated Graph" : "Graph"));
 
   clean_graph(graph);
   free_arguments_struct(arg);

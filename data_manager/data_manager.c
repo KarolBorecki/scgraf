@@ -152,6 +152,7 @@ graph_t get_graph_from_file(char * file_name){
      set_font(BOLD);
      set_font(PINK);
      print_in_center("Reading finished");
+     printf("\n");
      set_font(WHITE);
 
     graph_set_width_and_height(graph, width, height);

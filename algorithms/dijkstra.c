@@ -20,24 +20,6 @@ table_t_p initialize_start_table(graph_t graph, node_t start_node, unsigned mode
     return table_p;
 }
 
-void print_table(table_t_p table){
-  set_font(BOLD);
-  set_font(PINK);
-  print_in_center("DDijkstra's table");
-  set_font(WHITE);
-  set_font(PINK);
-  fprintf(stdout, "Node index\tShortests path\tPrev node\n");
-  for(int i= 0; i<table->size; i++)
-      fprintf(stdout, "%d\t\t\t%lf\t\t\t%d\n"
-              , table->elements[i].node_index
-              , table->elements[i].shortest_distances
-              , table->elements[i].previous_nodes);
-  set_font(BOLD);
-  set_font(PINK);
-  print_in_center("Dijkstra's table");
-  set_font(WHITE);
-}
-
 table_t_p run_dijkstra(graph_t graph, node_t start_node, unsigned mode, unsigned mode_2){
     unsigned int popped_from_que= 0, current_vertex;
 
@@ -74,11 +56,6 @@ table_t_p run_dijkstra(graph_t graph, node_t start_node, unsigned mode, unsigned
 
 }
 
-void free_table(table_t_p table){
-    free(table->elements);
-    free(table);
-}
-
 
 void bsort_que(fifo_t que, unsigned start, table_t_p tab, unsigned mode_2){
 /*    printf("\n====QUE PRE SORT====\n");
@@ -109,7 +86,7 @@ void qsort_que(unsigned * que, unsigned start, unsigned end, table_t_p tab){
 
 }
 
-unsigned partition (unsigned * arr, unsigned low, unsigned high, table_t_p tab)
+unsigned partition(unsigned * arr, unsigned low, unsigned high, table_t_p tab)
 {
     unsigned pivot = tab->elements[high].shortest_distances;    //ostatni element to pivot
                                                                 //porownywac elementy z tablicy arr bedziemy za
@@ -131,7 +108,7 @@ double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t de
     double path_len= 0.;
     set_font(BOLD);
     set_font(LIGHT_BLUE);
-    print_in_center("SHORTEST PATH IN THE GRAPH");
+    print_in_center("Shortest path");
     set_font(WHITE);
     set_font(LIGHT_BLUE);
     if(start_node->index == destination_node->index) {
@@ -150,17 +127,20 @@ double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t de
     printf("\n    Length of the following path = %.4lf\n\n", path_len);
     set_font(BOLD);
     set_font(LIGHT_BLUE);
-    print_in_center("SHORTEST PATH IN THE GRAPH");
+    print_in_center("Shortest path");
     set_font(WHITE);
     return path_len;
 }
 
 double get_shortest_distance_from_to(graph_t graph, unsigned start_node, unsigned destination_node){
     char msg[MAX_ERR_ADDITIONAL_MSG_LENGTH];
-    if(bfs(graph, start_node) <= 0){
+
+    int is_consistent = bfs(graph, start_node);
+    if(is_consistent <= 0){
       sprintf(msg, "Graph is not consistant, we cant search for shortest path (yet!)\n");
       throw_warning(inconsistent_graph_warning, msg);
-    }
+    } else print_graph_consistent_result(is_consistent);
+
     if(start_node < 0 || start_node > graph->size - 1){
         sprintf(msg, "incorrect start node in function get_shortest_distance_from_to()!\n");
         throw_error(invalid_value_error, msg);
@@ -180,4 +160,27 @@ double get_shortest_distance_from_to(graph_t graph, unsigned start_node, unsigne
     free_table(dijkstras_table);
 
     return path_len;
+}
+
+void free_table(table_t_p table){
+    free(table->elements);
+    free(table);
+}
+
+void print_table(table_t_p table){
+  set_font(BOLD);
+  set_font(PINK);
+  print_in_center("Dijkstra's table");
+  set_font(WHITE);
+  set_font(PINK);
+  fprintf(stdout, "Node index\tShortests path\tPrev node\n");
+  for(int i= 0; i<table->size; i++)
+      fprintf(stdout, "%d\t\t\t%lf\t\t\t%d\n"
+              , table->elements[i].node_index
+              , table->elements[i].shortest_distances
+              , table->elements[i].previous_nodes);
+  set_font(BOLD);
+  set_font(PINK);
+  print_in_center("Dijkstra's table");
+  set_font(WHITE);
 }
