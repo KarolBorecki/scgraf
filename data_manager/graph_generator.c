@@ -7,29 +7,40 @@
 #include "../utils/utils.h"
 #include "../utils/config.h"
 
-graph_t generate_graph(unsigned int size){
-  srand(time(NULL));
+graph_t generate_graph_mesh(unsigned width, unsigned height, double max_weight){
+    srand(time(NULL));
+    graph_t g = initzialize_graph(width * height);
 
-  graph_t graph = initzialize_graph(size);
+    for(int i= 0; i < height; i++){
+        for(int j= 0; j < width; j++){
+            generate_add_nodes_to_graph(g, width, height, i, j, max_weight);
+        }
+    }
+    graph_set_width_and_height(g, width, height);
+    graph_convert_directed_to_undirected(g);
+    update_max_path_value(g);
 
-  for(int i=0; i<size; i++)
-    generate_new_node(graph);
-
-  return graph;
+    return g;
 }
 
-void generate_new_node(graph_t graph){
-  node_t new_node = graph_add_node(graph);
-  for(int i=0; i<GENERATED_NODE_CONNECTIONS_COUNT; i++)
-    generate_new_path(graph, new_node);
+graph_t generate_graph_circle(int size){
+    graph_t graph= initzialize_graph(size);
+
+    node_t help_n;
+    help_n = graph_add_node(graph);
+    graph_add_path(help_n, 1, 1.4);
+    graph_add_path(help_n, size-1, 1.4);
+    for(int i= 1; i<size-1; i++){
+        help_n = graph_add_node(graph);
+        graph_add_path(help_n, i+1, 1.4);
+        graph_add_path(help_n, i-1, 1.4);
+    }
+    help_n = graph_add_node(graph);
+    graph_add_path(help_n, 0, 1.4);
+    graph_add_path(help_n, size-2, 1.4);
+    return graph;
 }
 
-void generate_new_path(graph_t graph, node_t node){
-  unsigned connection_index = node->index;
-  while(connection_index == node->index && graph_get_connection_value(node, connection_index) == -1)
-    connection_index = rand() % graph_memory_size(graph);
-  graph_add_path(node, connection_index, rand() % 10);
-}
 
 graph_t generate_example_graph(void){
     graph_t g = initzialize_graph(9);
@@ -87,24 +98,6 @@ graph_t generate_example_graph(void){
     return g;
 }
 
-graph_t generate_example_graph_circle(int size){
-    graph_t graph= initzialize_graph(size);
-
-    node_t help_n;
-    help_n = graph_add_node(graph);
-    graph_add_path(help_n, 1, 1.4);
-    graph_add_path(help_n, size-1, 1.4);
-    for(int i= 1; i<size-1; i++){
-        help_n = graph_add_node(graph);
-        graph_add_path(help_n, i+1, 1.4);
-        graph_add_path(help_n, i-1, 1.4);
-    }
-    help_n = graph_add_node(graph);
-    graph_add_path(help_n, 0, 1.4);
-    graph_add_path(help_n, size-2, 1.4);
-    return graph;
-}
-
 graph_t generate_example_graph_2(void){
     graph_t g = initzialize_graph(6);
     node_t help;
@@ -142,21 +135,6 @@ graph_t generate_example_graph_2(void){
     return g;
 }
 
-graph_t generate_example_graph_mesh(unsigned width, unsigned height, double max_weight){
-    srand(time(NULL));
-    graph_t g = initzialize_graph(width * height);
-
-    for(int i= 0; i < height; i++){
-        for(int j= 0; j < width; j++){
-            generate_add_nodes_to_graph(g, width, height, i, j, max_weight);
-        }
-    }
-    graph_set_width_and_height(g, width, height);
-    graph_convert_directed_to_undirected(g);
-    update_max_path_value(g);
-
-    return g;
-}
 
 void generate_add_nodes_to_graph(graph_t graph, unsigned width, unsigned height, unsigned position_on_X_axis, unsigned position_on_Y_axis, double max_weight){
 

@@ -2,6 +2,8 @@
 
 #include <limits.h>
 
+#include "../printer/printer.h"
+
 /* data reader */
 
 int check_if_graph_is_mesh(graph_t graph, unsigned dimension_width, unsigned dimension_height){
@@ -71,8 +73,12 @@ graph_t get_graph_from_file(char * file_name){
         throw_error(file_read_error, "Couldnt open file!");
         return NULL;
     }
-    printf("\n====READING GRAPH====\n"
-           "Reading from file: \"%s\"\n", file_name);
+    set_font(BOLD);
+    set_font(PINK);
+    print_in_center("Reading Graph");
+    set_font(WHITE);
+    set_font(PINK);
+    printf("\n    Reading from file: \"%s\"\n", file_name);
     node_t help_node;
     graph_t graph;
     double max_weight= 0.;
@@ -137,11 +143,16 @@ graph_t get_graph_from_file(char * file_name){
         }
 
     }
-    printf("\n====READING FINISHED====\n"
-           "Declared size: %d x %d\n"
-           "Read lines: %d\n"
-           "Read nodes: %d\n"
-           "Max weight value: %lf\n", width, height, lines, amount_of_nodes, max_weight);
+    printf(
+           "\n    Declared size: %d x %d\n"
+           "    Read lines: %d\n"
+           "    Read nodes: %d\n"
+           "    Max weight value: %lf\n\n", width, height, lines, amount_of_nodes, max_weight);
+
+     set_font(BOLD);
+     set_font(PINK);
+     print_in_center("Reading finished");
+     set_font(WHITE);
 
     graph_set_width_and_height(graph, width, height);
     return graph;

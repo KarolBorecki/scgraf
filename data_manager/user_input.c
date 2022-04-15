@@ -6,6 +6,7 @@
 #include <getopt.h>
 
 #include "../errors/errors.h"
+#include "../utils/config.h"
 #include "../printer/printer.h"
 
 batch_arguments_t initzialize_arguments_struct(){
@@ -31,12 +32,12 @@ void free_arguments_struct(batch_arguments_t arg){
 
 void check_arguments(batch_arguments_t arg){
   if(arg->execute == UNKNOWN) return;
-  check_arguments_for_defaults(arg);
   check_arguments_for_bypassing(arg);
+  check_arguments_for_defaults(arg);
 }
 
 void check_arguments_for_defaults(batch_arguments_t arg){
-  char msg[MAX_FILE_NAME_LEN];
+  char msg[MAX_ERR_ADDITIONAL_MSG_LENGTH];
   if(arg->x == VALUE_NOT_SPECIFIED){
     arg->x = DEFAULT_X;
     if(arg->execute == GENERATE){
@@ -81,7 +82,7 @@ void check_arguments_for_defaults(batch_arguments_t arg){
   }
 }
 void check_arguments_for_bypassing(batch_arguments_t arg){
-  char msg[MAX_FILE_NAME_LEN];
+  char msg[MAX_ERR_ADDITIONAL_MSG_LENGTH];
 
   if(arg->execute == GENERATE && (arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED))
     throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph generating I only need -x and -y [or -o, -n]!");

@@ -183,7 +183,7 @@ void print_graph(graph_t graph, char* caption){
   set_font(WHITE);
   set_font(LIGHT_BLUE);
   printf("    Nodes: %d \n", graph->size);
-  printf("    Memory: %d size for nodes, %d size for paths\n",
+  printf("    Memory: %d slots for nodes, %d slots for paths\n",
   graph->memory_size,
   graph_get_memory_size_for_paths(graph));
   printf("    Memory: around %lu bytes per node and %lu bytes per path\n",

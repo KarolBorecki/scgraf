@@ -11,10 +11,10 @@
 #define QUICK           2
 #define LONGEST         1
 #define SHORTEST        0
-#define MAXMSG          100
 
 /* errors.h */
 #define MAX_ERR_MSG_LENGTH 20
+#define MAX_ERR_ADDITIONAL_MSG_LENGTH 100
 
 /* fifo.h */
 #define START_QUEUE_SIZE 20

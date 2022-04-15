@@ -148,7 +148,7 @@ double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t de
 }
 
 double get_shortest_distance_from_to(graph_t graph, unsigned start_node, unsigned destination_node){
-    char msg[MAXMSG];
+    char msg[MAX_ERR_ADDITIONAL_MSG_LENGTH];
     if(bfs(graph, start_node) <= 0){
       sprintf(msg, "Graph is not consistant, we cant search for shortest path (yet!)\n");
       throw_warning(inconsistent_graph_warning, msg);

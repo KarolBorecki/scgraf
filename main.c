@@ -32,7 +32,7 @@ int main(int argc, char** argv){
     print_help();
 
   if(arg->execute == GENERATE){
-    graph = generate_example_graph_mesh(arg->x, arg->y, arg->max_path_value);
+    graph = generate_graph_mesh(arg->x, arg->y, arg->max_path_value);
   } else {
     int width, height;
     if(strcmp(arg->in, "") == 0)
