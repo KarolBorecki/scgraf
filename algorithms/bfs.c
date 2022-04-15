@@ -1,5 +1,7 @@
 #include "bfs.h"
 
+#include <stdio.h>
+
 #include "../FIFO/fifo.h"
 #include "../graph/graph.h"
 
@@ -8,10 +10,13 @@ int bfs(graph_t graph, unsigned start_node_index){
   fifo_t q = initzialize_fifo();
   fifo_push(q, start_node->index);
   node_t actual_node;
+  int i=0;
   while(fifo_is_empty(q) <= 0){
     actual_node = graph_get_node_at_index(graph, fifo_peek(q));
     bfs_add_distinct_connections_of_node_to_queue(q, actual_node);
     fifo_pop(q);
+    printf("bfs %d\n", i);
+    i++;
   }
   return bfs_is_all_nodes_visited(graph, q);
 }

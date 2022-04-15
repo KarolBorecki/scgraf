@@ -21,13 +21,21 @@ table_t_p initialize_start_table(graph_t graph, node_t start_node, unsigned mode
 }
 
 void print_table(table_t_p table){
-    fprintf(stdout, "\n=======DIJKSTRA' S TABLE========\n\n"
-                    "NODE_index\tSHORTEST_PATH\tPREV_NODE\n");
-    for(int i= 0; i<table->size; i++)
-        fprintf(stdout, "%d\t\t\t%lf\t\t\t%d\n"
-                , table->elements[i].node_index
-                , table->elements[i].shortest_distances
-                , table->elements[i].previous_nodes);
+  set_font(BOLD);
+  set_font(PINK);
+  print_in_center("DDijkstra's table");
+  set_font(WHITE);
+  set_font(PINK);
+  fprintf(stdout, "Node index\tShortests path\tPrev node\n");
+  for(int i= 0; i<table->size; i++)
+      fprintf(stdout, "%d\t\t\t%lf\t\t\t%d\n"
+              , table->elements[i].node_index
+              , table->elements[i].shortest_distances
+              , table->elements[i].previous_nodes);
+  set_font(BOLD);
+  set_font(PINK);
+  print_in_center("Dijkstra's table");
+  set_font(WHITE);
 }
 
 table_t_p run_dijkstra(graph_t graph, node_t start_node, unsigned mode, unsigned mode_2){
