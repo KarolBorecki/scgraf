@@ -1,17 +1,7 @@
 #ifndef _USER_INPUT_H_
 #define _USER_INPUT_H_
 
-/* TODO maybe make config file for #defines values */
-#define MAX_FILE_NAME_LEN 256
-
-#define DEFAULT_FROM 0
-#define DEFAULT_TO 10
-#define DEFAULT_X 5
-#define DEFAULT_Y 5
-#define DEFAULT_N 2
-#define DEFAULT_MAX_PATH_VAL 1
-
-#define VALUE_NOT_SPECIFIED -1
+#include "../utils/config.h"
 
 typedef enum functionality{
   UNKNOWN,

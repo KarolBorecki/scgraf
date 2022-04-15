@@ -9,15 +9,7 @@
 #include "../FIFO/fifo.h"
 #include "../graph/graph.h"
 #include "../utils/utils.h"
-
-#define INVALID_NODE    UINT_MAX
-#define INF             DBL_MAX
-#define ZERO            0
-#define BUBBLE          1
-#define QUICK           2
-#define LONGEST         1
-#define SHORTEST        0
-#define MAXMSG          100
+#include "../utils/config.h"
 
 typedef struct table{
     unsigned int    node_index;

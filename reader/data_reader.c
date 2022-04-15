@@ -1,5 +1,6 @@
 #include "../reader/data_reader.h"
-//#include <stdio.h>
+
+#include "../utils/config.h"
 
 int check_if_graph_is_mesh(graph_t graph, unsigned dimension_width, unsigned dimension_height){
     for(int i= 0; i<dimension_height; i++){

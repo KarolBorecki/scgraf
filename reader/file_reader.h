@@ -7,10 +7,7 @@
 
 #include "../graph/graph.h"
 #include "../errors/errors.h"
-
-#define MAXBUF        8192
-#define MAXLINES      8192
-#define WARNING_SIZE  126
+#include "../utils/config.h"
 
 FILE * open_file(char * file_name);
 

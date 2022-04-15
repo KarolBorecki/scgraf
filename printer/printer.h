@@ -1,8 +1,7 @@
 #ifndef _PRINTER_H_
 #define _PRINTER_H_
 
-/* TODO maybe make config file for #defines values */
-#define CONSOLE_OUTPUT_LEN 80
+#include "../utils/config.h"
 
 #define WHITE      "\033[0m"
 #define GREY       "\033[37m"

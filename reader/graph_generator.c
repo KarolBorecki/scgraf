@@ -1,12 +1,11 @@
 #include "../reader/graph_generator.h"
-#include "../utils/utils.h"
 
 #include <time.h>
 #include <stdlib.h>
 #include <stdio.h>
 
-#define GENERATED_NODE_CONNECTIONS_COUNT 4
-#define GENERATED_PATH_MAX_VALUE 10
+#include "../utils/utils.h"
+#include "../utils/config.h"
 
 graph_t generate_graph(unsigned int size){
   srand(time(NULL));
