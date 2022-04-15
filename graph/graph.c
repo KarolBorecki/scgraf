@@ -139,6 +139,7 @@ path_t graph_get_path_for_node_index(node_t node_from, unsigned destination_node
 }
 
 void graph_make_existing_path_two_way(graph_t graph, unsigned node_index, unsigned connection){
+
     path_t path_to_connection= graph_get_path_for_node_index(&(graph->nodes[node_index]), connection);
     path_t path_to_node= graph_get_path_for_node_index(&(graph->nodes[connection]), node_index);
 

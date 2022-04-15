@@ -100,6 +100,24 @@ void print_file_output_greetings(char * out_file_name){
   set_font(WHITE);
 }
 
+void print_graph_generating_greetings(unsigned width, unsigned height, double max_weight){
+  set_font(BOLD);
+  printf("\nGenerating graph with width = %d, height = %d and max path weigth = %lf...\n\n", width, height, max_weight);
+  set_font(WHITE);
+}
+
+void print_graph_example_generating_greetings(){
+  set_font(BOLD);
+  printf("\nGenerating example graph...\n\n");
+  set_font(WHITE);
+}
+
+void print_get_graph_from_file_greeting(){
+  set_font(BOLD);
+  printf("\nGetting graph from file...\n\n");
+  set_font(WHITE);
+}
+
 void print_done_greeting(){
   set_font(BOLD);
   printf("Done!\n\n");

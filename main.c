@@ -27,20 +27,20 @@ int main(int argc, char** argv){
 
   batch_arguments_t arg = get_batch_arguments(argc, argv);
   check_arguments(arg);
-  
+
   if(arg->execute == UNKNOWN)
     print_help();
 
   print_arguments(arg);
 
   if(arg->execute == GENERATE){
-    graph = generate_graph_mesh(arg->x, arg->y, arg->max_path_value);
+    graph = solver_generate_graph(arg->x, arg->y, arg->max_path_value);
   } else {
     int width, height;
     if(strcmp(arg->in, "") == 0)
-      graph = generate_example_graph();
+      graph = solver_generate_example_graph();
     else
-      graph = get_graph_from_file(arg->in);
+      graph = solver_get_graph_from_file(arg->in);
   }
 
   if(arg->execute == SHORTEST_PATH)

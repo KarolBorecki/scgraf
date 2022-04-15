@@ -70,7 +70,7 @@ FILE * open_file(char * file_name){
 graph_t get_graph_from_file(char * file_name){
     FILE * IN= open_file(file_name);
     if(IN == NULL){
-        throw_error(file_read_error, "Couldnt open file!");
+        throw_error(file_read_error, "Could not open the file!");
         return NULL;
     }
     set_font(BOLD);
