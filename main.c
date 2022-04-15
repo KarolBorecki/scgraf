@@ -52,17 +52,18 @@ int main(int argc, char** argv){
     solver_divide_graph_into_n_graphs(graph, arg->n);
 
 
-  if(arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE){
-      if(strcmp(arg->out, "") != 0){
-        solver_graph_to_file(graph, arg->out);
-    }else
-        print_graph(graph);
-  }
+  if(strcmp(arg->out, "") != 0)
+    solver_graph_to_file(graph, arg->out);
+
+  if(arg->print == 1 ||
+  ((arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE) && strcmp(arg->out, "") == 0))
+    print_graph(graph, arg->execute == DIVIDE_GRAPH ? "Divided graph" : (arg->execute == GENERATE ? "Generated graph" : "Graph"));
 
   clean_graph(graph);
   free_arguments_struct(arg);
   free_errors();
   free_warnings();
 
+  print_greetings();
   return 0;
 }

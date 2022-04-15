@@ -19,6 +19,7 @@ batch_arguments_t initzialize_arguments_struct(){
   arg->y = VALUE_NOT_SPECIFIED;
   arg->n = VALUE_NOT_SPECIFIED;
   arg->max_path_value = VALUE_NOT_SPECIFIED;
+  arg->print = 0;
   return arg;
 }
 
@@ -103,7 +104,7 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
   batch_arguments_t arg = initzialize_arguments_struct();
 
   int opt;
-  while((opt = getopt(argc, argv, "e:i:o:f:t:x:y:n:v:")) != -1){
+  while((opt = getopt(argc, argv, "e:i:o:f:t:x:y:n:v:p:")) != -1){
     switch(opt){
       case 'e':
           arg->execute = get_functionallity_from_string(optarg);
@@ -144,6 +145,9 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
         if(arg->max_path_value <= 0)
           throw_error(invalid_value_error, "Specified argument -v is invalid - should be bigger than 0!");
         break;
+      case 'p':
+        arg->print = 1;
+        break;
       default:
         throw_error(invalid_value_error, "Specified invalid argument!");
         exit (EXIT_FAILURE);
@@ -181,13 +185,13 @@ char* get_string_from_functionallity(func_t func){
 }
 
 void print_arguments(batch_arguments_t arg){
-  set_font(LIGHT_BLUE);
+  set_font(GREEN);
   set_font(BOLD);
   printf("\n");
   print_in_center("Passed arguments");
   printf("\n");
   set_font(WHITE);
-  set_font(LIGHT_BLUE);
+  set_font(GREEN);
   printf("    EXECUTING    : %s\n", get_string_from_functionallity(arg->execute));
   printf("    IN           : %s\n", strcmp(arg->in, "") == 0 ? "-" : arg->in);
   printf("    OUT          : %s\n", strcmp(arg->out, "") == 0 ? "-" : arg->out);

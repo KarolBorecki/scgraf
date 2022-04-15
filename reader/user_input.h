@@ -21,6 +21,7 @@ typedef struct batch_arguments{
   int y;
   double max_path_value;
   int n;
+  int print;
 } *batch_arguments_t;
 
 batch_arguments_t initzialize_arguments_struct();

@@ -58,6 +58,6 @@ void graph_convert_directed_to_undirected(graph_t graph);
 
 unsigned graph_get_memory_size_for_paths(graph_t graph);
 
-void print_graph(graph_t);
+void print_graph(graph_t graph, char* caption);
 
 #endif /* _GRAPH_H_ */

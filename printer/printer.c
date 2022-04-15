@@ -21,6 +21,7 @@ void print_in_center(char* str){
 
 void print_greetings(){
   set_font(BOLD);
+  set_font(GREEN);
   printf("\n");
   print_in_center("SCGRAF");
   printf("\n");

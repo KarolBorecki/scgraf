@@ -121,21 +121,29 @@ unsigned partition (unsigned * arr, unsigned low, unsigned high, table_t_p tab)
 //start_node must be the same node, that Dijkstra' s table was created for
 double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t destination_node){
     double path_len= 0.;
+    set_font(BOLD);
+    set_font(LIGHT_BLUE);
     print_in_center("SHORTEST PATH IN THE GRAPH");
+    set_font(WHITE);
+    set_font(LIGHT_BLUE);
     if(start_node->index == destination_node->index) {
-        printf("Ur at your destination node!\n");
+        throw_warning(data_formated_warning, "You are at your destination node!");
         return path_len;
     }
     unsigned int i= destination_node->index;
     path_len += table->elements[i].shortest_distances;
-    printf("\nPATH FROM VERTEX: [%d] to VERTEX: [%d]\n"
-           "%d->%d", start_node->index, destination_node->index, i, table->elements[i].previous_nodes);
+
+    printf("\n    Path from node %d to node %d\n"
+           "    %d->%d", start_node->index, destination_node->index, i, table->elements[i].previous_nodes);
     for(i= table->elements[i].previous_nodes; i != start_node->index; i= table->elements[i].previous_nodes){
         printf("->%d", table->elements[i].previous_nodes);
         path_len += table->elements[i].shortest_distances;
     }
-    printf("\nLENGTH OF FOLLOWING PATH= %.4lf\n", path_len);
+    printf("\n    Length of the following path = %.4lf\n\n", path_len);
+    set_font(BOLD);
+    set_font(LIGHT_BLUE);
     print_in_center("SHORTEST PATH IN THE GRAPH");
+    set_font(WHITE);
     return path_len;
 }
 
@@ -144,17 +152,14 @@ double get_shortest_distance_from_to(graph_t graph, unsigned start_node, unsigne
     if(bfs(graph, start_node) <= 0){
       sprintf(msg, "Graph is not consistant, we cant search for shortest path (yet!)\n");
       throw_warning(inconsistent_graph_warning, msg);
-      return -1;
     }
     if(start_node < 0 || start_node > graph->size - 1){
         sprintf(msg, "incorrect start node in function get_shortest_distance_from_to()!\n");
         throw_error(invalid_value_error, msg);
-        return -1;
     }
     if(destination_node < 0 || destination_node > graph->size - 1){
         sprintf(msg, "incorrect start node in function get_shortest_distance_from_to()!\n");
         throw_error(invalid_value_error, msg);
-        return -1;
     }
     node_t  start=  &(graph->nodes[start_node]);
     node_t  end=    &(graph->nodes[destination_node]);
@@ -162,6 +167,7 @@ double get_shortest_distance_from_to(graph_t graph, unsigned start_node, unsigne
 
     table_t_p dijkstras_table= initialize_start_table(graph, start, SHORTEST);
     dijkstras_table= run_dijkstra(graph, start, BUBBLE, SHORTEST);
+    print_done_greeting();
     path_len = print_shortest_path_from_to(dijkstras_table, start, end);
     free_table(dijkstras_table);
 

@@ -174,11 +174,11 @@ unsigned graph_get_memory_size_for_paths(graph_t graph){
   return size;
 }
 
-void print_graph(graph_t graph){
+void print_graph(graph_t graph, char* caption){
   set_font(LIGHT_BLUE);
   set_font(BOLD);
   printf("\n");
-  print_in_center("Graph");
+  print_in_center(caption);
   printf("\n");
   set_font(WHITE);
   set_font(LIGHT_BLUE);
@@ -219,7 +219,7 @@ void print_graph(graph_t graph){
   set_font(LIGHT_BLUE);
   set_font(BOLD);
   printf("\n");
-  print_in_center("Graph");
+  print_in_center(caption);
   printf("\n");
   set_font(WHITE);
 }
