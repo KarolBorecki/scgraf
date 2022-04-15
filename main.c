@@ -15,7 +15,6 @@ TODO:
 
   -Refaktoryzacja generowanie GRAFU
   -Uspojnic graph_generator.c
-  -Moze uspojnic file_reader i file_printer na file_manager i data_manager?
 */
 
 int main(int argc, char** argv){

@@ -24,28 +24,28 @@ test_fifo:
 test_graph:
 	cc -c -o exec/tests.o tests/tests.c
 	cc -c -o exec/test_main.o test_main.c
-	cc -o test.out exec/test_main.o exec/tests.o exec/bfs.o exec/dijkstra.o exec/errors.o exec/fifo.o exec/graph.o exec/graph_divider.o exec/printer.o exec/data_manager.oexec/graph_generator.o exec/user_input.o exec/graph_solver.o exec/utils.o
+	cc -o test.out exec/test_main.o exec/tests.o exec/bfs.o exec/dijkstra.o exec/errors.o exec/fifo.o exec/graph.o exec/graph_divider.o exec/printer.o exec/data_manager.o exec/graph_generator.o exec/user_input.o exec/graph_solver.o exec/utils.o
 	./test.out graph
 	-rm exec/tests.o exec/test_main.o ./test.out
 
 test_bfs:
 	cc -c -o exec/tests.o tests/tests.c
 	cc -c -o exec/test_main.o test_main.c
-	cc -o test.out exec/test_main.o exec/tests.o exec/bfs.o exec/dijkstra.o exec/errors.o exec/fifo.o exec/graph.o exec/graph_divider.o exec/printer.o exec/data_manager.oexec/graph_generator.o exec/user_input.o exec/graph_solver.o exec/utils.o
+	cc -o test.out exec/test_main.o exec/tests.o exec/bfs.o exec/dijkstra.o exec/errors.o exec/fifo.o exec/graph.o exec/graph_divider.o exec/printer.o exec/data_manager.o exec/graph_generator.o exec/user_input.o exec/graph_solver.o exec/utils.o
 	./test.out bfs
 	-rm exec/tests.o exec/test_main.o ./test.out
 
 test_consistency:
 	cc -c -o exec/tests.o tests/tests.c
 	cc -c -o exec/test_main.o test_main.c
-	cc -o test.out exec/test_main.o exec/tests.o exec/bfs.o exec/dijkstra.o exec/errors.o exec/fifo.o exec/graph.o exec/graph_divider.o exec/printer.o exec/data_manager.oexec/graph_generator.o exec/user_input.o exec/graph_solver.o exec/utils.o
+	cc -o test.out exec/test_main.o exec/tests.o exec/bfs.o exec/dijkstra.o exec/errors.o exec/fifo.o exec/graph.o exec/graph_divider.o exec/printer.o exec/data_manager.o exec/graph_generator.o exec/user_input.o exec/graph_solver.o exec/utils.o
 	./test.out consistency
 	-rm exec/tests.o exec/test_main.o ./test.out
 
 test_dijkstra:
 	cc -c -o exec/tests.o tests/tests.c
 	cc -c -o exec/test_main.o test_main.c
-	cc -o test.out exec/test_main.o exec/tests.o exec/bfs.o exec/dijkstra.o exec/errors.o exec/fifo.o exec/graph.o exec/graph_divider.o exec/printer.o exec/data_manager.oexec/graph_generator.o exec/user_input.o exec/graph_solver.o exec/utils.o
+	cc -o test.out exec/test_main.o exec/tests.o exec/bfs.o exec/dijkstra.o exec/errors.o exec/fifo.o exec/graph.o exec/graph_divider.o exec/printer.o exec/data_manager.o exec/graph_generator.o exec/user_input.o exec/graph_solver.o exec/utils.o
 	./test.out dijkstra
 	-rm exec/tests.o exec/test_main.o ./test.out
 

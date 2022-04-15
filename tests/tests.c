@@ -11,9 +11,6 @@
 #include "../graph/graph.h"
 #include "../data_manager/graph_generator.h"
 
-#define FIFO_TEST_SIZE 100000
-#define FIFO_TEST_MAX_VAL 100000
-
 void test_fifo(unsigned size, unsigned max_val){
   set_font(BOLD);
   set_font(PINK);
@@ -48,22 +45,25 @@ void test_fifo(unsigned size, unsigned max_val){
   set_font(WHITE);
 }
 
-void test_graph(unsigned generated_width, unsigned generated_height, unsigned double max_weight, unsigned tests_count){
+void test_graph(unsigned generated_width, unsigned generated_height, double max_weight, unsigned tests_count){
   set_font(BOLD);
   set_font(PINK);
   print_in_center("Test graph");
 
   graph_t graph = generate_example_graph_mesh(generated_width, generated_height, max_weight);
 
-  print_graph(graph);
+  print_graph(graph, "Generated graph");
 
   set_font(BOLD);
   set_font(GREEN);
 
-  for(int i=0; i<graph_size(graph); i++)
-    for(int j=0; j<graph_get_node_paths_count(graph_get_node_at_index(graph, i)); j++)
-      graph_get_path_at_index(graph, i);
-  printf("Nodes and paths ok.\n")
+  node_t node;
+  for(int i=0; i<graph_size(graph); i++){
+    node = graph_get_node_at_index(graph, i);
+    for(int j=0; j<graph_get_node_paths_count(node); j++)
+      graph_get_path_at_index(node, i);
+  }
+  printf("Nodes and paths ok.\n");
 
   enlarge_graph_nodes_memory(graph, 2);
   printf("Graph nodes enlarge ok.\n");
@@ -75,12 +75,12 @@ void test_graph(unsigned generated_width, unsigned generated_height, unsigned do
   printf("Graph clean ok.\n");
 
   printf("Graph was tested for %d elements with width = %d and height = %d\n\n",
-          generated_width+generated_height,
+          generated_width*generated_height,
           generated_width,
           generated_height);
   set_font(WHITE);
   printf("During the test random graph was generated, all values were get from graph\n");
-  printf("Also the enlarge function were tested and graph was cleaned\n");
+  printf("Also the enlarge function were tested and graph was cleaned\n\n");
   set_font(GREEN);
   set_font(BOLD);
   printf("TEST DONE, ALL GOOD!\n\n");
