@@ -147,12 +147,25 @@ void graph_make_existing_path_two_way(graph_t graph, unsigned node_index, unsign
     }
 }
 
+double update_max_path_value(graph_t graph){
+  int initialized= 0;
+  for(int i= 0; i<graph->size; i++) {
+      !initialized ? graph->nodes[i].paths_count ? graph->max_path_value = graph->nodes[i].paths[0].value && initialized++ : (0) : (0);
+      for (int j = 0; j < graph->nodes[i].paths_count; j++)
+          if (graph->nodes[i].paths[j].value > graph->max_path_value)
+              graph->max_path_value = graph->nodes[i].paths[j].value;
+  }
+
+  return graph->max_path_value;
+}
+
 void graph_convert_directed_to_undirected(graph_t graph){
     for(int i= 0; i<graph->size; i++){
         for(int j= 0; j<graph->nodes[i].paths_count; j++)
             graph_make_existing_path_two_way(graph, graph->nodes[i].index, graph->nodes[i].paths[j].connection);
     }
 }
+
 
 unsigned graph_get_memory_size_for_paths(graph_t graph){
   unsigned size = 0;
