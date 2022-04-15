@@ -39,6 +39,7 @@ table_t_p run_dijkstra(graph_t graph, node_t start_node, unsigned mode, unsigned
     for(int i= 0; i<table->size; i++)
         fifo_push(que_to_visit, i);
 
+    int k= 0;
     while(fifo_is_empty(que_to_visit) <= 0){
         //print_table(table);
         current_vertex = fifo_pop(que_to_visit);
@@ -60,6 +61,9 @@ table_t_p run_dijkstra(graph_t graph, node_t start_node, unsigned mode, unsigned
             bsort_que(que_to_visit, popped_from_que, table, mode_2);
         else if(mode == QUICK)
             qsort_que(que_to_visit->queue + fifo_head_index(que_to_visit), popped_from_que, table->size-1, table);
+        char str[100];
+        sprintf(str, "%.2lf percent done", (k++ / (double)table->size) * 100);
+        print_in_center(str);
     }
 
     return table;
