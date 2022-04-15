@@ -94,7 +94,7 @@ void check_arguments_for_bypassing(batch_arguments_t arg){
     throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph dviding I only need -n [or -o, -i]!");
 
   if(arg->execute != GENERATE && strcmp(arg->in, "") == 0){
-    throw_warning(default_value_warning, "The in file is not specified, the example will be taken.");
+    throw_warning(default_value_warning, "The in file is not specified, the example graph will be taken.");
   }
   if(strcmp(arg->out, "") == 0)
     throw_warning(default_value_warning, "Out file is not specified, the output will be shown in the console!");

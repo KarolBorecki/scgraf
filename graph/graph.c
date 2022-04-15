@@ -13,7 +13,7 @@ graph_t initzialize_graph(unsigned nodes_count){
   graph->size = 0;
   graph->nodes = malloc(nodes_count * sizeof(*(graph->nodes)));
   graph->memory_size = nodes_count;
-  graph->max_path_value = 3;
+  graph->max_path_value = 0;
   graph->height= 0;
   graph->width= 0;
   return graph;

@@ -41,11 +41,11 @@ graph_t generate_graph_circle(int size){
     return graph;
 }
 
-
 graph_t generate_example_graph(void){
     graph_t g = initzialize_graph(9);
     g->width = 3;
     g->height = 3;
+    g->max_path_value = 3;
     node_t help_node;
 
     //Node 0
@@ -93,7 +93,7 @@ graph_t generate_example_graph(void){
 
     //Node 8
     help_node = graph_add_node(g);
-    graph_add_path(help_node, 7, 2382.232);
+    graph_add_path(help_node, 7, 1.0);
 
     return g;
 }

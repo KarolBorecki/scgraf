@@ -3,6 +3,7 @@
 
 #include <limits.h>
 
+
 /* dijkstra.h */
 #define INVALID_NODE    UINT_MAX
 #define INF             DBL_MAX
