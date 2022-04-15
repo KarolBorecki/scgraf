@@ -36,7 +36,7 @@ double print_shortest_path_from_to(table_t_p table, node_t start_node, node_t de
 
 void bsort_que(fifo_t que, unsigned start, table_t_p tab, unsigned mode_2);
 void qsort_que(unsigned * que, unsigned start, unsigned end, table_t_p tab);
-unsigned partition (unsigned * arr, unsigned low, unsigned high, table_t_p tab);
+unsigned partition(unsigned * arr, unsigned low, unsigned high, table_t_p tab);
 
 double get_shortest_distance_from_to(graph_t graph, unsigned start_node_index, unsigned destination_node_index);
 

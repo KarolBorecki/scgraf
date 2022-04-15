@@ -50,7 +50,7 @@ void test_graph(unsigned generated_width, unsigned generated_height, double max_
   set_font(PINK);
   print_in_center("Test graph");
 
-  graph_t graph = generate_example_graph_mesh(generated_width, generated_height, max_weight);
+  graph_t graph = generate_graph_mesh(generated_width, generated_height, max_weight);
 
   print_graph(graph, "Generated graph");
 
