@@ -25,7 +25,7 @@
 #define GRAPH_ENLARGE_MULTIPLIER 2
 
 /* printer.h */
-#define CONSOLE_OUTPUT_LEN 80
+#define CONSOLE_OUTPUT_LEN 90
 
 /* file_reader.h */
 #define MAXBUF        8192

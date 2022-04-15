@@ -51,20 +51,20 @@ void print_help(){
   print_in_center("SCGRAF ARGUMENTS");
   printf("\n");
   set_font(WHITE);
-  print_argument_list("-e", "specify the functionallity You want to execute.");
-  print_execute_option_list("generate", "generate graph of width [-x] height [-y] and max path weight [-v].");
-  print_execute_option_list("divide", "divide input graph [-i] into n [-n] subgraphs \n                 (if input graph is not specified, the example graph will be taken).");
-  print_execute_option_list("consistency", "check input graph [-i] consistency.");
-  print_execute_option_list("shortest", "find shortest path in input graph [-i] from node [-f] to node [-t].\n");
+  print_argument_list("-e", "specify the functionallity You want to execute.\n");
+  print_execute_option_list("generate", "generate graph of width [-x] height [-y] and max path weight [-v].\n");
+  print_execute_option_list("divide", "divide input graph [-i] into n [-n] subgraphs \n                (if input graph is not specified, the example graph will be taken).\n");
+  print_execute_option_list("consistency", "check input graph [-i] consistency.\n");
+  print_execute_option_list("shortest", "find shortest path in input graph [-i] from node [-f] to node [-t].\n\n");
 
   print_argument_list("-i", "specify input file.\n");
   print_argument_list("-o", "specify output file (used only with generate and divide functionallity).\n");
-  print_argument_list("-f", "argument used in shortest path finding and consistency checking, \n          positive number, which stands for node index.\n");
-  print_argument_list("-t", "argument used in shortest path finding, positive number, which stands for node index.\n");
-  print_argument_list("-x", "argument used in graph generating, positive number, which stands for x size of the graph.\n");
-  print_argument_list("-y", "argument used in graph generating, positive number, which stands for y size of the graph.\n");
-  print_argument_list("-v", "argument used in graph generating, positive floating point number, \n    which stands for maximum path weight.\n");
-  print_argument_list("-n", "argument used in graph dividing, positive number greater than 1, \n    which stands for number of graphs which original graph will be divided into.\n");
+  print_argument_list("-f", "argument used in shortest path finding and consistency checking, \n         positive number, which stands for node index.\n");
+  print_argument_list("-t", "argument used in shortest path finding, positive number, \n         which stands for node index.\n");
+  print_argument_list("-x", "argument used in graph generating, positive number, \n         which stands for x size of the graph.\n");
+  print_argument_list("-y", "argument used in graph generating, positive number, \n         which stands for y size of the graph.\n");
+  print_argument_list("-v", "argument used in graph generating, positive floating point number, \n         which stands for maximum path weight.\n");
+  print_argument_list("-n", "argument used in graph dividing, positive number greater than 1, \n         which stands for number of graphs which original graph will be divided into.\n");
   print_argument_list("-p", "specify if You want to print graph in the console\n");
 
 
