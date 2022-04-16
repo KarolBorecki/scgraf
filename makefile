@@ -53,7 +53,7 @@ clean:
 	-rm exec/*.o
 
 clean_all:
-	-rm exec/*.o exec/*.out ./*.out
+	-rm exec/*.o exec/*.out ./*.out *.txt
 
 clean_txt:
 	-rm *.txt

@@ -80,7 +80,7 @@ void get_shortest_distance_from_to(graph_t graph, unsigned start_node, unsigned 
         sprintf(msg, "incorrect start node in function get_shortest_distance_from_to()!\n");
         throw_error(invalid_value_error, msg);
     }
-
+    print_consistency_greeting(start_node);
     int is_consistent = bfs(graph, start_node);
     if(is_consistent <= 0)
       throw_error(graph_error, "Graph is not consistant, You can not search for shortest path.");
