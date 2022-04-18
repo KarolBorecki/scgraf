@@ -82,22 +82,50 @@ void exit_program_failure(){
 }
 
 void free_errors(){
+    free(unknown_error->msg);
     free(unknown_error );
+
+    free(invalid_value_error->msg);
     free(invalid_value_error);
+
+    free(calculation_error->msg);
     free(calculation_error);
+
+    free(memory_error->msg);
     free(memory_error);
+
+    free(file_read_error->msg);
     free(file_read_error);
+
+    free(file_error->msg);
     free(file_error);
+
+    free(graph_error->msg);
     free(graph_error);
+
+    free(information_needed_error->msg);
     free(information_needed_error);
 }
 
 void free_warnings(){
+    free(unknown_warning->msg);
     free(unknown_warning);
+
+    free(arg_bypasing_warning->msg);
     free(arg_bypasing_warning);
+
+    free(data_formated_warning->msg);
     free(data_formated_warning);
+
+    free(default_value_warning->msg);
     free(default_value_warning);
+
+    free(duplicated_path_warning->msg);
     free(duplicated_path_warning);
+
+    free(inconsistent_graph_warning->msg);
     free(inconsistent_graph_warning);
+
+    free(node_bypasing_warning->msg);
     free(node_bypasing_warning);
 }

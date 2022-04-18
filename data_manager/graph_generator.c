@@ -9,8 +9,9 @@
 
 graph_t generate_graph_mesh(unsigned width, unsigned height, double max_weight){
     srand(time(NULL));
+    printf("Done at least that!");
     graph_t g = initzialize_graph(width * height);
-
+    printf("Done at least that!");
     for(int i= 0; i < height; i++){
         for(int j= 0; j < width; j++){
             generate_add_nodes_to_graph(g, width, height, j, i, max_weight);
