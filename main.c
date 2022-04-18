@@ -21,8 +21,6 @@ TODO:
 int main(int argc, char** argv){
   graph_t graph;
 
-  initzialize_errors();
-  initzialize_warnings();
   print_greetings();
 
   batch_arguments_t arg = get_batch_arguments(argc, argv);
@@ -62,8 +60,6 @@ int main(int argc, char** argv){
 
   clean_graph(graph);
   free_arguments_struct(arg);
-  free_errors();
-  free_warnings();
 
   print_greetings();
   return 0;

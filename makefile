@@ -14,6 +14,9 @@ main:
 	cc -c -o exec/utils.o utils/utils.c
 	cc -o scgraf.out exec/main.o exec/bfs.o exec/dijkstra.o exec/errors.o exec/fifo.o exec/graph.o exec/graph_divider.o exec/printer.o exec/data_manager.o exec/graph_generator.o exec/user_input.o exec/graph_solver.o exec/utils.o
 
+test:
+	cc -o scgraf.out main.c solver/graph_solver.c errors/errors.c FIFO/fifo.c graph/graph.c printer/printer.c data_manager/data_manager.c utils/utils.c algorithms/bfs.c algorithms/dijkstra.c algorithms/graph_divider.c data_manager/user_input.c data_manager/graph_generator.c
+
 test_fifo:
 	cc -c -o exec/tests.o tests/tests.c
 	cc -c -o exec/test_main.o test_main.c

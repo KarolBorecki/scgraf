@@ -137,7 +137,6 @@ graph_t generate_example_graph_2(void){
 
 
 void generate_add_nodes_to_graph(graph_t graph, unsigned width, unsigned height, unsigned position_on_X_axis, unsigned position_on_Y_axis, double max_weight){
-
     node_t help= graph_add_node(graph);
     unsigned node_index= position_on_Y_axis * width + position_on_X_axis;
 

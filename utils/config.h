@@ -15,10 +15,6 @@
 #define INF             DBL_MAX
 #define ZERO            0
 
-/* errors.h */
-#define MAX_ERR_MSG_LENGTH 20
-#define MAX_ERR_ADDITIONAL_MSG_LENGTH 100
-
 /* fifo.h */
 #define START_QUEUE_SIZE 20
 #define FIFO_ENLARGE_MULTIPLIER 2
@@ -50,5 +46,10 @@
 #define DEFAULT_MAX_PATH_VAL 1
 
 #define VALUE_NOT_SPECIFIED -1
+
+/* errors.h */
+#define MAX_ERR_MSG_LENGTH 20
+#define MAX_ERR_ADDITIONAL_MSG_LENGTH 100
+
 
 #endif /* _CONFIG_H_ */

@@ -115,13 +115,13 @@ void print_shortest_path_from_to(dijkstra_table_t table, node_t start_node, node
 
     unsigned int i= destination_node->index;
     path_len += table->elements[i].shortest_distances;
-    printf("\n    Path from node %d to node %d\n"
-           "    %d->%d", start_node->index, destination_node->index, i, table->elements[i].previous_nodes);
+    printf("\n    Path from node %d to node %d:\n"
+           "      *node %d\n      *node %d", start_node->index, destination_node->index, i, table->elements[i].previous_nodes);
     for(i= table->elements[i].previous_nodes; i != start_node->index; i= table->elements[i].previous_nodes){
-        printf("->%d", table->elements[i].previous_nodes);
+        printf("\n      *node %d", table->elements[i].previous_nodes);
         path_len += table->elements[i].shortest_distances;
     }
-    printf("\n    Length of the following path = %.4lf\n\n", path_len);
+    printf("\n\n    Length of the following path = %.4lf\n\n", path_len);
     set_font(BOLD);
     set_font(LIGHT_BLUE);
     print_in_center("Shortest path");
