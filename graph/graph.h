@@ -51,6 +51,7 @@ unsigned graph_memory_size(graph_t graph);
 unsigned graph_get_node_paths_count(node_t node);
 
 void graph_add_path_two_way(graph_t graph, node_t node, unsigned connection, double value);
+int graph_check_if_path_between_exists(graph_t graph, unsigned node_index, unsigned connection_index);
 
 void graph_make_existing_path_two_way(graph_t graph, unsigned node_index, unsigned connection);
 path_t graph_get_path_for_node_index(node_t node_from, unsigned destination_node_index);

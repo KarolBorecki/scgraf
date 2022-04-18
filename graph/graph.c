@@ -144,7 +144,23 @@ path_t graph_get_node_path_at_index(node_t node, unsigned index){
 void graph_add_path_two_way(graph_t graph, node_t node, unsigned connection, double value){
     graph_add_path(node, connection, value);
     if(&(graph->nodes[connection]) != NULL)
-        graph_add_path(&(graph->nodes[connection]), node->index, value);
+        if(!graph_check_if_path_between_exists(graph, node->index, connection))//there is already path, so we dont add another one
+            graph_add_path(&(graph->nodes[connection]), node->index, value);
+}
+//Function can be only used once all nodes in the graph were initialized
+int graph_check_if_path_between_exists(graph_t graph, unsigned node_index, unsigned connection_index){
+    node_t node_1= &(graph->nodes[node_index]);
+    node_t node_2= &(graph->nodes[connection_index]);
+
+    for(int i= 0; i<node_1->paths_count; i++)
+        if(node_1->paths[i].connection == node_2->index)
+            return 1;
+
+    for(int i= 0; i<node_2->paths_count; i++)
+        if(node_2->paths[i].connection == node_1->index)
+            return 1;
+
+    return 0;
 }
 
 path_t graph_get_path_for_node_index(node_t node_from, unsigned destination_node_index){
@@ -156,7 +172,6 @@ path_t graph_get_path_for_node_index(node_t node_from, unsigned destination_node
 }
 
 void graph_make_existing_path_two_way(graph_t graph, unsigned node_index, unsigned connection){
-
     path_t path_to_connection= graph_get_path_for_node_index(&(graph->nodes[node_index]), connection);
     path_t path_to_node= graph_get_path_for_node_index(&(graph->nodes[connection]), node_index);
 
@@ -183,7 +198,6 @@ void graph_convert_directed_to_undirected(graph_t graph){
             graph_make_existing_path_two_way(graph, graph->nodes[i].index, graph->nodes[i].paths[j].connection);
     }
 }
-
 
 unsigned graph_get_memory_size_for_paths(graph_t graph){
   unsigned size = 0;
