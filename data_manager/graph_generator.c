@@ -6,12 +6,11 @@
 
 #include "../utils/utils.h"
 #include "../utils/config.h"
+#include "../graph/graph.h"
 
 graph_t generate_graph_mesh(unsigned width, unsigned height, double max_weight){
     srand(time(NULL));
-    printf("Done at least that!");
-    graph_t g = initzialize_graph(width * height);
-    printf("Done at least that!");
+    graph_t g= initzialize_graph_with_all_nodes(width * height);
     for(int i= 0; i < height; i++){
         for(int j= 0; j < width; j++){
             generate_add_nodes_to_graph(g, width, height, j, i, max_weight);
@@ -138,16 +137,16 @@ graph_t generate_example_graph_2(void){
 
 
 void generate_add_nodes_to_graph(graph_t graph, unsigned width, unsigned height, unsigned position_on_X_axis, unsigned position_on_Y_axis, double max_weight){
-
-    node_t help= graph_add_node(graph);
     unsigned node_index= position_on_Y_axis * width + position_on_X_axis;
 
+    node_t help= &(graph->nodes[node_index]);
+
     if(position_on_X_axis != 0)
-        graph_add_path(help, node_index - 1, rand_double_from_to(0., max_weight));
+        graph_add_path_two_way(graph, help, node_index - 1, rand_double_from_to(0., max_weight));
     if(position_on_X_axis != width - 1)
-        graph_add_path(help, node_index + 1, rand_double_from_to(0., max_weight));
+        graph_add_path_two_way(graph, help, node_index + 1, rand_double_from_to(0., max_weight));
     if(position_on_Y_axis != 0)
-        graph_add_path(help, node_index - width, rand_double_from_to(0., max_weight));
+        graph_add_path_two_way(graph, help, node_index - width, rand_double_from_to(0., max_weight));
     if(position_on_Y_axis != height - 1)
-        graph_add_path(help, node_index + width, rand_double_from_to(0., max_weight));
+        graph_add_path_two_way(graph, help, node_index + width, rand_double_from_to(0., max_weight));
 }

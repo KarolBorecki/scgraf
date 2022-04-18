@@ -19,6 +19,23 @@ graph_t initzialize_graph(unsigned nodes_count){
   return graph;
 }
 
+graph_t initzialize_graph_with_all_nodes(unsigned nodes_count){
+    graph_t graph = malloc(sizeof(*graph));
+    graph->size = 0;
+    graph->nodes = malloc(nodes_count * sizeof(*(graph->nodes)));
+    graph->memory_size = nodes_count;
+    graph->max_path_value = 0;
+    graph->height= 0;
+    graph->width= 0;
+
+    node_t help_node;
+    for(int i= 0; i < nodes_count; i++){
+        help_node= graph_add_node(graph);
+    }
+
+    return graph;
+}
+
 void graph_set_width_and_height(graph_t graph, unsigned width, unsigned height){
   graph->height= height;
   graph->width= width;
