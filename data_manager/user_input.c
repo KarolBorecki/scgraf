@@ -104,6 +104,7 @@ void check_arguments_for_bypassing(batch_arguments_t arg){
 }
 
 batch_arguments_t get_batch_arguments(int argc, char** argv){
+  char msg[MAX_ERR_ADDITIONAL_MSG_LENGTH];
   batch_arguments_t arg = initzialize_arguments_struct();
 
   int opt;
@@ -120,26 +121,46 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
         break;
       case 'f': /* from */
         arg->from = atoi(optarg);
+        if(atof(optarg) != atoi(optarg)){
+          sprintf(msg, "Formated -f value from %f to %d", atof(optarg), arg->from);
+          throw_warning(data_formated_warning, msg);
+        }
         if(arg->from < 0)
           throw_error(invalid_value_error, "Specified argument -f is invalid - should be positive!");
         break;
       case 't': /* to */
         arg->to = atoi(optarg);
+        if(atof(optarg) != atoi(optarg)){
+          sprintf(msg, "Converted -t value from %f to %d", atof(optarg), arg->to);
+          throw_warning(data_formated_warning, msg);
+        }
         if(arg->to < 0)
           throw_error(invalid_value_error, "Specified argument -t is invalid - should be positive!");
         break;
       case 'x': /* x */
         arg->x = atoi(optarg);
+        if(atof(optarg) != atoi(optarg)){
+          sprintf(msg, "Converted -x value from %f to %d", atof(optarg), arg->x);
+          throw_warning(data_formated_warning, msg);
+        }
         if(arg->x < 0)
           throw_error(invalid_value_error, "Specified argument -x is invalid - should be positive!");
         break;
       case 'y': /* y */
         arg->y = atoi(optarg);
+        if(atof(optarg) != atoi(optarg)){
+          sprintf(msg, "Converted -y value from %f to %d", atof(optarg), arg->y);
+          throw_warning(data_formated_warning, msg);
+        }
         if(arg->y < 0)
           throw_error(invalid_value_error, "Specified argument -y is invalid - should be positive!");
         break;
       case 'n': /* n */
         arg->n = atoi(optarg);
+        if(atof(optarg) != atoi(optarg)){
+          sprintf(msg, "Converted -n value from %f to %d", atof(optarg), arg->n);
+          throw_warning(data_formated_warning, msg);
+        }
         if(arg->n < 2)
           throw_error(invalid_value_error, "Specified argument -n is invalid - should be bigger than 1!");
         break;

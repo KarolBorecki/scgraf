@@ -5,53 +5,23 @@
 #include <string.h>
 
 #include "../printer/printer.h"
+#include "../utils/config.h"
 
-void initzialize_errors(){
-    unknown_error            = new_error(0, "Unknown error");
-    invalid_value_error      = new_error(1, "Invalid value");
-    calculation_error        = new_error(2, "Calculation error");
-    memory_error             = new_error(3, "Memory error");
-    file_read_error          = new_error(4, "File reading error");
-    file_error               = new_error(5, "File error");
-    graph_error              = new_error(6, "Graph error");
-    information_needed_error = new_error(7, "Information needed error");
-}
 
-void initzialize_warnings(){
-  unknown_warning            = new_warning(0, "Unknown warning");
-  data_formated_warning      = new_warning(1, "Formated data");
-  default_value_warning      = new_warning(2, "Taking default value");
-  duplicated_path_warning    = new_warning(3, "Passed duplicated path");
-  inconsistent_graph_warning = new_warning(4, "Graph inconsistent");
-  node_bypasing_warning      = new_warning(5, "Bypassing node");
-  arg_bypasing_warning       = new_warning(6, "Bypassing argument");
-  invalid_value_warning      = new_warning(7, "Invalid value");
-}
+char* error_msgs[8] = {"Unknown error", "Invalid value", "Calculation error",
+                       "Memory error", "File reading error", "File error",
+                       "Graph error", "Information needed error"};
 
-error_t new_error(unsigned code, char* msg){
-  error_t new_err = malloc(sizeof(*new_err));
-  new_err->code = code;
-  new_err->msg = malloc(MAX_ERR_MSG_LENGTH);
-  strcpy(new_err->msg, msg);
+char* warning_msgs[8] = {"Unknown warning", "Formated data", "Taking default value",
+                         "Passed duplicated path", "Graph inconsistent", "Bypassing node",
+                         "Bypassing argument", "Invalid value"};
 
-    return new_err;
-}
-
-warning_t new_warning(unsigned code, char* msg){
-  warning_t new_war = malloc(sizeof(*new_war));
-  new_war->code = code;
-  new_war->msg = malloc(MAX_ERR_MSG_LENGTH);
-  strcpy(new_war->msg, msg);
-
-    return new_war;
-}
-
-void throw_error(error_t err, char* additional_msg){
+void throw_error(unsigned err_code, char* additional_msg){
   set_font(RED); set_font(BOLD);
   printf("\nError!\n");
   set_font(WHITE); set_font(RED);
-  printf("    Error code: E0%d \n", err->code);
-  printf("    Error message: %s", err->msg);
+  printf("    Error code: E0%d \n", err_code);
+  printf("    Error message: %s", error_msgs[err_code]);
   set_font(BOLD);
   if(strlen(additional_msg) > 0)
     printf("\n    %s", additional_msg);
@@ -60,72 +30,22 @@ void throw_error(error_t err, char* additional_msg){
   exit_program_failure();
 }
 
-void throw_warning(warning_t war, char* additional_msg){
+void throw_warning(unsigned war_code, char* additional_msg){
   set_font(YELLOW); set_font(BOLD);
   printf("\nWarning!\n");
   set_font(WHITE); set_font(YELLOW);
-  printf("    Warning code: W0%d \n", war->code);
-  printf("    Warning message: %s", war->msg);
+  printf("    Warning code: W0%d \n", war_code);
+  printf("    Warning message: %s", warning_msgs[war_code]);
   set_font(BOLD);
   if(strlen(additional_msg) > 0)
     printf("\n    %s", additional_msg);
   set_font(WHITE);
   printf("\n\n");
 }
-
 void exit_program_normal(){
   exit(EXIT_SUCCESS);
 }
 
 void exit_program_failure(){
   exit(EXIT_FAILURE);
-}
-
-void free_errors(){
-    free(unknown_error->msg);
-    free(unknown_error );
-
-    free(invalid_value_error->msg);
-    free(invalid_value_error);
-
-    free(calculation_error->msg);
-    free(calculation_error);
-
-    free(memory_error->msg);
-    free(memory_error);
-
-    free(file_read_error->msg);
-    free(file_read_error);
-
-    free(file_error->msg);
-    free(file_error);
-
-    free(graph_error->msg);
-    free(graph_error);
-
-    free(information_needed_error->msg);
-    free(information_needed_error);
-}
-
-void free_warnings(){
-    free(unknown_warning->msg);
-    free(unknown_warning);
-
-    free(arg_bypasing_warning->msg);
-    free(arg_bypasing_warning);
-
-    free(data_formated_warning->msg);
-    free(data_formated_warning);
-
-    free(default_value_warning->msg);
-    free(default_value_warning);
-
-    free(duplicated_path_warning->msg);
-    free(duplicated_path_warning);
-
-    free(inconsistent_graph_warning->msg);
-    free(inconsistent_graph_warning);
-
-    free(node_bypasing_warning->msg);
-    free(node_bypasing_warning);
 }

@@ -3,43 +3,26 @@
 
 #include "../utils/config.h"
 
-typedef struct error{
-    unsigned code;
-    char* msg;
-} *error_t;
+#define unknown_error 0
+#define invalid_value_error 1
+#define calculation_error 2
+#define memory_error 3
+#define file_read_error 4
+#define file_error 5
+#define graph_error 6
+#define information_needed_error 7
 
-typedef struct warning{
-    unsigned code;
-    char* msg;
-} *warning_t;
+#define unknown_warning 0
+#define data_formated_warning 1
+#define default_value_warning 2
+#define duplicated_path_warning 3
+#define inconsistent_graph_warning 4
+#define node_bypasing_warning 5
+#define arg_bypasing_warning 6
+#define invalid_value_warning 7
 
-error_t unknown_error;
-error_t invalid_value_error;
-error_t calculation_error;
-error_t memory_error;
-error_t file_read_error;
-error_t file_error;
-error_t graph_error;
-error_t information_needed_error;
-
-warning_t unknown_warning;
-warning_t data_formated_warning;
-warning_t default_value_warning;
-warning_t duplicated_path_warning;
-warning_t inconsistent_graph_warning;
-warning_t node_bypasing_warning;
-warning_t arg_bypasing_warning;
-warning_t invalid_value_warning;
-
-void initzialize_errors();
-
-void initzialize_warnings();
-
-error_t new_error(unsigned code, char* msg);
-warning_t new_warning(unsigned code, char* msg);
-
-void throw_error(error_t err, char* additional_msg);
-void throw_warning(warning_t war, char* additional_msg);
+void throw_error(unsigned err_code, char* additional_msg);
+void throw_warning(unsigned war_code, char* additional_msg);
 
 void exit_program_normal();
 void exit_program_failure();

@@ -7,34 +7,27 @@
 /* data reader */
 
 int check_if_graph_is_mesh(graph_t graph, unsigned dimension_width, unsigned dimension_height){
-    for(int i= 0; i<dimension_height; i++){
-        for(int j= 0; j<dimension_width; j++){
-            unsigned current_node= i*dimension_width + j;
-            //printf("i[%d] * j[%d] + j[%d] == %d < c_node\n", i, j, j, current_node);
-            //printf("[%d] <- node [%d] <- paths count", graph->nodes[current_node].index, graph->nodes[current_node].paths_count);
-            if(!is_node_mesh(&(graph->nodes[current_node]), dimension_width, graph->size-1))
-                return 0;
-        }
+  for(int i= 0; i<dimension_height; i++){
+      for(int j= 0; j<dimension_width; j++){
+      unsigned current_node= i*dimension_width + j;
+      if(!is_node_mesh(&(graph->nodes[current_node]), dimension_width, graph->size-1))
+        return 0;
     }
+  }
 
-    return 1;
+  return 1;
 }
 
 int is_node_mesh(node_t node, unsigned dim_width, unsigned max_node_index){
-    //printf("I got node: [%d] that has [%d] paths\n", node->index, node->paths_count);
-    for(int i= 0; i < node->paths_count; i++){
-        //printf("\tchecking connection: [%d]\n", node->paths[i].connection);
-        if( node->paths[i].connection >= 0
-        &&  node->paths[i].connection <= max_node_index
-        &&  node->paths[i].connection != node->index - 1
-        &&  node->paths[i].connection != node->index + 1
-        &&  node->paths[i].connection != node->index - dim_width
-        &&  node->paths[i].connection != node->index + dim_width
-        ){
-            return 0;
-        }
-    }
-    return 1;
+  for(int i= 0; i < node->paths_count; i++)
+    if(node->paths[i].connection >= 0
+       &&  node->paths[i].connection <= max_node_index
+       &&  node->paths[i].connection != node->index - 1
+       &&  node->paths[i].connection != node->index + 1
+       &&  node->paths[i].connection != node->index - dim_width
+       &&  node->paths[i].connection != node->index + dim_width)
+       return 0;
+  return 1;
 }
 
 
@@ -44,8 +37,7 @@ void print_graph_to_file(graph_t g, char * file_name_out){
   FILE * OUT = fopen(file_name_out, "w");
 
   if(OUT == NULL)
-    throw_error(file_read_error, "cannot create file to open!\n");
-
+    throw_error(file_read_error, "Cannot create file to open!\n");
 
   fprintf(OUT, "%d %d\n", g->width, g->height);
   for(int i= 0; i<g->size; i++){
@@ -69,10 +61,12 @@ FILE * open_file(char * file_name){
 
 graph_t get_graph_from_file(char * file_name){
     FILE * IN= open_file(file_name);
+
     if(IN == NULL){
         throw_error(file_read_error, "Could not open the file!");
         return NULL;
     }
+
     set_font(BOLD);
     set_font(PINK);
     print_in_center("Reading Graph");
@@ -88,7 +82,6 @@ graph_t get_graph_from_file(char * file_name){
     char line[MAXBUF];
 
     fgets(line, MAXBUF, IN);
-    //printf("%s", line);
 
     if(sscanf(line, "%d %d", &width, &height) == 2){
         lines++;
@@ -110,7 +103,6 @@ graph_t get_graph_from_file(char * file_name){
         unsigned node_index, read_nodes, offset1;
         double value;
         fgets(line, MAXBUF, IN);
-        //printf("%s", line);
         lines++;
         if ((read_nodes = read_all_nodes_from_line(line)) < 1) {
             if (!check_if_empty(line)) {
@@ -189,7 +181,7 @@ int read_all_nodes_from_line(char * line){
     while(sscanf(p, "%d%n :%lf%n ", &node_index, &offset1, &value, &offset1) == 2) {
         if(old_index != INT_MAX){
             if(node_index == old_index)
-                break;                  //break if we read the same node 2nd time (kinda hotfix)
+                break; //break if we read the same node 2nd time (kinda hotfix)
         }
         read_nodes++;
         old_index= node_index;
