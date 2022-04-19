@@ -64,6 +64,7 @@ graph_t get_graph_from_file(char * file_name){
 
     if(IN == NULL){
         throw_error(file_read_error, "Could not open the file!");
+        fclose(IN);
         return NULL;
     }
 
@@ -88,6 +89,7 @@ graph_t get_graph_from_file(char * file_name){
         if(width <= 0 || height <= 0) {
             sprintf(msg, "not positive dimensions of graph in line: %d", lines);
             throw_error(file_error, msg);
+            fclose(IN);
             return NULL;
         }
         amount_of_nodes = width * height;
@@ -96,6 +98,7 @@ graph_t get_graph_from_file(char * file_name){
     }else{
         sprintf(msg, "expected 2 positive integers in the 1st line in line: %d", lines);
         throw_error(file_error, msg);
+        fclose(IN);
         return NULL;
     }
 
@@ -108,6 +111,7 @@ graph_t get_graph_from_file(char * file_name){
             if (!check_if_empty(line)) {
                 sprintf(msg, "incorrect line format at line: %d", lines);
                 throw_error(file_error, msg);
+                fclose(IN);
                 return NULL;
             } else {          //empty line, so it' s okay for now
                 continue;   //but we won' t be adding nothing to graph
@@ -126,10 +130,12 @@ graph_t get_graph_from_file(char * file_name){
             }else if(!cond1){
                 sprintf(msg, "incorrect node_index in line: %d", lines);
                 throw_error(file_error, msg);
+                fclose(IN);
                 return NULL;
             }else if(is_value_valid(value)){
                 sprintf(msg, "incorrect value in line %d", lines);
                 throw_error(file_error, msg);
+                fclose(IN);
                 return NULL;
             }
         }
@@ -148,6 +154,7 @@ graph_t get_graph_from_file(char * file_name){
      set_font(WHITE);
 
     graph_set_width_and_height(graph, width, height);
+    fclose(IN);
     return graph;
 }
 

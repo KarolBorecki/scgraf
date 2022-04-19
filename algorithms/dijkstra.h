@@ -27,7 +27,6 @@ void free_dijkstra_table(dijkstra_table_t);
 
 dijkstra_table_t dijkstra(graph_t graph, node_t start_node);
 
-
 void set_fifo_head(fifo_t fifo, dijkstra_table_t tab);
 void bsort_que(fifo_t que, unsigned start, dijkstra_table_t tab);
 
