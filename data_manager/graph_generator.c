@@ -7,6 +7,7 @@
 #include "../utils/utils.h"
 #include "../utils/config.h"
 #include "../graph/graph.h"
+#include "../data_manager/data_manager.h"
 
 graph_t generate_graph_mesh(unsigned width, unsigned height, double max_weight){
     srand(time(NULL));

@@ -146,10 +146,12 @@ int test_format_of_input(char * input_file, int correct_value){
         lines++;
         if(width <= 0 || height <= 0) {
             fclose(in);
+            printf("arg val incorrect format of file: %s!\n", input_file);
             return correct_value == 1 ? 0 : 1;
         }
     }else{
         fclose(in);
+        printf("arg count incorrect format of file: %s!\n", input_file);
         return correct_value == 1 ? 0 : 1;
     }
 
@@ -164,6 +166,7 @@ int test_format_of_input(char * input_file, int correct_value){
         if ((read_nodes = read_all_nodes_from_line(line)) < 1) {
             if (!check_if_empty(line)) {
                 fclose(in);
+                printf("here incorrect format of file: %s!\n", input_file);
                 return correct_value == 1 ? 0 : 1;
             } else {          //empty line, so it' s okay for now
                 continue;   //but we won' t be adding nothing to graph
@@ -175,15 +178,18 @@ int test_format_of_input(char * input_file, int correct_value){
             p += offset1;
             if(!is_node_valid(node_index, max_node_index)){
                 fclose(in);
+                printf("nope here incorrect format of file: %s!\n", input_file);
                 return correct_value == 1 ? 0 : 1;
             }
             if(!is_value_valid(value)){
                 fclose(in);
-
+                printf("incorrect format of file: %s!\n", input_file);
+                return correct_value == 1 ? 0 : 1;
             }
         }
 
     }
+    printf("correct format of file: %s!\n", input_file);
     return correct_value == 1 ? 1 : 0;
 }
 void test_if_right_path(char * input_file, double value){
