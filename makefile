@@ -1,4 +1,5 @@
 main:
+	mkdir -p exec
 	cc -c -o exec/main.o main.c
 	cc -c -o exec/bfs.o algorithms/bfs.c
 	cc -c -o exec/dijkstra.o algorithms/dijkstra.c
