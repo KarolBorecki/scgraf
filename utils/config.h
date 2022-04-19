@@ -3,8 +3,6 @@
 
 #include <limits.h>
 
-#define BLANK_STR ""
-
 /* user_input.h */
 #define SHORTEST_PATH_EXEC "shortest"
 #define CONSISTENCY_EXEC "consistency"

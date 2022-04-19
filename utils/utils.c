@@ -42,3 +42,7 @@ unsigned pow_(unsigned x, unsigned y){
 
     return res;
 }
+
+int is_str_blank(char* str){
+  return str[0] == '\0' || strlen(str) == 0 ? 1 : 0;
+}

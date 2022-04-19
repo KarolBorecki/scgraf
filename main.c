@@ -7,6 +7,7 @@
 #include "data_manager/data_manager.h"
 #include "graph/graph.h"
 #include "printer/printer.h"
+#include "utils/utils.h"
 
 /*
 TODO:
@@ -38,7 +39,7 @@ int main(int argc, char** argv){
   if(arg->execute == GENERATE){
     graph = solver_generate_graph(graph, arg);
   } else {
-    if(strncmp(arg->in, BLANK_STR, strlen(BLANK_STR)) == 0)
+    if(is_str_blank(arg->in) == 1)
       graph = solver_generate_example_graph(graph, arg);
     else
       graph = solver_get_graph_from_file(graph, arg);
@@ -54,11 +55,11 @@ int main(int argc, char** argv){
     solver_graph_to_undirected(graph, arg);
 
 
-  if(strncmp(arg->out, BLANK_STR, strlen(BLANK_STR)) != 0)
+  if(is_str_blank(arg->out) == 0)
     solver_graph_to_file(graph, arg);
 
   if(arg->print == 1 ||
-  ((arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE) && strncmp(arg->out, BLANK_STR, strlen(BLANK_STR)) == 0))
+  ((arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE) && is_str_blank(arg->out) == 1))
     print_graph(graph, arg->execute == DIVIDE_GRAPH ? "Divided Graph" : (arg->execute == GENERATE ? "Generated Graph" : "Graph"));
 
   print_greetings();

@@ -8,5 +8,6 @@ int is_element_in_array(unsigned* array, unsigned search_start, unsigned search_
 void swap_elements(unsigned *p1, unsigned *p2);
 double rand_double_from_to(double min, double max);
 unsigned pow_(unsigned x, unsigned y);
+int is_str_blank(char* str); /* 1 if TRUE and 0 if FALSE */
 
 #endif /* _UTILS_H_ */
