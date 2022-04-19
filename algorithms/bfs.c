@@ -15,6 +15,9 @@ int bfs(graph_t graph, unsigned start_node_index){
     bfs_add_distinct_connections_of_node_to_queue(q, actual_node);
     fifo_pop(q);
   }
+
+  clean_fifo(q);
+
   return bfs_is_all_nodes_visited(graph, q);
 }
 

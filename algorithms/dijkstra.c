@@ -44,6 +44,9 @@ dijkstra_table_t dijkstra(graph_t graph, node_t start_node){
     }
     set_fifo_head(que_to_visit, table);
   }
+
+  clean_fifo(que_to_visit);
+
   return table;
 }
 
@@ -73,8 +76,7 @@ void get_shortest_distance_from_to(graph_t graph, unsigned start_node, unsigned 
     node_t end = &(graph->nodes[destination_node]);
     double path_len;
 
-    dijkstra_table_t dijkstras_table = initialize_dijkstra_table(graph, start);
-    dijkstras_table = dijkstra(graph, start);
+    dijkstra_table_t  dijkstras_table = dijkstra(graph, start);
 
     print_shortest_path_from_to(dijkstras_table, start, end);
 
