@@ -3,13 +3,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdint.h>
 
 #include "../printer/printer.h"
 #include "../utils/config.h"
+#include "../utils/utils.h"
+#include "../algorithms/dijkstra.h"
+#include "../algorithms/bfs.h"
 
 #include "../FIFO/fifo.h"
 #include "../graph/graph.h"
 #include "../data_manager/graph_generator.h"
+#include "../data_manager/data_manager.h"
+
+#define HOW_LONG_DO_U_HAVE 4
+
+int64_t timespecDiff(struct timespec *timeA_p, struct timespec *timeB_p)
+{
+    return ((timeA_p->tv_sec * 1000000000) + timeA_p->tv_nsec) -
+           ((timeB_p->tv_sec * 1000000000) + timeB_p->tv_nsec);
+}
 
 void test_fifo(unsigned size, unsigned max_val){
   set_font(BOLD);
@@ -118,8 +131,60 @@ void test_consistency(){
   set_font(WHITE);
 }
 
-void test_format_of_input(char * input_file, int is_correct){
-    ;
+int test_format_of_input(char * input_file, int correct_value){
+    char line[MAXBUF];
+    int lines= 0;
+    int width, height, amount_of_nodes, max_node_index;
+    FILE *in= fopen(input_file, "r");
+
+    if(in == NULL)
+        return -1;
+
+    fgets(line, MAXBUF, in);
+
+    if(sscanf(line, "%d %d", &width, &height) == 2){
+        lines++;
+        if(width <= 0 || height <= 0) {
+            fclose(in);
+            return correct_value == 1 ? 0 : 1;
+        }
+    }else{
+        fclose(in);
+        return correct_value == 1 ? 0 : 1;
+    }
+
+    amount_of_nodes= width * height;
+    max_node_index= amount_of_nodes - 1;
+
+    for(int i= 0; i < amount_of_nodes; i++) {
+        unsigned node_index, read_nodes, offset1;
+        double value;
+        fgets(line, MAXBUF, in);
+        lines++;
+        if ((read_nodes = read_all_nodes_from_line(line)) < 1) {
+            if (!check_if_empty(line)) {
+                fclose(in);
+                return correct_value == 1 ? 0 : 1;
+            } else {          //empty line, so it' s okay for now
+                continue;   //but we won' t be adding nothing to graph
+            }
+        }
+        char *p= line;
+        for(int j= 0; j<read_nodes; j++){
+            sscanf(p, "%d%n :%lf%n ", &node_index, &offset1, &value, &offset1);
+            p += offset1;
+            if(!is_node_valid(node_index, max_node_index)){
+                fclose(in);
+                return correct_value == 1 ? 0 : 1;
+            }
+            if(!is_value_valid(value)){
+                fclose(in);
+
+            }
+        }
+
+    }
+    return correct_value == 1 ? 1 : 0;
 }
 void test_if_right_path(char * input_file, double value){
     ;
@@ -131,9 +196,82 @@ void test_max_size_generation(unsigned width, unsigned height){
     ;
 }
 void test_compare_time(char *file_with_results){
-    FILE * in= fopen("../tests/results", "w+");
-    if(in == NULL)
+    struct timespec start, end;
+    struct tm curr_time;
+    uint64_t timeElapsed;
+    time_t t= time(NULL);
+
+    curr_time= *(localtime(&t));
+
+    FILE * in= fopen(file_with_results, "a");
+    if(in == NULL){
+        printf("cannot open file %s\n", file_with_results);
         return;
+    }
+
+    for(int i= 0; i<2; i++)
+        fprintf((i % 2 == 0 ? in : stdout),"======================================================\n"
+               "Performing tests. Date of tests: %d.%d.%d %d:%d:%d\n"
+               "======================================================\n"
+               "Test type: Graph generating\n"
+               "==================================\n",
+               curr_time.tm_year + 1900, curr_time.tm_mon + 1, curr_time.tm_mday,
+               curr_time.tm_hour, curr_time.tm_min, curr_time.tm_sec);
+
+    for(int i= 1; i<HOW_LONG_DO_U_HAVE; i++) {
+        unsigned width= pow_(10, i) / 3, height= pow_(10, i) / 3;
+        clock_gettime(CLOCK_MONOTONIC, &start);
+        graph_t g = generate_graph_mesh(pow_(10, i), pow_(10, i), 5);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        timeElapsed= timespecDiff(&end, &start);
+        fprintf(in, "%d. iteration, size: %d x %d\n"
+                    "time elapsed: %lf seconds\n\n", i, width, height, timeElapsed/ (double) 1000000000);
+    }
+    for(int i= 0; i<2; i++)
+        fprintf((i % 2 == 0 ? in :stdout),"==================================\n"
+               "Finished\n"
+               "==================================\n"
+               "Test type: Finding shortest path in graph\n"
+               "==================================\n");
+
+    for(int i= 1; i<HOW_LONG_DO_U_HAVE; i++) {
+        unsigned width= pow_(10, i) / 3, height= pow_(10, i) / 3;
+        graph_t g = generate_graph_mesh(width, height, 5);
+
+        clock_gettime(CLOCK_MONOTONIC, &start);
+        get_shortest_distance_from_to(g, 0, width*height - 1, 0);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        timeElapsed= timespecDiff(&end, &start);
+        fprintf(in, "%d. iteration, size: %d x %d\n"
+                    "time elapsed: %lf seconds\n\n", i, width, height, timeElapsed/ (double) 1000000000);
+
+        clean_graph(g);
+    }
+    for(int i= 0; i<2; i++)
+        fprintf((i % 2 == 0 ? in :stdout),"==================================\n"
+                                          "Finished\n"
+                                          "==================================\n"
+                                          "Test type: Checking consistency using bfs\n"
+                                          "==================================\n");
+
+    for(int i= 1; i<HOW_LONG_DO_U_HAVE; i++) {
+        unsigned width= pow_(10, i) / 3, height= pow_(10, i) / 3;
+        graph_t g = generate_graph_mesh(width, height, 5);
+
+        clock_gettime(CLOCK_MONOTONIC, &start);
+        bfs(g, 0);
+        clock_gettime(CLOCK_MONOTONIC, &end);
+
+        timeElapsed= timespecDiff(&end, &start);
+        fprintf(in, "%d. iteration, size: %d x %d\n"
+                    "time elapsed: %lf seconds\n\n", i, width, height, timeElapsed/ (double) 1000000000);
+
+        clean_graph(g);
+    }
+
+    fclose(in);
 
 }
 

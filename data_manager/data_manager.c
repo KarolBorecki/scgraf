@@ -132,7 +132,7 @@ graph_t get_graph_from_file(char * file_name){
                 throw_error(file_error, msg);
                 fclose(IN);
                 return NULL;
-            }else if(is_value_valid(value)){
+            }else if(!is_value_valid(value)){
                 sprintf(msg, "incorrect value in line %d", lines);
                 throw_error(file_error, msg);
                 fclose(IN);

@@ -32,3 +32,13 @@ double rand_double_from_to(double min, double max){
     double value = min + ((double) rand() / (double)RAND_MAX) * max;
     return value;
 }
+
+unsigned pow_(unsigned x, unsigned y){
+    unsigned res= 1;
+    if(y == 0 && x != 0)
+        return 1;
+    for(int i= 0; i<y; i++)
+        res *= x;
+
+    return res;
+}

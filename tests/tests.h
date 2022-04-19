@@ -18,7 +18,7 @@ void test_dijkstra();
 void test_bfs();
 void test_consistency();
 
-void test_format_of_input(char * input_file, int is_correct);
+int test_format_of_input(char * input_file, int is_correct);
 void test_if_right_path(char * input_file, double value);
 void test_if_right_consistency(char * input_file, int is_consistant);
 void test_max_size_generation(unsigned width, unsigned height);

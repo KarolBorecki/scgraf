@@ -23,6 +23,7 @@ dijkstra_table_t initialize_dijkstra_table(graph_t graph, node_t start_node){
 
 dijkstra_table_t dijkstra(graph_t graph, node_t start_node){
   unsigned int popped_from_que = 0, current_vertex;
+  double new_percent, old_percent;
 
   dijkstra_table_t table = initialize_dijkstra_table(graph, start_node);
   fifo_t que_to_visit= initzialize_fifo();
@@ -42,6 +43,16 @@ dijkstra_table_t dijkstra(graph_t graph, node_t start_node){
           table->elements[node->paths[j].connection].previous_nodes= current_vertex;
       }
     }
+#ifdef DEBUG
+    k++;
+    new_percent= ((double)k / (double)table->size) * 100;
+    char msg[MAXBUF];
+    if(k > 1 && new_percent != old_percent) {
+        sprintf(msg, "DONE: %.2lf %%", new_percent);
+        print_in_center(msg);
+    }
+    old_percent= new_percent;
+#endif //DEBUG
     set_fifo_head(que_to_visit, table);
   }
 
@@ -71,14 +82,14 @@ void bsort_que(fifo_t que, unsigned start, dijkstra_table_t tab){
         swap_elements(&que->queue[i], &que->queue[j]);
 }
 
-void get_shortest_distance_from_to(graph_t graph, unsigned start_node, unsigned destination_node){
+void get_shortest_distance_from_to(graph_t graph, unsigned start_node, unsigned destination_node, int print_in_terminal){
     node_t start = &(graph->nodes[start_node]);
     node_t end = &(graph->nodes[destination_node]);
-    double path_len;
 
     dijkstra_table_t  dijkstras_table = dijkstra(graph, start);
 
-    print_shortest_path_from_to(dijkstras_table, start, end);
+    if(print_in_terminal)
+        print_shortest_path_from_to(dijkstras_table, start, end);
 
     free_dijkstra_table(dijkstras_table);
 }

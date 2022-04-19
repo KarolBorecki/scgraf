@@ -32,7 +32,7 @@ printf("3\n");
 
   else print_graph_consistent_result(is_consistent);
 
-  get_shortest_distance_from_to(graph, arg->from, arg->to);
+  get_shortest_distance_from_to(graph, arg->from, arg->to, 1);
   print_done_greeting();
 }
 

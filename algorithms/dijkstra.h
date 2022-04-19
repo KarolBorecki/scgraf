@@ -30,7 +30,7 @@ dijkstra_table_t dijkstra(graph_t graph, node_t start_node);
 void set_fifo_head(fifo_t fifo, dijkstra_table_t tab);
 void bsort_que(fifo_t que, unsigned start, dijkstra_table_t tab);
 
-void get_shortest_distance_from_to(graph_t graph, unsigned start_node_index, unsigned destination_node_index);
+void get_shortest_distance_from_to(graph_t graph, unsigned start_node_index, unsigned destination_node_index, int print_in_terminal);
 
 //start_node must be the same node, that Dijkstra' s table was created for
 void print_shortest_path_from_to(dijkstra_table_t table, node_t start_node, node_t destination_node);
