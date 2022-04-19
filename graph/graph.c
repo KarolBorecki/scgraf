@@ -20,18 +20,11 @@ graph_t initzialize_graph(unsigned nodes_count){
 }
 
 graph_t initzialize_graph_with_all_nodes(unsigned nodes_count){
-    graph_t graph = malloc(sizeof(*graph));
-    graph->size = 0;
-    graph->nodes = malloc(nodes_count * sizeof(*(graph->nodes)));
-    graph->memory_size = nodes_count;
-    graph->max_path_value = 0;
-    graph->height= 0;
-    graph->width= 0;
+    graph_t graph = initzialize_graph(nodes_count);
 
     node_t help_node;
-    for(int i= 0; i < nodes_count; i++){
+    for(int i= 0; i < nodes_count; i++)
         help_node= graph_add_node(graph);
-    }
 
     return graph;
 }
@@ -92,6 +85,10 @@ path_t graph_add_path(node_t node, unsigned connection, double value){
 }
 
 void graph_remove_path_at_index(node_t node, unsigned index){
+  if(node == NULL){
+    throw_error(memory_error, "Node is NULL in graph_remove_path_at_index!");
+    return;
+  }
   if(index < node->paths_count-1)
     memcpy(node->paths+index, node->paths+index+1, (node->paths_count-index) * sizeof(*(node->paths)));
   node->paths_count--;

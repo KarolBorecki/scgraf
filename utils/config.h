@@ -3,6 +3,8 @@
 
 #include <limits.h>
 
+#define BLANK_STR ""
+
 /* user_input.h */
 #define SHORTEST_PATH_EXEC "shortest"
 #define CONSISTENCY_EXEC "consistency"
@@ -20,7 +22,7 @@
 #define FIFO_ENLARGE_MULTIPLIER 2
 
 /* graph.h */
-#define START_NODES_PATHS_COUNT 2
+#define START_NODES_PATHS_COUNT 4
 #define GRAPH_ENLARGE_MULTIPLIER 2
 
 /* printer.h */

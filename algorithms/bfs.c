@@ -16,12 +16,13 @@ int bfs(graph_t graph, unsigned start_node_index){
     fifo_pop(q);
   }
 
+  int result = bfs_is_all_nodes_visited(graph, q);
+  
   clean_fifo(q);
 
-  return bfs_is_all_nodes_visited(graph, q);
+  return result;
 }
 
-/* Knowing that graaph is mesh graph we could propably really make it quicker */
 void bfs_add_distinct_connections_of_node_to_queue(fifo_t q, node_t node){
   for(int i=0; i<node->paths_count; i++){
     unsigned connection_index = graph_get_path_at_index(node, i)->connection;
@@ -31,5 +32,5 @@ void bfs_add_distinct_connections_of_node_to_queue(fifo_t q, node_t node){
 }
 
 int bfs_is_all_nodes_visited(graph_t g, fifo_t q){
-  return (fifo_queue_size(q) - graph_size(g)) == 0 ? 1 : 0;
+  return (fifo_queue_size(q) == graph_size(g)) ? 1 : 0;
 }

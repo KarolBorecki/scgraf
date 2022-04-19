@@ -20,10 +20,12 @@ TODO:
 
 int main(int argc, char** argv){
   graph_t graph;
+  graph = NULL;
 
   print_greetings();
 
-  batch_arguments_t arg = get_batch_arguments(argc, argv);
+  batch_arguments_t arg;
+  arg = get_batch_arguments(argc, argv);
   check_arguments(arg);
 
   if(arg->execute == UNKNOWN){
@@ -36,8 +38,7 @@ int main(int argc, char** argv){
   if(arg->execute == GENERATE){
     graph = solver_generate_graph(graph, arg);
   } else {
-    int width, height;
-    if(strcmp(arg->in, "") == 0)
+    if(strncmp(arg->in, BLANK_STR, strlen(BLANK_STR)) == 0)
       graph = solver_generate_example_graph(graph, arg);
     else
       graph = solver_get_graph_from_file(graph, arg);
@@ -53,11 +54,11 @@ int main(int argc, char** argv){
     solver_graph_to_undirected(graph, arg);
 
 
-  if(strcmp(arg->out, "") != 0)
+  if(strncmp(arg->out, BLANK_STR, strlen(BLANK_STR)) != 0)
     solver_graph_to_file(graph, arg);
 
   if(arg->print == 1 ||
-  ((arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE) && strcmp(arg->out, "") == 0))
+  ((arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE) && strncmp(arg->out, BLANK_STR, strlen(BLANK_STR)) == 0))
     print_graph(graph, arg->execute == DIVIDE_GRAPH ? "Divided Graph" : (arg->execute == GENERATE ? "Generated Graph" : "Graph"));
 
   print_greetings();

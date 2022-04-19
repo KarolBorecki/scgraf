@@ -83,8 +83,6 @@ void check_arguments_for_defaults(batch_arguments_t arg){
   }
 }
 void check_arguments_for_bypassing(batch_arguments_t arg){
-  char msg[MAX_ERR_ADDITIONAL_MSG_LENGTH];
-
   if(arg->execute == GENERATE && (arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED ))
     throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph generating I only need -x and -y [or -o, -n]!");
   if(arg->execute == SHORTEST_PATH && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED || arg->max_path_value != VALUE_NOT_SPECIFIED))
@@ -96,10 +94,10 @@ void check_arguments_for_bypassing(batch_arguments_t arg){
   if(arg->execute == MAKE_UNDIRECTED && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED || arg->max_path_value != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED))
     throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph dviding I only need -n [or -o, -i]!");
 
-  if(arg->execute != GENERATE && strcmp(arg->in, "") == 0){
+  if(arg->execute != GENERATE && strncmp(arg->in, BLANK_STR, strlen(BLANK_STR)) == 0){
     throw_warning(default_value_warning, "The in file is not specified, the example graph will be taken.");
   }
-  if(strcmp(arg->out, "") == 0 && arg->execute != SHORTEST_PATH && arg->execute != CHECK_CONSISTENCY)
+  if(strncmp(arg->out, BLANK_STR, strlen(BLANK_STR)) == 0 && arg->execute != SHORTEST_PATH && arg->execute != CHECK_CONSISTENCY)
     throw_warning(default_value_warning, "Out file is not specified, the output will be shown in the console!");
 
 }
@@ -222,8 +220,8 @@ void print_arguments(batch_arguments_t arg){
   set_font(WHITE);
   set_font(BLUE);
   printf("    EXECUTING    : %s\n", get_string_from_functionallity(arg->execute));
-  printf("    IN           : %s\n", strcmp(arg->in, "") == 0 ? "-" : arg->in);
-  printf("    OUT          : %s\n", strcmp(arg->out, "") == 0 ? "-" : arg->out);
+  printf("    IN           : %s\n", strncmp(arg->in, BLANK_STR, strlen(BLANK_STR)) == 0 ? "-" : arg->in);
+  printf("    OUT          : %s\n", strncmp(arg->out, BLANK_STR, strlen(BLANK_STR)) == 0 ? "-" : arg->out);
   printf("    FROM         : %d\n", arg->from);
   printf("    TO           : %d\n", arg->to);
   printf("    X            : %d\n", arg->x);

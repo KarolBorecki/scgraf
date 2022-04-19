@@ -20,6 +20,7 @@ fifo_t initzialize_fifo(){
 }
 
 void clean_fifo(fifo_t fifo){
+  if(fifo == NULL) return;
   free(fifo->queue);
   free(fifo);
 }
@@ -66,13 +67,15 @@ unsigned* fifo_head(fifo_t fifo){
 }
 
 unsigned fifo_peek(fifo_t fifo){
-  return (fifo_is_empty(fifo) > 0 ? -1 : *fifo_head(fifo));
+  return *fifo_head(fifo);
 }
 
 unsigned fifo_pop(fifo_t fifo){
   unsigned poped_value = fifo_peek(fifo);
-  if(poped_value == -1)
-    throw_error(memory_error, "FIFO peek out of bounds!");
+  if(poped_value == -1){
+    throw_error(memory_error, "FIFO is NULL in fifo_peek!");
+    return 0;
+  }
 
   fifo->size--;
   fifo->head++;
@@ -81,7 +84,6 @@ unsigned fifo_pop(fifo_t fifo){
 }
 
 unsigned fifo_get_at_index(fifo_t fifo, unsigned index){
-  if(index >= fifo_queue_size(fifo)) return -1;
   return *(fifo->queue+index);
 }
 
@@ -95,6 +97,7 @@ void fifo_push(fifo_t fifo, unsigned value){
 }
 
 void print_fifo(fifo_t fifo){
+  if(fifo == NULL) return;
   set_font(PINK);
   set_font(BOLD);
   printf("\n");
