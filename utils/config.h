@@ -39,7 +39,7 @@
 #define MAX_FILE_NAME_LEN 256
 
 #define DEFAULT_FROM 0
-#define DEFAULT_TO 10
+#define DEFAULT_TO 5
 #define DEFAULT_X 5
 #define DEFAULT_Y 5
 #define DEFAULT_N 2

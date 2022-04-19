@@ -56,6 +56,7 @@ void enlarge_graph_paths_memory(node_t node, unsigned enlarge_multiplier){
 }
 
 void clean_graph(graph_t graph){
+  if(graph == NULL) return;
   for(int i=0; i<graph->size; i++)
     free(graph_get_node_at_index(graph, i)->paths);
 

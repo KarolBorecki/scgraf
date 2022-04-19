@@ -26,41 +26,41 @@ int main(int argc, char** argv){
   batch_arguments_t arg = get_batch_arguments(argc, argv);
   check_arguments(arg);
 
-  if(arg->execute == UNKNOWN)
+  if(arg->execute == UNKNOWN){
     print_help();
+    exit_program_normal(graph, arg);
+  }
 
   print_arguments(arg);
 
   if(arg->execute == GENERATE){
-    graph = solver_generate_graph(arg->x, arg->y, arg->max_path_value);
+    graph = solver_generate_graph(graph, arg);
   } else {
     int width, height;
     if(strcmp(arg->in, "") == 0)
-      graph = solver_generate_example_graph();
+      graph = solver_generate_example_graph(graph, arg);
     else
-      graph = solver_get_graph_from_file(arg->in);
+      graph = solver_get_graph_from_file(graph, arg);
   }
 
   if(arg->execute == SHORTEST_PATH)
-    solver_get_shortest_path(graph, arg->from, arg->to);
+    solver_get_shortest_path(graph, arg);
   else if(arg->execute == CHECK_CONSISTENCY)
-    solver_check_graph_consistency(graph, arg->from);
+    solver_check_graph_consistency(graph, arg);
   else if(arg->execute == DIVIDE_GRAPH)
-    solver_divide_graph_into_n_graphs(graph, arg->n);
+    solver_divide_graph_into_n_graphs(graph, arg);
   else if(arg->execute == MAKE_UNDIRECTED)
-    solver_graph_to_undirected(graph);
+    solver_graph_to_undirected(graph, arg);
 
 
   if(strcmp(arg->out, "") != 0)
-    solver_graph_to_file(graph, arg->out);
+    solver_graph_to_file(graph, arg);
 
   if(arg->print == 1 ||
   ((arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE) && strcmp(arg->out, "") == 0))
     print_graph(graph, arg->execute == DIVIDE_GRAPH ? "Divided Graph" : (arg->execute == GENERATE ? "Generated Graph" : "Graph"));
 
-  clean_graph(graph);
-  free_arguments_struct(arg);
-
   print_greetings();
+  exit_program_normal(graph, arg);
   return 0;
 }

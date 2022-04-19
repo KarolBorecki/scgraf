@@ -7,8 +7,6 @@
 #include "../errors/errors.h"
 
 void divide_graph(graph_t graph, unsigned divides){
-  if(divides > graph->size)
-    throw_error(invalid_value_error, "Division numbers is too big!");
   srand(time(NULL));
   unsigned* graph_divide_points = malloc(divides * sizeof(*graph_divide_points));
 

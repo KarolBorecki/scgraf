@@ -25,6 +25,7 @@ batch_arguments_t initzialize_arguments_struct(){
 }
 
 void free_arguments_struct(batch_arguments_t arg){
+  if(arg == NULL) return;
   free(arg->in);
   free(arg->out);
   free(arg);

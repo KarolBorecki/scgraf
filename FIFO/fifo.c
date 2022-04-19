@@ -73,7 +73,7 @@ unsigned fifo_pop(fifo_t fifo){
   unsigned poped_value = fifo_peek(fifo);
   if(poped_value == -1)
     throw_error(memory_error, "FIFO peek out of bounds!");
-    
+
   fifo->size--;
   fifo->head++;
 

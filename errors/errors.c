@@ -6,7 +6,8 @@
 
 #include "../printer/printer.h"
 #include "../utils/config.h"
-
+#include "../data_manager/user_input.h"
+#include "../graph/graph.h"
 
 char* error_msgs[8] = {"Unknown error", "Invalid value", "Calculation error",
                        "Memory error", "File reading error", "File error",
@@ -27,7 +28,11 @@ void throw_error(unsigned err_code, char* additional_msg){
     printf("\n    %s", additional_msg);
   printf("\n\n");
   set_font(WHITE);
-  exit_program_failure();
+}
+
+void throw_error_and_exit(unsigned err_code, char* additional_msg, graph_t graph, batch_arguments_t arg){
+  throw_error(err_code, additional_msg);
+  exit_program_failure(graph, arg);
 }
 
 void throw_warning(unsigned war_code, char* additional_msg){
@@ -42,10 +47,15 @@ void throw_warning(unsigned war_code, char* additional_msg){
   set_font(WHITE);
   printf("\n\n");
 }
-void exit_program_normal(){
+
+void exit_program_normal(graph_t graph, batch_arguments_t arg){
+  clean_graph(graph);
+  free_arguments_struct(arg);
   exit(EXIT_SUCCESS);
 }
 
-void exit_program_failure(){
+void exit_program_failure(graph_t graph, batch_arguments_t arg){
+  clean_graph(graph);
+  free_arguments_struct(arg);
   exit(EXIT_FAILURE);
 }

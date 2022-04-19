@@ -2,6 +2,8 @@
 #define _ERRORS_H_
 
 #include "../utils/config.h"
+#include "../data_manager/user_input.h"
+#include "../graph/graph.h"
 
 #define unknown_error 0
 #define invalid_value_error 1
@@ -22,10 +24,11 @@
 #define invalid_value_warning 7
 
 void throw_error(unsigned err_code, char* additional_msg);
+void throw_error_and_exit(unsigned err_code, char* additional_msg, graph_t graph, batch_arguments_t arg);
 void throw_warning(unsigned war_code, char* additional_msg);
 
-void exit_program_normal();
-void exit_program_failure();
+void exit_program_normal(graph_t graph, batch_arguments_t arg);
+void exit_program_failure(graph_t graph, batch_arguments_t arg);
 
 void free_warnings();
 void free_errors();

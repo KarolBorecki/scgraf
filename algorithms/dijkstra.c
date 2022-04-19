@@ -69,23 +69,6 @@ void bsort_que(fifo_t que, unsigned start, dijkstra_table_t tab){
 }
 
 void get_shortest_distance_from_to(graph_t graph, unsigned start_node, unsigned destination_node){
-    char msg[MAX_ERR_ADDITIONAL_MSG_LENGTH];
-
-    if(start_node < 0 || start_node >= graph_size(graph)){
-        sprintf(msg, "incorrect start node (node %d) in graph of size %d!\n", start_node, graph_size(graph));
-        throw_error(invalid_value_error, msg);
-    }
-
-    if(destination_node < 0 || destination_node >= graph_size(graph)){
-        sprintf(msg, "incorrect destination node (node %d) in graph of size %d!\n", destination_node, graph_size(graph));
-        throw_error(invalid_value_error, msg);
-    }
-    print_consistency_greeting(start_node);
-    int is_consistent = bfs(graph, start_node);
-    if(is_consistent <= 0)
-      throw_error(graph_error, "Graph is not consistant, You can not search for shortest path.");
-    else print_graph_consistent_result(is_consistent);
-
     node_t start = &(graph->nodes[start_node]);
     node_t end = &(graph->nodes[destination_node]);
     double path_len;

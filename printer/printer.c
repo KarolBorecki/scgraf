@@ -74,7 +74,6 @@ void print_help(){
   print_in_center("scgraf arguments");
   set_font(WHITE);
   print_greetings();
-  exit_program_normal();
 }
 
 void print_consistency_greeting(unsigned start){
