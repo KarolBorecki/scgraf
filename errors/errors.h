@@ -23,6 +23,8 @@
 #define arg_bypasing_warning 6
 #define invalid_value_warning 7
 
+void throw_exception(char** msgs_tab, char* color, char* caption, char code_prefix, unsigned code, char* additional_msg);
+
 void throw_error(unsigned err_code, char* additional_msg);
 void throw_error_and_exit(unsigned err_code, char* additional_msg, graph_t graph, batch_arguments_t arg);
 void throw_warning(unsigned war_code, char* additional_msg);

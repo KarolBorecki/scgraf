@@ -20,8 +20,8 @@ typedef struct batch_arguments{
   int to;
   int x;
   int y;
-  double max_path_value;
   int n;
+  double max_path_value;
   int print;
 } *batch_arguments_t;
 

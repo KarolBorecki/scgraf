@@ -85,10 +85,6 @@ path_t graph_add_path(node_t node, unsigned connection, double value){
 }
 
 void graph_remove_path_at_index(node_t node, unsigned index){
-  if(node == NULL){
-    throw_error(memory_error, "Node is NULL in graph_remove_path_at_index!");
-    return;
-  }
   if(index < node->paths_count-1)
     memcpy(node->paths+index, node->paths+index+1, (node->paths_count-index) * sizeof(*(node->paths)));
   node->paths_count--;
@@ -103,8 +99,6 @@ void graph_remove_path_with_connection(node_t node, unsigned connection){
 }
 
 node_t graph_get_node_at_index(graph_t graph, unsigned index){
-  if(index>=graph_size(graph))
-    throw_error(memory_error, "Out of bounds!");
   return graph->nodes+index;
 }
 
@@ -145,6 +139,7 @@ void graph_add_path_two_way(graph_t graph, node_t node, unsigned connection, dou
         if(!graph_check_if_path_between_exists(graph, node->index, connection))//there is already path, so we dont add another one
             graph_add_path(&(graph->nodes[connection]), node->index, value);
 }
+
 //Function can be only used once all nodes in the graph were initialized
 int graph_check_if_path_between_exists(graph_t graph, unsigned node_index, unsigned connection_index){
     node_t node_1= &(graph->nodes[node_index]);
@@ -165,7 +160,7 @@ path_t graph_get_path_for_node_index(node_t node_from, unsigned destination_node
     for(int i= 0; i<node_from->paths_count; i++)
         if(node_from->paths[i].connection == destination_node_index)
             return &(node_from->paths[i]);
-
+            
     return NULL;
 }
 

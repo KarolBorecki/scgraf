@@ -20,13 +20,12 @@ int check_if_graph_is_mesh(graph_t graph, unsigned dimension_width, unsigned dim
 
 int is_node_mesh(node_t node, unsigned dim_width, unsigned max_node_index){
   for(int i= 0; i < node->paths_count; i++)
-    if(node->paths[i].connection >= 0
-       &&  node->paths[i].connection <= max_node_index
-       &&  node->paths[i].connection != node->index - 1
-       &&  node->paths[i].connection != node->index + 1
-       &&  node->paths[i].connection != node->index - dim_width
-       &&  node->paths[i].connection != node->index + dim_width)
-       return 0;
+    if(node->paths[i].connection >= 0 &&
+       node->paths[i].connection <= max_node_index &&
+       node->paths[i].connection != node->index - 1 &&
+       node->paths[i].connection != node->index + 1 &&
+       node->paths[i].connection != node->index - dim_width &&
+       node->paths[i].connection != node->index + dim_width) return 0;
   return 1;
 }
 
@@ -42,9 +41,9 @@ void print_graph_to_file(graph_t g, char * file_name_out){
   fprintf(OUT, "%d %d\n", g->width, g->height);
   for(int i= 0; i<g->size; i++){
     fprintf(OUT, "\t");
-    for(int j= 0; j<g->nodes[i].paths_count; j++){
+    for(int j= 0; j<g->nodes[i].paths_count; j++)
       fprintf(OUT, "%d :%lf ", g->nodes[i].paths[j].connection, g->nodes[i].paths[j].value);
-    }
+
     if(i != g->size - 1)
       fprintf(OUT, "\n");
   }

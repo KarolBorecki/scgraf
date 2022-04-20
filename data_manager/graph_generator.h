@@ -2,6 +2,7 @@
 #define _GRAPH_GENERATOR_H_
 
 #include "../graph/graph.h"
+
 graph_t generate_graph_mesh(unsigned width, unsigned height, double max_weight);
 
 graph_t generate_graph_circle(int size);

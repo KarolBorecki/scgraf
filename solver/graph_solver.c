@@ -75,6 +75,8 @@ graph_t solver_generate_example_graph(graph_t graph, batch_arguments_t arg){
 graph_t solver_get_graph_from_file(graph_t graph, batch_arguments_t arg){
   print_get_graph_from_file_greeting();
   graph_t g = get_graph_from_file(arg->in);
+  if(g == NULL)
+    throw_error_and_exit(file_read_error, "Could not read graph from file, bye bye!", graph, arg);
   print_done_greeting();
   return g;
 }

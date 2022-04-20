@@ -10,18 +10,14 @@
 #include "../utils/config.h"
 
 /* data reader */
-
 int check_if_graph_is_mesh(graph_t graph,unsigned dimension_width, unsigned dimension_height);
 int is_node_mesh(node_t node, unsigned dim_width, unsigned max_node_index);
 
 /* file printer */
-
 void print_graph_to_file(graph_t g, char * file_name_out);
 
 /* file reader */
-
 FILE * open_file(char * file_name);
-
 graph_t get_graph_from_file(char * file_name);
 
 int is_node_valid(int node, int max_index);

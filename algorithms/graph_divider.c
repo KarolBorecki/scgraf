@@ -16,6 +16,7 @@ void divide_graph(graph_t graph, unsigned divides){
     }while(is_element_in_array(graph_divide_points, 0, (i>0 ? i-1 : 0), graph_divide_points[i]) == 1);
     divide_graph_into_2(graph, graph_divide_points[i]);
   }
+
   free(graph_divide_points);
 }
 

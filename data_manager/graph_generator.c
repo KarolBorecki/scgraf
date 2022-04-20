@@ -18,7 +18,6 @@ graph_t generate_graph_mesh(unsigned width, unsigned height, double max_weight){
         }
     }
     graph_set_width_and_height(g, width, height);
-    //graph_convert_directed_to_undirected(g);
     update_max_path_value(g);
 
     return g;

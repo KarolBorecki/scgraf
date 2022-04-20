@@ -30,8 +30,9 @@ dijkstra_table_t dijkstra(graph_t graph, node_t start_node){
 
   for(int i= 0; i<graph_size(graph); i++)
     fifo_push(que_to_visit, i);
-
+#ifdef DEBUG
   int k = 0;
+#endif /* DEBUG */
   while(fifo_is_empty(que_to_visit) <= 0){
     current_vertex = fifo_pop(que_to_visit);
     popped_from_que++;
@@ -52,7 +53,7 @@ dijkstra_table_t dijkstra(graph_t graph, node_t start_node){
         print_in_center(msg);
     }
     old_percent= new_percent;
-#endif //DEBUG
+#endif /* DEBUG */
     set_fifo_head(que_to_visit, table);
   }
 
@@ -73,13 +74,6 @@ void set_fifo_head(fifo_t fifo, dijkstra_table_t tab){
     }
   }
   swap_elements(fifo->queue+fifo_head_index(fifo), fifo->queue+min_distance_index);
-}
-
-void bsort_que(fifo_t que, unsigned start, dijkstra_table_t tab){
-  for(unsigned i= start; i<tab->size; i++)
-    for(unsigned j= i+1; j<tab->size; j++)
-      if(tab->elements[que->queue[i]].shortest_distances > tab->elements[que->queue[j]].shortest_distances)
-        swap_elements(&que->queue[i], &que->queue[j]);
 }
 
 void get_shortest_distance_from_to(graph_t graph, unsigned start_node, unsigned destination_node, int print_in_terminal){

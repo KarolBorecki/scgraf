@@ -135,7 +135,7 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
           throw_warning(data_formated_warning, msg);
         }
         if(arg->to < 0)
-          throw_error(invalid_value_error, "Specified argument -t is invalid - should be positive!");
+          throw_error_and_exit(invalid_value_error, "Specified argument -t is invalid - should be positive!", NULL, arg);
         break;
       case 'x': /* x */
         arg->x = atoi(optarg);
@@ -144,7 +144,7 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
           throw_warning(data_formated_warning, msg);
         }
         if(arg->x < 0)
-          throw_error(invalid_value_error, "Specified argument -x is invalid - should be positive!");
+          throw_error_and_exit(invalid_value_error, "Specified argument -x is invalid - should be positive!", NULL, arg);
         break;
       case 'y': /* y */
         arg->y = atoi(optarg);
@@ -153,7 +153,7 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
           throw_warning(data_formated_warning, msg);
         }
         if(arg->y < 0)
-          throw_error(invalid_value_error, "Specified argument -y is invalid - should be positive!");
+          throw_error_and_exit(invalid_value_error, "Specified argument -y is invalid - should be positive!", NULL, arg);
         break;
       case 'n': /* n */
         arg->n = atoi(optarg);
@@ -162,7 +162,7 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
           throw_warning(data_formated_warning, msg);
         }
         if(arg->n < 2)
-          throw_error(invalid_value_error, "Specified argument -n is invalid - should be bigger than 1!");
+          throw_error_and_exit(invalid_value_error, "Specified argument -n is invalid - should be bigger than 1!", NULL, arg);
         break;
       case 'v': /* n */
         arg->max_path_value = atof(optarg);
@@ -170,7 +170,7 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
           throw_error(invalid_value_error, "Specified argument -v is invalid - should be bigger than 0!");
         break;
       case 'p':
-        arg->print = 1;
+        arg->print = atoi(optarg) > 0 ? 1 : 0;
         break;
       default:
         throw_error(invalid_value_error, "Specified invalid argument!");
