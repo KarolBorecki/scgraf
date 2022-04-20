@@ -20,7 +20,7 @@ void solver_get_shortest_path(graph_t graph, batch_arguments_t arg){
       sprintf(msg, "incorrect destination node (node %d) in graph of size %d!\n", arg->to, graph_size(graph));
       throw_error_and_exit(invalid_value_error, msg, graph, arg);
   }
-  print_consistency_greeting(arg->to);
+  print_consistency_greeting(arg->from);
   int is_consistent = bfs(graph, arg->from);
   if(is_consistent <= 0)
     throw_error_and_exit(graph_error, "Graph is not consistant, You can not search for shortest path.", graph, arg);
@@ -42,7 +42,7 @@ void solver_divide_graph_into_n_graphs(graph_t graph, batch_arguments_t arg){
   print_graph_division_greeting(arg->n);
   if(arg->n > graph->size)
     throw_error_and_exit(invalid_value_error, "Division numbers is too big!", graph, arg);
-  
+
   divide_graph(graph, arg->n);
   print_done_greeting();
 }

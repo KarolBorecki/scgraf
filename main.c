@@ -30,7 +30,7 @@ int main(int argc, char** argv){
   arg = get_batch_arguments(argc, argv);
   check_arguments(arg);
 
-  if(arg->execute == UNKNOWN){
+  if(arg->execute == UNKNOWN && arg->print == FALSE){
     print_help();
     exit_program_normal(graph, arg);
   }

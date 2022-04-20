@@ -155,7 +155,8 @@ graph_t get_graph_from_file(char * file_name){
      print_in_center("Reading finished");
      printf("\n");
      set_font(WHITE);
-    graph->size= amount_of_nodes;
+     graph->max_path_value = max_weight;
+    graph->size = amount_of_nodes;
     graph_set_width_and_height(graph, width, height);
     fclose(IN);
     return graph;

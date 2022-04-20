@@ -212,6 +212,7 @@ void print_graph(graph_t graph, char* caption){
   set_font(WHITE);
   set_font(LIGHT_BLUE);
   printf("    Nodes: %d \n", graph->size);
+  printf("    Max path weight: %f \n\n", graph->max_path_value);
   printf("    Memory: %d slots for nodes, %d slots for paths\n",
   graph->memory_size,
   graph_get_memory_size_for_paths(graph));
