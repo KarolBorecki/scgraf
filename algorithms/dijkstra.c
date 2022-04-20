@@ -141,3 +141,26 @@ void print_dijkstra_table(dijkstra_table_t table){
   print_in_center("Dijkstra's table");
   set_font(WHITE);
 }
+
+double get_lenght_of_shortest_path_from_dijkstra(graph_t graph, unsigned start_node, unsigned destination_node){
+    node_t start = &(graph->nodes[start_node]);
+    node_t end = &(graph->nodes[destination_node]);
+
+    dijkstra_table_t  dijkstras_table = dijkstra(graph, start);
+
+    double path_len= 0;
+    if(start_node == destination_node){
+        free_dijkstra_table(dijkstras_table);
+        return 0;
+    }
+
+
+    unsigned int i= destination_node;
+    path_len += dijkstras_table->elements[i].shortest_distances;
+    for(i= dijkstras_table->elements[i].previous_nodes; i != start_node; i= dijkstras_table->elements[i].previous_nodes){
+        path_len += dijkstras_table->elements[i].shortest_distances;
+    }
+
+    free_dijkstra_table(dijkstras_table);
+    return path_len;
+}

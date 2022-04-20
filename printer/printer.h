@@ -19,6 +19,8 @@ void print_in_center(char* str);
 void print_greetings();
 void print_help();
 
+void print_argument_list(char* name, char* desc);
+
 void print_consistency_greeting(unsigned start);
 void print_shortest_path_greeting(unsigned from, unsigned to);
 void print_graph_division_greeting(unsigned divisions);

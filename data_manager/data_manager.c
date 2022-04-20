@@ -113,8 +113,9 @@ graph_t get_graph_from_file(char * file_name){
                 throw_error(file_error, msg);
                 fclose(IN);
                 return NULL;
-            } else {          //empty line, so it' s okay for now
-                continue;   //but we won' t be adding nothing to graph
+            } else {                                //empty line, so it' s okay for now
+                help_node = graph_add_node(graph);  //we are adding new node and moving on
+                continue;
             }
         }
         char *p= line;
@@ -152,7 +153,7 @@ graph_t get_graph_from_file(char * file_name){
      print_in_center("Reading finished");
      printf("\n");
      set_font(WHITE);
-
+    graph->size= amount_of_nodes;
     graph_set_width_and_height(graph, width, height);
     fclose(IN);
     return graph;

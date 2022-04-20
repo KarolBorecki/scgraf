@@ -15,6 +15,7 @@
 #include "../graph/graph.h"
 #include "../data_manager/graph_generator.h"
 #include "../data_manager/data_manager.h"
+#include "../printer/printer.h"
 
 #define HOW_LONG_DO_U_HAVE 4
 
@@ -105,33 +106,88 @@ void test_graph(unsigned generated_width, unsigned generated_height, double max_
 }
 
 void test_dijkstra(){
-  set_font(BOLD);
-  set_font(PINK);
-  print_in_center("Test dijkstra");
+    set_font(BOLD);
+    set_font(PINK);
+    print_in_center("Test dijkstra");
 
-  print_in_center("Test dijkstra");
-  set_font(WHITE);
+    graph_t g= generate_graph_mesh(GRAPH_WIDTH_DIJKSTRA , GRAPH_HEIGHT_DIJKSTRA, GRAPH_TEST_MAX_WEIGHT);
+
+    print_graph(g, "Generated graph");
+
+    set_font(BOLD);
+    set_font(GREEN);
+
+    dijkstra_table_t table= initialize_dijkstra_table(g, &(g->nodes[NODE_FOR_INICIALIZATION]));
+    print_dijkstra_table(table);
+
+    set_font(BOLD);
+    set_font(GREEN);
+    printf("Initialized table correctly for NODE %d\n", NODE_FOR_INICIALIZATION);
+
+    table= dijkstra(g, &(g->nodes[NODE_FOR_INICIALIZATION]));
+    print_dijkstra_table(table);
+
+    set_font(BOLD);
+    set_font(GREEN);
+    printf("Table was filled successfully for NODE %d\n", NODE_FOR_INICIALIZATION);
+
+    get_shortest_distance_from_to(g, NODE_FOR_INICIALIZATION, NODE_FOR_PATH_FINDING, 1);
+    set_font(BOLD);
+    set_font(GREEN);
+    printf("Path was found successfully from NODE %d to NODE %d\n", NODE_FOR_INICIALIZATION, NODE_FOR_PATH_FINDING);
+
+    free_dijkstra_table(table);
+
+    set_font(GREEN);
+    set_font(BOLD);
+    printf("TEST DONE, ALL GOOD!\n\n");
+
+    set_font(BOLD);
+    set_font(PINK);
+    print_in_center("Test dijkstra");
+    set_font(WHITE);
 }
 
-void test_bfs(){
-  set_font(BOLD);
-  set_font(PINK);
-  print_in_center("Test bfs");
-
-  print_in_center("Test bfs");
-  set_font(WHITE);
+void test_format_of_input(){
+    set_font(BOLD);
+    set_font(PINK);
+    print_in_center("Test format of input");
+    int i;
+    char input[MAXBUF];
+    for(i= 1; i <= TESTED_FILES; i++){
+        sprintf(input, "./tests/graph_for_test_%c", i + '0');
+        if(i == 1 || i == 2 || i == 6) {
+            if (!test_format_of_single_input(input, 1))
+                break;
+            else{
+                    set_font(GREEN);
+                    printf("File %s was tested, and it has correct format!\n", input);
+                    set_font(PINK);
+            }
+        }
+        else if (i == 3 || i == 4 || i == 5 || i == 7) {
+            if (!test_format_of_single_input(input, 0))
+                break;
+            else{
+                set_font(GREEN);
+                printf("File %s was tested, and it has wrong format as expected!\n", input);
+                set_font(PINK);
+            }
+        }
+    }
+    if(i - 1 != TESTED_FILES) {
+        set_font(RED);
+        printf("File %s was not read correctly!\n", input);
+        set_font(PINK);
+    }else{
+        set_font(GREEN);
+        printf("All files were read correctly!\n");
+        set_font(PINK);
+    }
+    print_in_center("Test format of input");
+    set_font(WHITE);
 }
-
-void test_consistency(){
-  set_font(BOLD);
-  set_font(PINK);
-  print_in_center("Test consistency");
-
-  print_in_center("Test consistency");
-  set_font(WHITE);
-}
-
-int test_format_of_input(char * input_file, int correct_value){
+int test_format_of_single_input(char * input_file, int correct_value){
     char line[MAXBUF];
     int lines= 0;
     int width, height, amount_of_nodes, max_node_index;
@@ -146,12 +202,12 @@ int test_format_of_input(char * input_file, int correct_value){
         lines++;
         if(width <= 0 || height <= 0) {
             fclose(in);
-            printf("arg val incorrect format of file: %s!\n", input_file);
+            //printf("arg val incorrect format of file: %s!\n", input_file);
             return correct_value == 1 ? 0 : 1;
         }
     }else{
         fclose(in);
-        printf("arg count incorrect format of file: %s!\n", input_file);
+        //printf("arg count incorrect format of file: %s!\n", input_file);
         return correct_value == 1 ? 0 : 1;
     }
 
@@ -166,7 +222,7 @@ int test_format_of_input(char * input_file, int correct_value){
         if ((read_nodes = read_all_nodes_from_line(line)) < 1) {
             if (!check_if_empty(line)) {
                 fclose(in);
-                printf("here incorrect format of file: %s!\n", input_file);
+                //printf("here incorrect format of file: %s!\n", input_file);
                 return correct_value == 1 ? 0 : 1;
             } else {          //empty line, so it' s okay for now
                 continue;   //but we won' t be adding nothing to graph
@@ -178,29 +234,107 @@ int test_format_of_input(char * input_file, int correct_value){
             p += offset1;
             if(!is_node_valid(node_index, max_node_index)){
                 fclose(in);
-                printf("nope here incorrect format of file: %s!\n", input_file);
+                //printf("nope here incorrect format of file: %s!\n", input_file);
                 return correct_value == 1 ? 0 : 1;
             }
             if(!is_value_valid(value)){
                 fclose(in);
-                printf("incorrect format of file: %s!\n", input_file);
+                //printf("incorrect format of file: %s!\n", input_file);
                 return correct_value == 1 ? 0 : 1;
             }
         }
 
     }
-    printf("correct format of file: %s!\n", input_file);
+    //printf("correct format of file: %s!\n", input_file);
     return correct_value == 1 ? 1 : 0;
 }
-void test_if_right_path(char * input_file, double value){
-    ;
+
+void test_if_right_path(){
+    set_font(BOLD);
+    set_font(PINK);
+    print_in_center("Test correct path");
+    char input[MAXBUF];
+    double correct_paths_len[]= {323.357780, 8.4, 0};
+    int i, j;
+    for(i= 1, j= 0; i<=TESTED_FILES; i++){
+        if(i == 1 || i == 2 || i == 6){
+            sprintf(input, "./tests/graph_for_test_%c", i + '0');
+            test_if_right_single_path(input, correct_paths_len[j++]);
+        }
+    }
+    print_in_center("Test correct path");
+    set_font(WHITE);
 }
-void test_if_right_consistency(char * input_file, int is_consistant){
-    ;
+int test_if_right_single_path(char * file_input, double correct_value){
+    graph_t g= get_graph_from_file(file_input);
+    double val;
+
+    if(!bfs(g, g->nodes[0].index)){
+        set_font(RED);
+        printf("File %s contains inconsistent graph and it cannot be searched for shortest path!\n", file_input);
+        clean_graph(g);
+        set_font(PINK);
+        return 0;
+    }
+    val = get_lenght_of_shortest_path_from_dijkstra(g, g->nodes[0].index, g->nodes[g->size-1].index);
+    if((int)(val * 100) != (int)(correct_value*100)){
+        set_font(RED);
+        printf("Shortest path in graph in file %s has lenght of %lf insted of %lf!\n", file_input, val, correct_value);
+        clean_graph(g);
+        set_font(PINK);
+        return 0;
+    }else{
+        set_font(GREEN);
+        printf("Correct lenght of path in file %s!\n", file_input);
+        clean_graph(g);
+        set_font(PINK);
+        return 1;
+    }
+
 }
-void test_max_size_generation(unsigned width, unsigned height){
-    ;
+
+void test_if_right_consistency(void){
+    set_font(BOLD);
+    set_font(PINK);
+    print_in_center("Test if right consistency");
+    char input[MAXBUF];
+    int is_consistant[]={1, 1, 0};
+    int i, j;
+    for(i= 1, j= 0; i<=TESTED_FILES; i++){
+        if(i == 1 || i == 2 || i == 6){
+            sprintf(input, "./tests/graph_for_test_%c", i + '0');
+            if(test_if_right_single_consistency(input, is_consistant[j++])){
+                if(is_consistant[j - 1]){
+                    set_font(GREEN);
+                    printf("File %s was tested, and it is consistent!\n", input);
+                    set_font(PINK);
+                }else{
+                    set_font(GREEN);
+                    printf("File %s was tested, and it is not consistent as expected!\n", input);
+                    set_font(PINK);
+                }
+            }else{
+                if(is_consistant[j - 1]){
+                    set_font(RED);
+                    printf("File %s was tested, and it is consistent, but was expected not to be!\n", input);
+                    set_font(PINK);
+                }else{
+                    set_font(RED);
+                    printf("File %s was tested, and it is not consistent, but was expected to be!\n", input);
+                    set_font(PINK);
+                }
+            }
+        }
+    }
+    print_in_center("Test if right consistency");
+    set_font(WHITE);
 }
+int test_if_right_single_consistency(char * input_file, int is_consistant){
+    graph_t g= get_graph_from_file(input_file);
+
+    return bfs(g, g->nodes[0].index) == is_consistant;
+}
+
 void test_compare_time(char *file_with_results){
     struct timespec start, end;
     struct tm curr_time;
@@ -282,5 +416,46 @@ void test_compare_time(char *file_with_results){
 }
 
 void run_all_tests(void){
-    ;
+    set_font(BOLD);
+    set_font(PINK);
+    print_in_center("RUNNING ALL TESTS");
+    set_font(WHITE);
+    printf("\n\n");
+
+    test_format_of_input();
+    test_if_right_path();
+    test_if_right_consistency();
+    test_compare_time("./tests/results");
+    test_fifo(FIFO_TEST_SIZE, FIFO_TEST_MAX_VAL);
+    test_graph(GRAPH_TEST_WIDTH, GRAPH_TEST_HEIGHT, GRAPH_TEST_MAX_WEIGHT, GRAPH_TEST_TESTS_COUNT);
+    test_dijkstra();
+
+    set_font(BOLD);
+    set_font(GREEN);
+    printf("ALL TESTS WERE PERFORMED!");
+    set_font(PINK);
+    printf("\n\n");
+    print_in_center("RUNNING ALL TESTS");
+}
+
+void print_help_for_test(void){
+    set_font(BOLD);
+    set_font(GREY);
+    print_in_center("scgraf_test arguments");
+    printf("\n");
+    set_font(WHITE);
+    print_argument_list("-1", "run test of the right input in test files");
+    print_argument_list("-2", "run test of the right paths in test files");
+    print_argument_list("-3", "run test of the right consistencies in test files");
+    print_argument_list("-4", "run test that compares time of generation on your system");
+    print_argument_list("-5", "run test of fifo");
+    print_argument_list("-6", "run test of graph");
+    print_argument_list("-7", "run test of dijkstra algorithm and functions that is uses");
+    print_argument_list("-A", "run all tests");
+    print_argument_list("-?", "print help for using scgraf_test");
+    set_font(BOLD);
+    set_font(GREY);
+    print_in_center("scgraf_test arguments");
+    printf("\n");
+    set_font(WHITE);
 }

@@ -36,4 +36,6 @@ void get_shortest_distance_from_to(graph_t graph, unsigned start_node_index, uns
 void print_shortest_path_from_to(dijkstra_table_t table, node_t start_node, node_t destination_node);
 void print_dijkstra_table(dijkstra_table_t pointer_to_table);
 
+double get_lenght_of_shortest_path_from_dijkstra(graph_t graph, unsigned start_node, unsigned destination_node);
+
 #endif /* _DIJKSTRA_H_ */
