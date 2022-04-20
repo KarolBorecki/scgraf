@@ -40,3 +40,45 @@ time elapsed: 0.005452 seconds
 3. iteration, size: 333 x 333
 time elapsed: 57.265838 seconds
 
+======================================================
+Performing tests. Date of tests: 2022.4.20 19:55:4
+======================================================
+Test type: Graph generating
+==================================
+1. iteration, size: 3 x 3
+time elapsed: 0.000078 seconds
+
+2. iteration, size: 33 x 33
+time elapsed: 0.005155 seconds
+
+3. iteration, size: 333 x 333
+time elapsed: 0.169242 seconds
+
+==================================
+Finished
+==================================
+Test type: Finding shortest path in graph
+==================================
+1. iteration, size: 3 x 3
+time elapsed: 0.000003 seconds
+
+2. iteration, size: 33 x 33
+time elapsed: 0.003117 seconds
+
+3. iteration, size: 333 x 333
+time elapsed: 31.493716 seconds
+
+==================================
+Finished
+==================================
+Test type: Checking consistency using bfs
+==================================
+1. iteration, size: 3 x 3
+time elapsed: 0.000002 seconds
+
+2. iteration, size: 33 x 33
+time elapsed: 0.005827 seconds
+
+3. iteration, size: 333 x 333
+time elapsed: 56.978310 seconds
+
