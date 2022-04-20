@@ -126,7 +126,7 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
           throw_warning(data_formated_warning, msg);
         }
         if(arg->from < 0)
-          throw_error(invalid_value_error, "Specified argument -f is invalid - should be positive!");
+          throw_error_and_exit(invalid_value_error, "Specified argument -f is invalid - should be positive!", NULL, arg);
         break;
       case 't': /* to */
         arg->to = atoi(optarg);
@@ -167,14 +167,13 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
       case 'v': /* n */
         arg->max_path_value = atof(optarg);
         if(arg->max_path_value <= 0)
-          throw_error(invalid_value_error, "Specified argument -v is invalid - should be bigger than 0!");
+          throw_error_and_exit(invalid_value_error, "Specified argument -v is invalid - should be bigger than 0!", NULL, arg);
         break;
       case 'p':
         arg->print = atoi(optarg) > 0 ? TRUE : FALSE;
         break;
       default:
-        throw_error(invalid_value_error, "Specified invalid argument!");
-        exit (EXIT_FAILURE);
+        throw_error_and_exit(invalid_value_error, "Specified invalid argument!", NULL, arg);
         break;
     }
   }
