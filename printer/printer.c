@@ -67,7 +67,7 @@ void print_help(){
   print_argument_list("-y", "argument used in graph generating, positive number, \n         which stands for y size of the graph.\n");
   print_argument_list("-v", "argument used in graph generating, positive floating point number, \n         which stands for maximum path weight.\n");
   print_argument_list("-n", "argument used in graph dividing, positive number greater than 1, \n         which stands for number of graphs which original graph will be divided into.\n");
-  print_argument_list("-p", "specify if You want to print graph in the console (bigger than zero = TRUE)\n");
+  print_argument_list("-p", "specify if You want to print graph in the console\n");
 
 
   set_font(BOLD);

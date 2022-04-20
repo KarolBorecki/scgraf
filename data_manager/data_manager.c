@@ -33,11 +33,37 @@ int is_node_mesh(node_t node, unsigned dim_width, unsigned max_node_index){
 
 /* file printer */
 
-void print_graph_to_file(graph_t g, char * file_name_out){
-  FILE * OUT = fopen(file_name_out, "w");
+int print_graph_to_file(graph_t g, char * file_name_out){
+  FILE * OUT = fopen(file_name_out, "r");
+  if(OUT != NULL){
+    long size_before_writing;
+    fseek(OUT, 0, SEEK_END);
+  	size_before_writing = ftell(OUT);
+    if(size_before_writing > 0){
+      char willing_to_continue;
+      set_font(RED);
+      printf("This operation will overwrite the existing data in this file, continue? [y/n] ");
+      scanf("%c", &willing_to_continue);
+      printf("\n");
+      set_font(WHITE);
 
-  if(OUT == NULL)
+      if(willing_to_continue != 'y'){
+        printf("Aborting...\n");
+        fclose(OUT);
+        return FALSE;
+      }
+      printf("Overwriting...\n");
+    }
+    fclose(OUT);
+  }
+
+
+  OUT = fopen(file_name_out, "w");
+
+  if(OUT == NULL){
     throw_error(file_read_error, "Cannot create file to open!\n");
+    return FALSE;
+  }
 
   fprintf(OUT, "%d %d\n", g->width, g->height);
 
@@ -52,7 +78,7 @@ void print_graph_to_file(graph_t g, char * file_name_out){
       fprintf(OUT, "\n");
   }
   fclose(OUT);
-
+  return TRUE;
 }
 
 /* file reader */
@@ -63,11 +89,10 @@ FILE * open_file(char * file_name){
 }
 
 graph_t get_graph_from_file(char * file_name){
-  FILE * IN= open_file(file_name);
+  FILE * IN = open_file(file_name);
 
   if(IN == NULL){
-    throw_error(file_read_error, "Could not open the file!");
-    fclose(IN);
+    throw_error(file_read_error, "Could not open the file, bye bye!");
     return NULL;
   }
 
@@ -194,7 +219,7 @@ int read_all_nodes_from_line(char * line){
     int read_nodes= 0;
     if(check_if_empty(line))
         return 0;
-        
+
     while(sscanf(p, "%d%n :%lf%n ", &node_index, &offset1, &value, &offset1) == 2) {
         if(old_index != INT_MAX){
             if(node_index == old_index)

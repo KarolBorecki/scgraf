@@ -14,7 +14,7 @@ int check_if_graph_is_mesh(graph_t graph,unsigned dimension_width, unsigned dime
 int is_node_mesh(node_t node, unsigned dim_width, unsigned max_node_index);
 
 /* file printer */
-void print_graph_to_file(graph_t g, char * file_name_out);
+int print_graph_to_file(graph_t g, char * file_name_out); /* return TRUE (config.h) if success */
 
 /* file reader */
 FILE * open_file(char * file_name);

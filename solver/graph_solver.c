@@ -49,7 +49,8 @@ void solver_divide_graph_into_n_graphs(graph_t graph, batch_arguments_t arg){
 
 void solver_graph_to_file(graph_t graph, batch_arguments_t arg){
   print_file_output_greetings(arg->out);
-  print_graph_to_file(graph, arg->out);
+  int printing_success = print_graph_to_file(graph, arg->out);
+  if(printing_success != TRUE) exit_program_failure(graph, arg);
   print_done_greeting();
 }
 
@@ -71,7 +72,7 @@ graph_t solver_get_graph_from_file(graph_t graph, batch_arguments_t arg){
   print_get_graph_from_file_greeting();
   graph_t g = get_graph_from_file(arg->in);
   if(g == NULL)
-    throw_error_and_exit(file_read_error, "Could not read graph from file, bye bye!", graph, arg);
+    exit_program_failure(graph, arg);
   print_done_greeting();
   return g;
 }

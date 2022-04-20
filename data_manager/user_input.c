@@ -21,7 +21,7 @@ batch_arguments_t initzialize_arguments_struct(){
   arg->y = VALUE_NOT_SPECIFIED;
   arg->n = VALUE_NOT_SPECIFIED;
   arg->max_path_value = VALUE_NOT_SPECIFIED;
-  arg->print = 0;
+  arg->print = FALSE;
   return arg;
 }
 
@@ -108,7 +108,8 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
   batch_arguments_t arg = initzialize_arguments_struct();
 
   int opt;
-  while((opt = getopt(argc, argv, "e:i:o:f:t:x:y:n:v:p:")) != -1){
+  opterr = 0;
+  while((opt = getopt(argc, argv, "e:i:o:f:t:x:y:n:v:p")) != -1){
     switch(opt){
       case 'e':
           arg->execute = get_functionallity_from_string(optarg);
@@ -170,10 +171,12 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
           throw_error_and_exit(invalid_value_error, "Specified argument -v is invalid - should be bigger than 0!", NULL, arg);
         break;
       case 'p':
-        arg->print = atoi(optarg) > 0 ? TRUE : FALSE;
+        arg->print = TRUE;
         break;
       default:
-        throw_error_and_exit(invalid_value_error, "Specified invalid argument!", NULL, arg);
+        throw_error(invalid_value_error, "Specified invalid argument!");
+        print_help();
+        exit_program_failure(NULL, arg);
         break;
     }
   }
@@ -194,7 +197,7 @@ func_t get_functionallity_from_string(char* str){
   else if(strcmp(str, PRINT_EXEC) == 0)
     return PRINT;
   else
-    throw_warning(invalid_value_warning, "Specified invalid functionallity on argument -e!");
+    throw_error(invalid_value_error, "Specified invalid functionallity on argument -e!");
   return UNKNOWN;
 }
 
