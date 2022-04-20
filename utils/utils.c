@@ -1,10 +1,11 @@
 #include "utils.h"
 
-#include "../errors/errors.h"
-
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+
+#include "../errors/errors.h"
+#include "config.h"
 
 void* realloc_block(void* ptr, size_t ptr_size, unsigned enlarger_muliplier){
   void* new_p = malloc(ptr_size * enlarger_muliplier);
@@ -18,8 +19,8 @@ void* realloc_block(void* ptr, size_t ptr_size, unsigned enlarger_muliplier){
 
 int is_element_in_array(unsigned* array, unsigned search_start, unsigned search_end, unsigned element){
   for(int i=search_start; i<search_end; i++)
-    if(array[i] == element) return 1;
-  return 0;
+    if(array[i] == element) return TRUE;
+  return FALSE;
 }
 
 void swap_elements(unsigned *p1, unsigned *p2){
@@ -44,5 +45,5 @@ unsigned pow_(unsigned x, unsigned y){
 }
 
 int is_str_blank(char* str){
-  return str[0] == '\0' || strlen(str) == 0 ? 1 : 0;
+  return str == NULL || strlen(str) == 0 || str[0] == '\0' ? TRUE : FALSE;
 }

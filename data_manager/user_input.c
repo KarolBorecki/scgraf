@@ -13,8 +13,8 @@
 batch_arguments_t initzialize_arguments_struct(){
   batch_arguments_t arg = malloc(sizeof(*arg));
   arg->execute = UNKNOWN;
-  arg->in = malloc(MAX_FILE_NAME_LEN);
-  arg->out = malloc(MAX_FILE_NAME_LEN);
+  arg->in = calloc(MAX_FILE_NAME_LEN, sizeof(char));
+  arg->out = calloc(MAX_FILE_NAME_LEN, sizeof(char));
   arg->from = VALUE_NOT_SPECIFIED;
   arg->to = VALUE_NOT_SPECIFIED;
   arg->x = VALUE_NOT_SPECIFIED;
@@ -95,10 +95,10 @@ void check_arguments_for_bypassing(batch_arguments_t arg){
   if(arg->execute == MAKE_UNDIRECTED && (arg->x != VALUE_NOT_SPECIFIED || arg->y != VALUE_NOT_SPECIFIED || arg->from != VALUE_NOT_SPECIFIED || arg->to != VALUE_NOT_SPECIFIED || arg->max_path_value != VALUE_NOT_SPECIFIED || arg->n != VALUE_NOT_SPECIFIED))
     throw_warning(arg_bypasing_warning, "Some arguments are being bypassed, for graph dviding I only need -n [or -o, -i]!");
 
-  if(arg->execute != GENERATE && is_str_blank(arg->in) == 1){
+  if(arg->execute != GENERATE && is_str_blank(arg->in) == TRUE){
     throw_warning(default_value_warning, "The in file is not specified, the example graph will be taken.");
   }
-  if(is_str_blank(arg->out) == 1 && arg->execute != SHORTEST_PATH && arg->execute != CHECK_CONSISTENCY)
+  if(is_str_blank(arg->out) == TRUE && arg->execute != SHORTEST_PATH && arg->execute != CHECK_CONSISTENCY)
     throw_warning(default_value_warning, "Out file is not specified, the output will be shown in the console!");
 
 }
@@ -170,7 +170,7 @@ batch_arguments_t get_batch_arguments(int argc, char** argv){
           throw_error(invalid_value_error, "Specified argument -v is invalid - should be bigger than 0!");
         break;
       case 'p':
-        arg->print = atoi(optarg) > 0 ? 1 : 0;
+        arg->print = atoi(optarg) > 0 ? TRUE : FALSE;
         break;
       default:
         throw_error(invalid_value_error, "Specified invalid argument!");
@@ -221,8 +221,8 @@ void print_arguments(batch_arguments_t arg){
   set_font(WHITE);
   set_font(BLUE);
   printf("    EXECUTING    : %s\n", get_string_from_functionallity(arg->execute));
-  printf("    IN           : %s\n", is_str_blank(arg->in) == 1 ? "-" : arg->in);
-  printf("    OUT          : %s\n", is_str_blank(arg->out) == 1 ? "-" : arg->out);
+  printf("    IN           : %s\n", is_str_blank(arg->in) == TRUE ? "-" : arg->in);
+  printf("    OUT          : %s\n", is_str_blank(arg->out) == TRUE ? "-" : arg->out);
   printf("    FROM         : %d\n", arg->from);
   printf("    TO           : %d\n", arg->to);
   printf("    X            : %d\n", arg->x);

@@ -5,9 +5,9 @@
 #include "../printer/printer.h"
 
 dijkstra_table_t initialize_dijkstra_table(graph_t graph, node_t start_node){
-    dijkstra_table_t table_p= malloc(graph->size * sizeof(*table_p));
+    dijkstra_table_t table_p = calloc(graph->size, sizeof(*table_p));
     table_p->size= graph->size;
-    table_p->elements= malloc(graph->size * sizeof(*table_p->elements));
+    table_p->elements= calloc(graph->size, sizeof(*table_p->elements));
 
     for(int i= 0; i<table_p->size; i++) {
         if(graph->nodes[i].index != start_node->index)
@@ -33,7 +33,7 @@ dijkstra_table_t dijkstra(graph_t graph, node_t start_node){
 #ifdef DEBUG
   int k = 0;
 #endif /* DEBUG */
-  while(fifo_is_empty(que_to_visit) <= 0){
+  while(fifo_is_empty(que_to_visit) == FALSE){
     current_vertex = fifo_pop(que_to_visit);
     popped_from_que++;
     node_t node = graph_get_node_at_index(graph, current_vertex);

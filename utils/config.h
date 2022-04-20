@@ -3,6 +3,9 @@
 
 #include <limits.h>
 
+#define TRUE 1
+#define FALSE 0
+
 /* user_input.h */
 #define SHORTEST_PATH_EXEC "shortest"
 #define CONSISTENCY_EXEC "consistency"

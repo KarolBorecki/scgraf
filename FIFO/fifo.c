@@ -6,11 +6,12 @@
 
 #include "../errors/errors.h"
 #include "../utils/utils.h"
+#include "../utils/config.h"
 #include "../printer/printer.h"
 
 fifo_t initzialize_fifo(){
-  fifo_t fifo = malloc(sizeof(*fifo));
-  fifo->queue = malloc(START_QUEUE_SIZE * sizeof(*(fifo->queue)));
+  fifo_t fifo = calloc(1, sizeof(*fifo));
+  fifo->queue = calloc(START_QUEUE_SIZE, sizeof(*(fifo->queue)));
   fifo->head = 0;
   fifo->memory_size = START_QUEUE_SIZE;
   fifo->size = 0;
@@ -43,11 +44,11 @@ unsigned fifo_size(fifo_t fifo){
 }
 
 int fifo_is_empty(fifo_t fifo){
-  return 1-fifo_size(fifo);
+  return fifo_size(fifo) <= 0 ? TRUE : FALSE;
 }
 
 int fifo_is_queue_empty(fifo_t fifo){
-  return 1-fifo_queue_size(fifo);
+  return fifo_queue_size(fifo) <= 0 ? TRUE : FALSE;
 }
 
 int fifo_queue_contains_value(fifo_t fifo, unsigned value){

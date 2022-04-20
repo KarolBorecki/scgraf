@@ -9,9 +9,9 @@
 #include "../printer/printer.h"
 
 graph_t initzialize_graph(unsigned nodes_count){
-  graph_t graph = malloc(sizeof(*graph));
+  graph_t graph = calloc(1, sizeof(*graph));
   graph->size = 0;
-  graph->nodes = malloc(nodes_count * sizeof(*(graph->nodes)));
+  graph->nodes = calloc(nodes_count, sizeof(*(graph->nodes)));
   graph->memory_size = nodes_count;
   graph->max_path_value = 0;
   graph->height= 0;
@@ -50,7 +50,7 @@ void enlarge_graph_paths_memory(node_t node, unsigned enlarge_multiplier){
 
 void clean_graph(graph_t graph){
   if(graph == NULL) return;
-  for(int i=0; i<graph->size; i++)
+  for(int i=0; i<graph_size(graph); i++)
     free(graph_get_node_at_index(graph, i)->paths);
 
   free(graph->nodes);
@@ -85,8 +85,12 @@ path_t graph_add_path(node_t node, unsigned connection, double value){
 }
 
 void graph_remove_path_at_index(node_t node, unsigned index){
+  if(index < 0 || index > graph_get_node_paths_count(node)){
+    throw_error(memory_error, "Index out of bounds in node");
+    return;
+  }
   if(index < node->paths_count-1)
-    memcpy(node->paths+index, node->paths+index+1, (node->paths_count-index) * sizeof(*(node->paths)));
+    memcpy(node->paths+index, node->paths+index+1, (node->paths_count-index-1) * sizeof(*(node->paths)));
   node->paths_count--;
 }
 
@@ -160,7 +164,7 @@ path_t graph_get_path_for_node_index(node_t node_from, unsigned destination_node
     for(int i= 0; i<node_from->paths_count; i++)
         if(node_from->paths[i].connection == destination_node_index)
             return &(node_from->paths[i]);
-            
+
     return NULL;
 }
 

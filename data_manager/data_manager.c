@@ -19,7 +19,7 @@ int check_if_graph_is_mesh(graph_t graph, unsigned dimension_width, unsigned dim
 }
 
 int is_node_mesh(node_t node, unsigned dim_width, unsigned max_node_index){
-  for(int i= 0; i < node->paths_count; i++)
+  for(int i= 0; i < graph_get_node_paths_count(node); i++)
     if(node->paths[i].connection >= 0 &&
        node->paths[i].connection <= max_node_index &&
        node->paths[i].connection != node->index - 1 &&
@@ -39,10 +39,13 @@ void print_graph_to_file(graph_t g, char * file_name_out){
     throw_error(file_read_error, "Cannot create file to open!\n");
 
   fprintf(OUT, "%d %d\n", g->width, g->height);
-  for(int i= 0; i<g->size; i++){
+
+  node_t node;
+  for(int i= 0; i<graph_size(g); i++){
     fprintf(OUT, "\t");
-    for(int j= 0; j<g->nodes[i].paths_count; j++)
-      fprintf(OUT, "%d :%lf ", g->nodes[i].paths[j].connection, g->nodes[i].paths[j].value);
+    node = graph_get_node_at_index(g, i);
+    for(int j= 0; j<graph_get_node_paths_count(node); j++)
+      fprintf(OUT, "%d :%lf ", graph_get_path_at_index(node, j)->connection, graph_get_path_at_index(node, j)->value);
 
     if(i != g->size - 1)
       fprintf(OUT, "\n");

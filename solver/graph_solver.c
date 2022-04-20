@@ -12,19 +12,14 @@
 void solver_get_shortest_path(graph_t graph, batch_arguments_t arg){
   char msg[MAX_ERR_ADDITIONAL_MSG_LENGTH];
   print_shortest_path_greeting(arg->from, arg->to);
-  printf("0 %d %d\n", arg->from, graph_size(graph));
   if(arg->from < 0 || arg->from >= graph_size(graph)){
-    printf("1\n");
       sprintf(msg, "incorrect start node (node %d) in graph of size %d!\n", arg->from, graph_size(graph));
       throw_error_and_exit(invalid_value_error, msg, graph, arg);
   }
-
   if(arg->to < 0 || arg->to >= graph_size(graph)){
-    printf("2\n");
       sprintf(msg, "incorrect destination node (node %d) in graph of size %d!\n", arg->to, graph_size(graph));
       throw_error_and_exit(invalid_value_error, msg, graph, arg);
   }
-printf("3\n");
   print_consistency_greeting(arg->to);
   int is_consistent = bfs(graph, arg->from);
   if(is_consistent <= 0)
@@ -45,9 +40,9 @@ void solver_check_graph_consistency(graph_t graph, batch_arguments_t arg){
 
 void solver_divide_graph_into_n_graphs(graph_t graph, batch_arguments_t arg){
   print_graph_division_greeting(arg->n);
-  if(arg->n > graph->size){
+  if(arg->n > graph->size)
     throw_error_and_exit(invalid_value_error, "Division numbers is too big!", graph, arg);
-  }
+  
   divide_graph(graph, arg->n);
   print_done_greeting();
 }
