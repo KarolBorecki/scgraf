@@ -59,7 +59,7 @@ int main(int argc, char** argv){
   if(is_str_blank(arg->out) == FALSE)
     solver_graph_to_file(graph, arg);
 
-  if(arg->print == TRUE || ((arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE) && is_str_blank(arg->out) == TRUE))
+  if(arg->print == TRUE || arg->execute == PRINT || ((arg->execute == DIVIDE_GRAPH || arg->execute == GENERATE) && is_str_blank(arg->out) == TRUE))
     print_graph(graph, arg->execute == DIVIDE_GRAPH ? "Divided Graph" : (arg->execute == GENERATE ? "Generated Graph" : "Graph"));
 
   print_greetings();

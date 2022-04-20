@@ -191,6 +191,8 @@ func_t get_functionallity_from_string(char* str){
     return GENERATE;
   else if(strcmp(str, MAKE_UNDIRECTED_EXEC) == 0)
     return MAKE_UNDIRECTED;
+  else if(strcmp(str, PRINT_EXEC) == 0)
+    return PRINT;
   else
     throw_warning(invalid_value_warning, "Specified invalid functionallity on argument -e!");
   return UNKNOWN;
@@ -207,6 +209,8 @@ char* get_string_from_functionallity(func_t func){
     return "Generating graph";
   else if(func==MAKE_UNDIRECTED)
     return "Converting graph to be consistent";
+  else if(func==PRINT)
+    return "Printing graph to console";
 
   return "Unknown";
 }

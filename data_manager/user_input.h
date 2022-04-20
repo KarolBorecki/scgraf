@@ -9,7 +9,8 @@ typedef enum functionality{
   CHECK_CONSISTENCY,
   DIVIDE_GRAPH,
   GENERATE,
-  MAKE_UNDIRECTED
+  MAKE_UNDIRECTED,
+  PRINT
 } func_t;
 
 typedef struct batch_arguments{

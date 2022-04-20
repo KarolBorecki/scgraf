@@ -11,6 +11,7 @@
 #define CONSISTENCY_EXEC "consistency"
 #define DIVIDE_EXEC "divide"
 #define GENERATE_EXEC "generate"
+#define PRINT_EXEC "print"
 #define MAKE_UNDIRECTED_EXEC "make_undirected"
 
 /* dijkstra.h */

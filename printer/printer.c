@@ -56,7 +56,8 @@ void print_help(){
   print_execute_option_list(DIVIDE_EXEC, "divide input graph [-i] into n [-n] subgraphs \n                (if input graph is not specified, the example graph will be taken).\n");
   print_execute_option_list(CONSISTENCY_EXEC, "check input graph [-i] consistency.\n");
   print_execute_option_list(SHORTEST_PATH_EXEC, "find shortest path in input graph [-i] from node [-f] to node [-t].\n");
-  print_execute_option_list(MAKE_UNDIRECTED_EXEC, "converts input graph [-i] paths to not be single-way \n                         (makes graph undirected).\n\n");
+  print_execute_option_list(MAKE_UNDIRECTED_EXEC, "converts input graph [-i] paths to not be single-way \n                         (makes graph undirected).\n");
+  print_execute_option_list(PRINT_EXEC, "prints input graph [-i] to the console, no matter out argument [-o].\n\n");
 
   print_argument_list("-i", "specify input file.\n");
   print_argument_list("-o", "specify output file (used only with generate and divide functionallity).\n");

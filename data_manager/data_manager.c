@@ -3,6 +3,7 @@
 #include <limits.h>
 
 #include "../printer/printer.h"
+#include "../utils/config.h"
 
 /* data reader */
 
@@ -62,123 +63,127 @@ FILE * open_file(char * file_name){
 }
 
 graph_t get_graph_from_file(char * file_name){
-    FILE * IN= open_file(file_name);
+  FILE * IN= open_file(file_name);
 
-    if(IN == NULL){
-        throw_error(file_read_error, "Could not open the file!");
-        fclose(IN);
-        return NULL;
+  if(IN == NULL){
+    throw_error(file_read_error, "Could not open the file!");
+    fclose(IN);
+    return NULL;
+  }
+
+  set_font(BOLD);
+  set_font(PINK);
+  print_in_center("Reading Graph");
+  set_font(WHITE);
+  set_font(PINK);
+  printf("\n    Reading from file: \"%s\"\n", file_name);
+  node_t help_node;
+  graph_t graph;
+  double max_weight= 0.;
+
+  unsigned width, height, lines= 0, amount_of_nodes, max_node_index;
+  char msg[WARNING_SIZE];
+  char line[MAXBUF];
+
+  fgets(line, MAXBUF, IN);
+
+  if(sscanf(line, "%d %d", &width, &height) == 2){
+    lines++;
+    if(width <= 0 || height <= 0) {
+      sprintf(msg, "not positive dimensions of graph in line: %d", lines);
+      throw_error(file_error, msg);
+      fclose(IN);
+      return NULL;
     }
+    amount_of_nodes = width * height;
+    max_node_index  = amount_of_nodes - 1;
+    graph= initzialize_graph(amount_of_nodes);
+  }else{
+    sprintf(msg, "expected 2 positive integers in the 1st line in line: %d", lines);
+    throw_error(file_error, msg);
+    fclose(IN);
+    return NULL;
+  }
 
-    set_font(BOLD);
-    set_font(PINK);
-    print_in_center("Reading Graph");
-    set_font(WHITE);
-    set_font(PINK);
-    printf("\n    Reading from file: \"%s\"\n", file_name);
-    node_t help_node;
-    graph_t graph;
-    double max_weight= 0.;
-
-    unsigned width, height, lines= 0, amount_of_nodes, max_node_index;
-    char msg[WARNING_SIZE];
-    char line[MAXBUF];
-
+  for(int i= 0; i < amount_of_nodes; i++){
+    unsigned node_index, read_nodes, offset1;
+    double value;
     fgets(line, MAXBUF, IN);
-
-    if(sscanf(line, "%d %d", &width, &height) == 2){
-        lines++;
-        if(width <= 0 || height <= 0) {
-            sprintf(msg, "not positive dimensions of graph in line: %d", lines);
-            throw_error(file_error, msg);
-            fclose(IN);
-            return NULL;
-        }
-        amount_of_nodes = width * height;
-        max_node_index  = amount_of_nodes - 1;
-        graph= initzialize_graph(amount_of_nodes);
-    }else{
-        sprintf(msg, "expected 2 positive integers in the 1st line in line: %d", lines);
+    lines++;
+    if((read_nodes = read_all_nodes_from_line(line)) < 1){
+      if(!check_if_empty(line)){
+        sprintf(msg, "incorrect line format at line: %d", lines);
         throw_error(file_error, msg);
         fclose(IN);
         return NULL;
+      } else {                                //empty line, so it' s okay for now
+        help_node = graph_add_node(graph);    //we are adding new node and moving on
+        continue;
+      }
+    }
+    char *p= line;
+    help_node = graph_add_node(graph);
+    for(int j= 0; j<read_nodes; j++){
+      sscanf(p, "%d%n :%lf%n ", &node_index, &offset1, &value, &offset1);
+      p += offset1;
+      int cond1;
+      if((cond1 = is_node_valid(node_index, max_node_index)) && is_value_valid(value)){
+        graph_add_path(help_node, node_index, value);
+
+        if(value > max_weight)
+          max_weight= value;
+
+      }else if(!cond1){
+        sprintf(msg, "incorrect node_index in line: %d", lines);
+        throw_error(file_error, msg);
+        fclose(IN);
+        return NULL;
+      }else if(!is_value_valid(value)){
+        sprintf(msg, "incorrect value in line %d", lines);
+        throw_error(file_error, msg);
+        fclose(IN);
+        return NULL;
+      }
     }
 
-    for(int i= 0; i < amount_of_nodes; i++) {
-        unsigned node_index, read_nodes, offset1;
-        double value;
-        fgets(line, MAXBUF, IN);
-        lines++;
-        if ((read_nodes = read_all_nodes_from_line(line)) < 1) {
-            if (!check_if_empty(line)) {
-                sprintf(msg, "incorrect line format at line: %d", lines);
-                throw_error(file_error, msg);
-                fclose(IN);
-                return NULL;
-            } else {                                //empty line, so it' s okay for now
-                help_node = graph_add_node(graph);  //we are adding new node and moving on
-                continue;
-            }
-        }
-        char *p= line;
-        help_node = graph_add_node(graph);
-        for(int j= 0; j<read_nodes; j++){
-            sscanf(p, "%d%n :%lf%n ", &node_index, &offset1, &value, &offset1);
-            p += offset1;
-            int cond1;
-            if( (cond1 = is_node_valid(node_index, max_node_index)) && is_value_valid(value)){
-                graph_add_path(help_node, node_index, value);
-                if(value > max_weight)
-                    max_weight= value;
-            }else if(!cond1){
-                sprintf(msg, "incorrect node_index in line: %d", lines);
-                throw_error(file_error, msg);
-                fclose(IN);
-                return NULL;
-            }else if(!is_value_valid(value)){
-                sprintf(msg, "incorrect value in line %d", lines);
-                throw_error(file_error, msg);
-                fclose(IN);
-                return NULL;
-            }
-        }
+  }
+  printf(
+        "\n    Declared size: %d x %d\n"
+        "    Read lines: %d\n"
+        "    Read nodes: %d\n"
+        "    Max weight value: %lf\n\n", width, height, lines, amount_of_nodes, max_weight);
 
-    }
-    printf(
-           "\n    Declared size: %d x %d\n"
-           "    Read lines: %d\n"
-           "    Read nodes: %d\n"
-           "    Max weight value: %lf\n\n", width, height, lines, amount_of_nodes, max_weight);
+  set_font(BOLD);
+  set_font(PINK);
+  print_in_center("Reading finished");
+  printf("\n");
+  set_font(WHITE);
 
-     set_font(BOLD);
-     set_font(PINK);
-     print_in_center("Reading finished");
-     printf("\n");
-     set_font(WHITE);
-     graph->max_path_value = max_weight;
-    graph->size = amount_of_nodes;
-    graph_set_width_and_height(graph, width, height);
-    fclose(IN);
-    return graph;
+  graph->max_path_value = max_weight;
+  graph->size = amount_of_nodes;
+  graph_set_width_and_height(graph, width, height);
+
+  fclose(IN);
+  return graph;
 }
 
 int is_node_valid(int node, int max_index){
-    return (node >= 0 && node <= max_index) ? 1 : 0;
+    return (node >= 0 && node <= max_index) ? TRUE : FALSE;
 }
 
 int is_value_valid(double value){
-    return (value > 0. /*&& value < max_value*/) ? 1 : 0;
+    return (value > 0. /*&& value < max_value*/) ? TRUE : FALSE;
 }
 
 int check_if_empty(char * line){
-    int i= 0;
+    int i = 0;
     while(line[i] != '\0' && line[i] != EOF){
         if(line[i] == ' ' || line[i] == '\t' || line[i] == '\n')
             i++;
         else
-            return 0;
+            return FALSE;
     }
-    return 1;
+    return TRUE;
 }
 
 int read_all_nodes_from_line(char * line){
@@ -189,6 +194,7 @@ int read_all_nodes_from_line(char * line){
     int read_nodes= 0;
     if(check_if_empty(line))
         return 0;
+        
     while(sscanf(p, "%d%n :%lf%n ", &node_index, &offset1, &value, &offset1) == 2) {
         if(old_index != INT_MAX){
             if(node_index == old_index)
