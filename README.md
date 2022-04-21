@@ -13,7 +13,7 @@ Program scgraf ma na celu odnalezienie najkrótszej ścieżki na grafie, po spra
 - ***-x*** [argument used in graph generating, positive number, which stands for y size of the graph]
 - ***-n*** [argument used in graph dividing, positive number greater than 1, which stands for number of graphs which original graph will be divided into]
 
-#Argumenty wywołania scgraf_test
+# Argumenty wywołania scgraf_test
 - ***1*** [run test of the right input in test files]
 - ***2*** [run test of the right paths in test files]
 - ***3*** [run test of the right consistencies in test files]
