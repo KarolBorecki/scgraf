@@ -3,6 +3,10 @@
 
 #include "../utils/config.h"
 
+#include <stdint.h>
+#include <stdio.h>
+#include <time.h>
+
 #define WHITE      "\033[0m"
 #define GREY       "\033[37m"
 #define LIGHT_BLUE "\033[36m"
@@ -33,4 +37,13 @@ void print_done_greeting();
 
 void print_graph_consistent_result(int result);
 
-#endif /* _MENU_PRINTER_H_ */
+/* functions used in test.c */
+void print_help_for_test(void);
+
+void print_line_results(FILE *output, int iteration, unsigned width, unsigned height, uint64_t timeElapsed);
+void print_greetings_to_output(FILE * output, const char *line);
+void print_format_to_output(FILE * output, const char * line);
+void print_closing_to_output(FILE * output, uint64_t time_elapsed, char * file_with_results);
+
+
+#endif /* _PRINTER_H_ */

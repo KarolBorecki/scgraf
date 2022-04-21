@@ -1,84 +1,90 @@
-======================================================
-Performing tests. Date of tests: 2022.4.20 18:26:19
-======================================================
-Test type: Graph generating
-==================================
-1. iteration, size: 3 x 3
-time elapsed: 0.000056 seconds
-
-2. iteration, size: 33 x 33
-time elapsed: 0.004204 seconds
-
-3. iteration, size: 333 x 333
-time elapsed: 0.169368 seconds
-
-==================================
+==========================================================
+Performing tests. Date of tests: 2022.4.21 11:19:2
+==========================================================
+Test type: Graph Generating
+================================================
+1. iteration, size: 1 x 1
+time elapsed: 0.000009 seconds
+2. iteration, size: 4 x 4
+time elapsed: 0.000017 seconds
+3. iteration, size: 40 x 40
+time elapsed: 0.000871 seconds
+4. iteration, size: 400 x 400
+time elapsed: 0.016204 seconds
+================================================
 Finished
-==================================
-Test type: Finding shortest path in graph
-==================================
-1. iteration, size: 3 x 3
-time elapsed: 0.000003 seconds
-
-2. iteration, size: 33 x 33
-time elapsed: 0.003101 seconds
-
-3. iteration, size: 333 x 333
-time elapsed: 31.574303 seconds
-
-==================================
-Finished
-==================================
-Test type: Checking consistency using bfs
-==================================
-1. iteration, size: 3 x 3
+================================================
+Test type: Finding shortest path using Dijkstra
+================================================
+1. iteration, size: 1 x 1
+time elapsed: 0.000001 seconds
+2. iteration, size: 4 x 4
 time elapsed: 0.000002 seconds
-
-2. iteration, size: 33 x 33
-time elapsed: 0.005452 seconds
-
-3. iteration, size: 333 x 333
-time elapsed: 57.265838 seconds
-
-======================================================
-Performing tests. Date of tests: 2022.4.20 19:55:4
-======================================================
-Test type: Graph generating
-==================================
-1. iteration, size: 3 x 3
-time elapsed: 0.000078 seconds
-
-2. iteration, size: 33 x 33
-time elapsed: 0.005155 seconds
-
-3. iteration, size: 333 x 333
-time elapsed: 0.169242 seconds
-
-==================================
+3. iteration, size: 40 x 40
+time elapsed: 0.003368 seconds
+4. iteration, size: 400 x 400
+time elapsed: 33.356791 seconds
+================================================
 Finished
-==================================
-Test type: Finding shortest path in graph
-==================================
-1. iteration, size: 3 x 3
-time elapsed: 0.000003 seconds
-
-2. iteration, size: 33 x 33
-time elapsed: 0.003117 seconds
-
-3. iteration, size: 333 x 333
-time elapsed: 31.493716 seconds
-
-==================================
-Finished
-==================================
-Test type: Checking consistency using bfs
-==================================
-1. iteration, size: 3 x 3
+================================================
+Test type: Checking graph consistency using BFS
+================================================
+1. iteration, size: 1 x 1
+time elapsed: 0.000000 seconds
+2. iteration, size: 4 x 4
 time elapsed: 0.000002 seconds
-
-2. iteration, size: 33 x 33
-time elapsed: 0.005827 seconds
-
-3. iteration, size: 333 x 333
-time elapsed: 56.978310 seconds
-
+3. iteration, size: 40 x 40
+time elapsed: 0.004299 seconds
+4. iteration, size: 400 x 400
+time elapsed: 37.872901 seconds
+---------------------------------------------------------
+FOLLOWING RESULTS WERE PERFORMED ON TEST SETUP RUNNING ON
+OS:
+    Distributor ID:	Ubuntu
+    Description:	Ubuntu 20.04.4 LTS
+    Release:	20.04
+Specs:
+    CPU: 11th Gen Intel(R) Core(TM) i5-11600K @ 3.90GHz
+    RAM: 4x8GB 3333MHz CL18
+---------------------------------------------------------
+RESULTS RUN BY USERS:
+---------------------------------------------------------
+==========================================================
+Performing tests. Date of tests: 2022.4.21 11:35:17
+==========================================================
+Test type: Graph Generating
+================================================
+1. iteration, size: 1 x 1
+time elapsed: 0.000008 seconds
+2. iteration, size: 4 x 4
+time elapsed: 0.000017 seconds
+3. iteration, size: 40 x 40
+time elapsed: 0.000883 seconds
+4. iteration, size: 400 x 400
+time elapsed: 0.016028 seconds
+================================================
+Finished
+================================================
+Test type: Finding shortest path using Dijkstra
+================================================
+1. iteration, size: 1 x 1
+time elapsed: 0.000001 seconds
+2. iteration, size: 4 x 4
+time elapsed: 0.000002 seconds
+3. iteration, size: 40 x 40
+time elapsed: 0.003282 seconds
+4. iteration, size: 400 x 400
+time elapsed: 33.846233 seconds
+================================================
+Finished
+================================================
+Test type: Checking graph consistency using BFS
+================================================
+1. iteration, size: 1 x 1
+time elapsed: 0.000000 seconds
+2. iteration, size: 4 x 4
+time elapsed: 0.000002 seconds
+3. iteration, size: 40 x 40
+time elapsed: 0.003679 seconds
+4. iteration, size: 400 x 400
+time elapsed: 38.390182 seconds

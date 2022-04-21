@@ -1,6 +1,23 @@
 #ifndef _TESTS_H_
 #define _TESTS_H_
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include <stdint.h>
+
+#include "../printer/printer.h"
+#include "../utils/config.h"
+#include "../utils/utils.h"
+#include "../algorithms/dijkstra.h"
+#include "../algorithms/bfs.h"
+
+#include "../FIFO/fifo.h"
+#include "../graph/graph.h"
+#include "../data_manager/graph_generator.h"
+#include "../data_manager/data_manager.h"
+#include "../printer/printer.h"
+
 #define FIFO_TEST_SIZE 100000
 #define FIFO_TEST_MAX_VAL 100000
 
@@ -18,8 +35,11 @@
 #define TESTED_FILES 7
 #define TESTED_FILES_CORRECT_INPUT 3
 
-#define NODE_FOR_INICIALIZATION 0
+#define NODE_FOR_INITIALIZATION 0
 #define NODE_FOR_PATH_FINDING GRAPH_HEIGHT_DIJKSTRA - 1
+
+#define HOW_MANY_ITERATIONS 4
+
 
 typedef enum { right_input= '1',
     right_path,
@@ -47,5 +67,5 @@ void test_compare_time(char *file_with_results);
 
 void run_all_tests(void);
 
-void print_help_for_test(void);
+unsigned generate_size_for_iteration(int iteration);
 #endif /* _TESTS_H_ */

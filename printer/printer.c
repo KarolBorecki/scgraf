@@ -141,3 +141,61 @@ void print_graph_consistent_result(int result){
   }
   set_font(WHITE);
 }
+
+/*functions used for printing in test.c*/
+
+void print_line_results(FILE *in, int i, unsigned width, unsigned height, uint64_t timeElapsed){
+
+    fprintf(in, "%d. iteration, size: %d x %d\n"
+                "time elapsed: %lf seconds\n", i, width, height, timeElapsed/ (double) 1000000000);
+
+}
+
+void print_greetings_to_output(FILE * in, const char *line){
+    struct tm curr_time;
+    time_t t= time(NULL);
+    curr_time= *(localtime(&t));
+
+    if(in == NULL){
+        throw_error(file_read_error, "cannot write to file!");
+        return;
+    }
+    set_font(PINK);
+    fprintf(in, "==========================================================\n"
+                "Performing tests. Date of tests: %d.%d.%d %d:%d:%d\n"
+                "==========================================================\n",
+            curr_time.tm_year + 1900, curr_time.tm_mon + 1, curr_time.tm_mday,
+            curr_time.tm_hour, curr_time.tm_min, curr_time.tm_sec);
+    set_font(WHITE);
+    fprintf(in,"Test type: %s\n"
+               "================================================\n", line);
+}
+
+void print_format_to_output(FILE * in, const char * line){
+    if(in == NULL){
+        throw_error(file_read_error, "cannot write to file!");
+        return;
+    }
+    set_font(WHITE);
+    fprintf(in,"================================================\n");
+    set_font(GREEN);
+    fprintf(in, "Finished\n");
+    set_font(WHITE);
+    fprintf(in, "================================================\n"
+                "Test type: %s\n"
+                "================================================\n", line);
+}
+
+void print_closing_to_output(FILE * in, uint64_t timeElapsed, char * file_with_results){
+    fprintf(in,"================================================\n");
+    set_font(GREEN);
+    fprintf(in,"Finished\n");
+    set_font(PINK);
+    fprintf(in,"==========================================================\n"
+               "Finished all tests\nTime Elapsed for all tests: %lf seconds\n"
+               "==========================================================\n"
+               "You can find your results, and all the others in this file:\n"
+               "%s\n", timeElapsed/ (double) 1000000000, file_with_results);
+    set_font(WHITE);
+}
+

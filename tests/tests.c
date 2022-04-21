@@ -1,24 +1,5 @@
 #include "tests.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <stdint.h>
-
-#include "../printer/printer.h"
-#include "../utils/config.h"
-#include "../utils/utils.h"
-#include "../algorithms/dijkstra.h"
-#include "../algorithms/bfs.h"
-
-#include "../FIFO/fifo.h"
-#include "../graph/graph.h"
-#include "../data_manager/graph_generator.h"
-#include "../data_manager/data_manager.h"
-#include "../printer/printer.h"
-
-#define HOW_LONG_DO_U_HAVE 4
-
 int64_t timespecDiff(struct timespec *timeA_p, struct timespec *timeB_p)
 {
     return ((timeA_p->tv_sec * 1000000000) + timeA_p->tv_nsec) -
@@ -117,24 +98,24 @@ void test_dijkstra(){
     set_font(BOLD);
     set_font(GREEN);
 
-    dijkstra_table_t table= initialize_dijkstra_table(g, &(g->nodes[NODE_FOR_INICIALIZATION]));
+    dijkstra_table_t table= initialize_dijkstra_table(g, &(g->nodes[NODE_FOR_INITIALIZATION]));
     print_dijkstra_table(table);
 
     set_font(BOLD);
     set_font(GREEN);
-    printf("Initialized table correctly for NODE %d\n", NODE_FOR_INICIALIZATION);
+    printf("Initialized table correctly for NODE %d\n", NODE_FOR_INITIALIZATION);
 
-    table= dijkstra(g, &(g->nodes[NODE_FOR_INICIALIZATION]));
+    table= dijkstra(g, &(g->nodes[NODE_FOR_INITIALIZATION]));
     print_dijkstra_table(table);
 
     set_font(BOLD);
     set_font(GREEN);
-    printf("Table was filled successfully for NODE %d\n", NODE_FOR_INICIALIZATION);
+    printf("Table was filled successfully for NODE %d\n", NODE_FOR_INITIALIZATION);
 
-    get_shortest_distance_from_to(g, NODE_FOR_INICIALIZATION, NODE_FOR_PATH_FINDING, 1);
+    get_shortest_distance_from_to(g, NODE_FOR_INITIALIZATION, NODE_FOR_PATH_FINDING, 1);
     set_font(BOLD);
     set_font(GREEN);
-    printf("Path was found successfully from NODE %d to NODE %d\n", NODE_FOR_INICIALIZATION, NODE_FOR_PATH_FINDING);
+    printf("Path was found successfully from NODE %d to NODE %d\n", NODE_FOR_INITIALIZATION, NODE_FOR_PATH_FINDING);
 
     free_dijkstra_table(table);
 
@@ -155,7 +136,7 @@ void test_format_of_input(){
     int i;
     char input[MAXBUF];
     for(i= 1; i <= TESTED_FILES; i++){
-        sprintf(input, "./tests/graph_for_test_%c", i + '0');
+        sprintf(input, "./tests/graph_files/graph_for_test_%c", i + '0');
         if(i == 1 || i == 2 || i == 6) {
             if (!test_format_of_single_input(input, 1))
                 break;
@@ -258,7 +239,7 @@ void test_if_right_path(){
     int i, j;
     for(i= 1, j= 0; i<=TESTED_FILES; i++){
         if(i == 1 || i == 2 || i == 6){
-            sprintf(input, "./tests/graph_for_test_%c", i + '0');
+            sprintf(input, "./tests/graph_files/graph_for_test_%c", i + '0');
             test_if_right_single_path(input, correct_paths_len[j++]);
         }
     }
@@ -302,7 +283,7 @@ void test_if_right_consistency(void){
     int i, j;
     for(i= 1, j= 0; i<=TESTED_FILES; i++){
         if(i == 1 || i == 2 || i == 6){
-            sprintf(input, "./tests/graph_for_test_%c", i + '0');
+            sprintf(input, "./tests/graph_files/graph_for_test_%c", i + '0');
             if(test_if_right_single_consistency(input, is_consistant[j++])){
                 if(is_consistant[j - 1]){
                     set_font(GREEN);
@@ -336,12 +317,8 @@ int test_if_right_single_consistency(char * input_file, int is_consistant){
 }
 
 void test_compare_time(char *file_with_results){
-    struct timespec start, end;
-    struct tm curr_time;
+    struct timespec start, end, beginning;
     uint64_t timeElapsed;
-    time_t t= time(NULL);
-
-    curr_time= *(localtime(&t));
 
     FILE * in= fopen(file_with_results, "a");
     if(in == NULL){
@@ -349,34 +326,37 @@ void test_compare_time(char *file_with_results){
         return;
     }
 
-    for(int i= 0; i<2; i++)
-        fprintf((i % 2 == 0 ? in : stdout),"======================================================\n"
-               "Performing tests. Date of tests: %d.%d.%d %d:%d:%d\n"
-               "======================================================\n"
-               "Test type: Graph generating\n"
-               "==================================\n",
-               curr_time.tm_year + 1900, curr_time.tm_mon + 1, curr_time.tm_mday,
-               curr_time.tm_hour, curr_time.tm_min, curr_time.tm_sec);
+    set_font(BOLD);
+    set_font(PINK);
+    print_in_center("TIME TEST");
+    set_font(WHITE);
 
-    for(int i= 1; i<HOW_LONG_DO_U_HAVE; i++) {
-        unsigned width= pow_(10, i) / 3, height= pow_(10, i) / 3;
+    print_greetings_to_output(in, "Graph Generating");
+    print_greetings_to_output(stdout, "Graph Generating");
+
+    clock_gettime(CLOCK_MONOTONIC, &beginning);
+
+    for(int i= 1; i<=HOW_MANY_ITERATIONS; i++) {
+        unsigned width= generate_size_for_iteration(i),
+                 height= generate_size_for_iteration(i);
+
         clock_gettime(CLOCK_MONOTONIC, &start);
-        graph_t g = generate_graph_mesh(pow_(10, i), pow_(10, i), 5);
+        graph_t g = generate_graph_mesh(width, height, 5);
         clock_gettime(CLOCK_MONOTONIC, &end);
 
         timeElapsed= timespecDiff(&end, &start);
-        fprintf(in, "%d. iteration, size: %d x %d\n"
-                    "time elapsed: %lf seconds\n\n", i, width, height, timeElapsed/ (double) 1000000000);
-    }
-    for(int i= 0; i<2; i++)
-        fprintf((i % 2 == 0 ? in :stdout),"==================================\n"
-               "Finished\n"
-               "==================================\n"
-               "Test type: Finding shortest path in graph\n"
-               "==================================\n");
 
-    for(int i= 1; i<HOW_LONG_DO_U_HAVE; i++) {
-        unsigned width= pow_(10, i) / 3, height= pow_(10, i) / 3;
+        print_line_results(in, i, width, height, timeElapsed);
+        print_line_results(stdout, i, width, height, timeElapsed);
+    }
+
+    print_format_to_output(in, "Finding shortest path using Dijkstra");
+    print_format_to_output(stdout, "Finding shortest path using Dijkstra");
+
+    for(int i= 1; i<=HOW_MANY_ITERATIONS; i++) {
+        unsigned width= generate_size_for_iteration(i),
+                 height= generate_size_for_iteration(i);
+
         graph_t g = generate_graph_mesh(width, height, 5);
 
         clock_gettime(CLOCK_MONOTONIC, &start);
@@ -384,20 +364,20 @@ void test_compare_time(char *file_with_results){
         clock_gettime(CLOCK_MONOTONIC, &end);
 
         timeElapsed= timespecDiff(&end, &start);
-        fprintf(in, "%d. iteration, size: %d x %d\n"
-                    "time elapsed: %lf seconds\n\n", i, width, height, timeElapsed/ (double) 1000000000);
+
+        print_line_results(in, i, width, height, timeElapsed);
+        print_line_results(stdout, i, width, height, timeElapsed);
 
         clean_graph(g);
     }
-    for(int i= 0; i<2; i++)
-        fprintf((i % 2 == 0 ? in :stdout),"==================================\n"
-                                          "Finished\n"
-                                          "==================================\n"
-                                          "Test type: Checking consistency using bfs\n"
-                                          "==================================\n");
 
-    for(int i= 1; i<HOW_LONG_DO_U_HAVE; i++) {
-        unsigned width= pow_(10, i) / 3, height= pow_(10, i) / 3;
+    print_format_to_output(in, "Checking graph consistency using BFS");
+    print_format_to_output(stdout, "Checking graph consistency using BFS");
+
+    for(int i= 1; i<=HOW_MANY_ITERATIONS; i++) {
+        unsigned    width= generate_size_for_iteration(i),
+                    height= generate_size_for_iteration(i);
+
         graph_t g = generate_graph_mesh(width, height, 5);
 
         clock_gettime(CLOCK_MONOTONIC, &start);
@@ -405,16 +385,31 @@ void test_compare_time(char *file_with_results){
         clock_gettime(CLOCK_MONOTONIC, &end);
 
         timeElapsed= timespecDiff(&end, &start);
-        fprintf(in, "%d. iteration, size: %d x %d\n"
-                    "time elapsed: %lf seconds\n\n", i, width, height, timeElapsed/ (double) 1000000000);
+
+        print_line_results(in, i, width, height, timeElapsed);
+        print_line_results(stdout, i, width, height, timeElapsed);
 
         clean_graph(g);
     }
 
     fclose(in);
 
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    timeElapsed= timespecDiff(&end, &beginning);
+
+    print_closing_to_output(in, timeElapsed, file_with_results);
+    print_closing_to_output(stdout, timeElapsed, file_with_results);
+
+    set_font(BOLD);
+    set_font(PINK);
+    print_in_center("TIME TEST");
+    set_font(WHITE);
 }
 
+unsigned int generate_size_for_iteration(int iteration){
+    unsigned i= pow_(10, iteration) / 25;
+    return  i < 1 ? 1 : i;
+}
 void run_all_tests(void){
     set_font(BOLD);
     set_font(PINK);
@@ -425,7 +420,7 @@ void run_all_tests(void){
     test_format_of_input();
     test_if_right_path();
     test_if_right_consistency();
-    test_compare_time("./tests/results");
+    test_compare_time("./tests/graph_files/results");
     test_fifo(FIFO_TEST_SIZE, FIFO_TEST_MAX_VAL);
     test_graph(GRAPH_TEST_WIDTH, GRAPH_TEST_HEIGHT, GRAPH_TEST_MAX_WEIGHT, GRAPH_TEST_TESTS_COUNT);
     test_dijkstra();

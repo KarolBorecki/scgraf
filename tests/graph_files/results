@@ -1,0 +1,39 @@
+==========================================================
+Performing tests. Date of tests: 2022.4.21 11:16:44
+==========================================================
+Test type: Graph Generating
+================================================
+1. iteration, size: 1 x 1
+time elapsed: 0.000002 seconds
+2. iteration, size: 4 x 4
+time elapsed: 0.000003 seconds
+3. iteration, size: 40 x 40
+time elapsed: 0.000151 seconds
+4. iteration, size: 400 x 400
+time elapsed: 0.015069 seconds
+================================================
+Finished
+================================================
+Test type: Finding shortest path using Dijkstra
+================================================
+1. iteration, size: 1 x 1
+time elapsed: 0.000001 seconds
+2. iteration, size: 4 x 4
+time elapsed: 0.000002 seconds
+3. iteration, size: 40 x 40
+time elapsed: 0.003295 seconds
+4. iteration, size: 400 x 400
+time elapsed: 33.619518 seconds
+================================================
+Finished
+================================================
+Test type: Checking graph consistency using BFS
+================================================
+1. iteration, size: 1 x 1
+time elapsed: 0.000001 seconds
+2. iteration, size: 4 x 4
+time elapsed: 0.000002 seconds
+3. iteration, size: 40 x 40
+time elapsed: 0.003675 seconds
+4. iteration, size: 400 x 400
+time elapsed: 38.720191 seconds
