@@ -193,9 +193,10 @@ void print_closing_to_output(FILE * in, uint64_t timeElapsed, char * file_with_r
     set_font(PINK);
     fprintf(in,"==========================================================\n"
                "Finished all tests\nTime Elapsed for all tests: %lf seconds\n"
-               "==========================================================\n"
-               "You can find your results, and all the others in this file:\n"
-               "%s\n", timeElapsed/ (double) 1000000000, file_with_results);
+               "==========================================================\n", timeElapsed/ (double) 1000000000);
+    if(in == stdout)
+        fprintf(in, "You can find your results, and all the others in this file:\n"
+                    "%s\n", file_with_results);
     set_font(WHITE);
 }
 

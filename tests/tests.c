@@ -392,7 +392,7 @@ void test_compare_time(char *file_with_results){
         clean_graph(g);
     }
 
-    fclose(in);
+
 
     clock_gettime(CLOCK_MONOTONIC, &end);
     timeElapsed= timespecDiff(&end, &beginning);
@@ -404,6 +404,8 @@ void test_compare_time(char *file_with_results){
     set_font(PINK);
     print_in_center("TIME TEST");
     set_font(WHITE);
+
+    fclose(in);
 }
 
 unsigned int generate_size_for_iteration(int iteration){
