@@ -432,25 +432,3 @@ void run_all_tests(void){
     printf("\n\n");
     print_in_center("RUNNING ALL TESTS");
 }
-
-void print_help_for_test(void){
-    set_font(BOLD);
-    set_font(GREY);
-    print_in_center("scgraf_test arguments");
-    printf("\n");
-    set_font(WHITE);
-    print_argument_list("-1", "run test of the right input in test files");
-    print_argument_list("-2", "run test of the right paths in test files");
-    print_argument_list("-3", "run test of the right consistencies in test files");
-    print_argument_list("-4", "run test that compares time of generation on your system");
-    print_argument_list("-5", "run test of fifo");
-    print_argument_list("-6", "run test of graph");
-    print_argument_list("-7", "run test of dijkstra algorithm and functions that is uses");
-    print_argument_list("-A", "run all tests");
-    print_argument_list("-?", "print help for using scgraf_test");
-    set_font(BOLD);
-    set_font(GREY);
-    print_in_center("scgraf_test arguments");
-    printf("\n");
-    set_font(WHITE);
-}

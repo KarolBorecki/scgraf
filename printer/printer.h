@@ -38,12 +38,11 @@ void print_done_greeting();
 void print_graph_consistent_result(int result);
 
 /* functions used in test.c */
-void print_help_for_test(void);
-
 void print_line_results(FILE *output, int iteration, unsigned width, unsigned height, uint64_t timeElapsed);
 void print_greetings_to_output(FILE * output, const char *line);
 void print_format_to_output(FILE * output, const char * line);
 void print_closing_to_output(FILE * output, uint64_t time_elapsed, char * file_with_results);
 
+void print_help_for_test(void);
 
 #endif /* _PRINTER_H_ */
