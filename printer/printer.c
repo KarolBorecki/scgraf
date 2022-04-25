@@ -69,7 +69,9 @@ void print_help(){
   print_argument_list("-n", "argument used in graph dividing, positive number greater than 1, \n         which stands for number of graphs which original graph will be divided into.\n");
   print_argument_list("-p", "specify if You want to print graph in the console\n");
 
-
+  set_font(WHITE);
+  set_font(BOLD);
+  printf("\n    Made by Karol Borecki & Tomasz Tkaczyk | 2022\n\n");
   set_font(BOLD);
   set_font(GREY);
   print_in_center("scgraf arguments");
